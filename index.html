@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sahithiness – Nutrition and Movement for Women</title>
+<meta name="description" content="Nutrition + Movement for women at every stage: prenatal yoga, prenatal strength training, postnatal and C-section recovery workouts, at-home strength training and nutrition guidance with Sahithi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="images/hero.webp" fetchpriority="high">
+<meta property="og:title" content="Sahithiness – Nutrition + Movement for women">
+<meta property="og:description" content="Prenatal yoga, prenatal strength training, postnatal and C-section recovery workouts, at-home strength training and nutrition guidance with Sahithi.">
+<meta property="og:image" content="https://lh3.googleusercontent.com/d/1dGwgXda9ppKVAlB1Yr5X3TfaE8BVy6ip=w1200">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sahithiness">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sahithiness – Nutrition + Movement for women">
+<meta name="twitter:description" content="Prenatal yoga, prenatal strength training, postnatal workouts, at-home strength training and nutrition guidance with Sahithi.">
+<meta name="twitter:image" content="https://lh3.googleusercontent.com/d/1dGwgXda9ppKVAlB1Yr5X3TfaE8BVy6ip=w1200">
+<meta name="theme-color" content="#4F6347">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--cream:#FBF7F1;--ink:#2E2A27;--muted:#5A524C;--muted2:#6B625B;--sage:#4F6347;--sage-d:#3B4C35;--sage-l:#DCE5D3;--sage-bg:#EEF1EA;--pink:#F2D4D7;--pink-bg:#F7E6E7;--wine:#7A3A44;--line:#EADFD3;--field:#D9CEC2;--err:#A0303D}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;overflow-x:hidden}
+body.lock{overflow:hidden}
+a{color:var(--sage)}
+img{max-width:100%;height:auto;display:block}
+h1,h2,h3,p{margin:0}
+.wrap{max-width:1200px;margin:0 auto;padding-left:20px;padding-right:20px}
+.serif{font-family:'Cormorant Garamond',Georgia,serif}
+.sec{padding-top:clamp(56px,8vw,96px);padding-bottom:clamp(56px,8vw,96px)}
+.stack{display:flex;flex-direction:column;gap:32px}
+.eyebrow{font-size:14px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--sage)}
+.h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(32px,4.5vw,50px);line-height:1.1;font-weight:600}
+.lead{font-size:17px;line-height:1.65;color:var(--muted)}
+.head{text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center}
+.head .lead{max-width:640px}
+.grid{display:grid;gap:20px}
+.g240{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.g280{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g300{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.g250{grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px}
+.g220{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;border:0;border-radius:999px;padding:14px 26px;font:600 16px 'DM Sans',sans-serif;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.btn-sage{background:var(--sage);color:#fff}.btn-sage:hover{background:var(--sage-d);color:#fff}
+.btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn-pink{background:var(--pink);color:var(--ink)}
+.btn[disabled]{opacity:.65;cursor:wait}
+.ic{width:56px;height:56px;flex:0 0 56px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:28px;line-height:1}
+.ph{background:var(--sage-bg)}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:rgba(251,247,241,.96);border-bottom:1px solid var(--line)}
+nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:12px;padding-bottom:12px}
+.logo{text-decoration:none;color:var(--ink);font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;font-weight:700;letter-spacing:.5px}
+.navlinks{display:flex;flex-wrap:wrap;gap:4px 22px;font-size:15px}
+.navlinks a{text-decoration:none;color:var(--ink);padding:10px 0}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-right .btn{min-height:44px;padding:12px 22px;font-size:15px}
+.menubtn{display:none;width:44px;height:44px;align-items:center;justify-content:center;background:#fff;border:1px solid var(--field);border-radius:12px;color:var(--ink);cursor:pointer}
+.mmenu{display:none;border-top:1px solid var(--line);background:var(--cream);padding:8px 20px 20px;flex-direction:column}
+.mmenu.open{display:flex}
+.mmenu a{text-decoration:none;color:var(--ink);padding:14px 0;font-size:17px;border-bottom:1px solid var(--line)}
+.mmenu .btn{margin-top:12px}
+@media (max-width:900px){.navlinks,.nav-right .btn{display:none}.menubtn{display:inline-flex}}
+
+/* hero */
+.hero{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(32px,5vw,56px);padding-top:clamp(40px,7vw,80px);padding-bottom:clamp(56px,8vw,88px)}
+.hero-text{flex:1 1 440px;min-width:0;display:flex;flex-direction:column;gap:22px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{padding:8px 14px;border-radius:999px;font-size:14px;font-weight:600}
+.tag-pink{background:var(--pink);color:var(--wine)}.tag-sage{background:var(--sage-l);color:var(--sage-d)}
+.hero h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(40px,6.2vw,72px);line-height:1.04;font-weight:600}
+.hero p{font-size:clamp(17px,2vw,19px);line-height:1.6;color:var(--muted);max-width:560px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.hero-img{flex:1 1 340px;min-width:0;display:flex;justify-content:center}
+.hero-img img{width:100%;max-width:440px;aspect-ratio:4/5;object-fit:cover;border-radius:220px 220px 24px 24px;background:var(--pink)}
+@media (max-width:600px){.ctas .btn{flex:1 1 100%}}
+
+/* cards */
+.pillar{background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:10px}
+.pillar h3{font-size:20px;font-weight:600}
+.pillar p,.offer p,.step p{font-size:15px;line-height:1.6;color:var(--muted)}
+.split{border-radius:28px;overflow:hidden;display:flex;flex-direction:column}
+.split img{width:100%;aspect-ratio:5/4;object-fit:cover}
+.split-body{padding:28px;display:flex;flex-direction:column;gap:12px}
+.split h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:34px;font-weight:700}
+.split p{font-size:16px;line-height:1.6;color:var(--muted)}
+.split ul{margin:0;padding-left:20px;font-size:15px;line-height:1.8}
+.offer{background:#fff;border-radius:22px;padding:26px;display:flex;flex-direction:column;gap:10px}
+.offer h3{font-size:20px;font-weight:600}
+.offer-top{display:flex;align-items:center;gap:12px}
+.offer .ic{width:52px;height:52px;flex-basis:52px;font-size:26px}
+.kicker{font-size:12.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.offer.hi{background:var(--sage);color:#fff;box-shadow:0 12px 32px rgba(79,99,71,.25)}
+.offer.hi p{color:#E6ECE0}
+.offer.hi .offer-top{justify-content:space-between}
+
+/* consultation */
+.consult{background:var(--sage);color:#fff;border-radius:32px;padding:clamp(28px,5vw,64px);display:flex;flex-wrap:wrap;align-items:center;gap:clamp(24px,4vw,48px)}
+.consult img{flex:0 1 260px;min-width:0;width:100%;max-width:260px;aspect-ratio:1/1;object-fit:cover;border-radius:999px;border:6px solid rgba(255,255,255,.18);background:#6B7F63}
+.consult-text{flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:16px}
+@media (max-width:600px){.consult img{max-width:180px;margin:0 auto}.consult .btn{width:100%}}
+
+/* programs */
+.card{background:var(--cream);border:1px solid var(--line);border-radius:24px;overflow:hidden;display:flex;flex-direction:column}
+.card img,.card .ph{width:100%;aspect-ratio:1/1;object-fit:cover}
+.card-body{padding:20px;display:flex;flex-direction:column;gap:10px;flex-grow:1}
+.badge{align-self:flex-start;padding:6px 12px;border-radius:999px;font-size:12.5px;font-weight:600}
+.card h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;line-height:1.15;font-weight:700}
+.card p{font-size:14.5px;line-height:1.5;color:var(--muted)}
+.card .price{margin-top:auto;padding-top:6px}
+.price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.price b{font-size:26px;font-weight:600}.price span{font-size:14px;color:var(--muted2)}
+.card .btn{font-size:15px}
+.cal{flex:1 1 100%;background:#fff;border:1px solid var(--field);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.cal-sub{font-size:13.5px;font-weight:600;color:var(--ink)}
+.cal-sub small{font-weight:400;color:var(--muted2)}
+.dates{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;padding:2px 2px 6px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.dchip{flex:0 0 58px;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;gap:1px;padding:7px 0;border:1px solid var(--field);border-radius:12px;background:var(--cream);font-family:'DM Sans',sans-serif;color:var(--ink);cursor:pointer;line-height:1.15}
+.dchip span{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--muted2)}
+.dchip b{font-size:18px;font-weight:600}
+.dchip:hover{border-color:var(--sage)}
+.dchip.sel{background:var(--sage);border-color:var(--sage);color:#fff}
+.dchip.sel span{color:#DCE5D3}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:6px}
+.slot{min-height:36px;border:1px solid var(--field);border-radius:999px;background:var(--cream);font:500 13px 'DM Sans',sans-serif;color:var(--ink);cursor:pointer;padding:0 6px}
+.slot:hover:not([disabled]){border-color:var(--sage)}
+.slot.sel{background:var(--sage);border-color:var(--sage);color:#fff}
+.slot[disabled]{opacity:.4;text-decoration:line-through;cursor:default}
+.swipe-hint{display:none;text-align:center;font-size:13px;color:var(--muted2);margin-top:-18px}
+@media (max-width:700px){
+#program-grid{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:4px 20px 8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#program-grid::-webkit-scrollbar{display:none}
+#program-grid .card{flex:0 0 84%;scroll-snap-align:center}
+.swipe-hint{display:block}
+}
+.card-pts{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:1.4}
+.card-pts li{display:flex;gap:8px;align-items:flex-start}
+.card-pts li::before{content:"";flex:0 0 18px;height:18px;margin-top:1px;border-radius:999px;background:var(--sage-l) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233B4C35' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/11px no-repeat}
+.media{position:relative;display:block;width:100%;aspect-ratio:1/1;overflow:hidden;background:#000;border:0;padding:0;cursor:pointer}
+.media img,.media iframe{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover}
+.media iframe{pointer-events:none;transform:scale(1.35)}
+.media .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:999px;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.media .tagv{position:absolute;left:12px;bottom:12px;background:rgba(46,42,39,.78);color:#fff;font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px}
+.vbox{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000}
+.vbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.soon{margin-left:auto;background:#FCE9C8;color:#7A4B12;padding:5px 11px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+
+/* steps, about, quotes, faq, contact */
+.step{background:#fff;border-radius:20px;padding:26px;display:flex;flex-direction:column;gap:10px}
+.step-top{display:flex;align-items:center;gap:12px}
+.step-no{font-size:13px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--sage)}
+.step h3{font-size:18px;font-weight:600}
+.about{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(32px,5vw,56px)}
+.about-img{flex:1 1 320px;min-width:0}
+.about-img img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:24px;background:#D5DDCC}
+.about-text{flex:1 1 440px;min-width:0;display:flex;flex-direction:column;gap:18px}
+.quote{position:relative;margin:0;background:#fff;border-radius:24px;padding:30px 28px 26px;display:flex;flex-direction:column;gap:16px;overflow:hidden;box-shadow:0 10px 30px rgba(46,42,39,.06);transition:transform .3s ease,box-shadow .3s ease,background-color .3s ease,color .3s ease;cursor:pointer}
+.quote:hover{box-shadow:0 18px 40px rgba(46,42,39,.12)}
+.quote:focus-visible{outline:3px solid var(--sage);outline-offset:3px}
+.quote::after,.quote::before,.quote .q-tag,.quote .av,.quote figcaption,.quote .who b,.quote .who span{transition:all .3s ease}
+.quote::before{content:"\201C";position:absolute;right:18px;top:-18px;font-family:'Cormorant Garamond',Georgia,serif;font-size:150px;line-height:1;color:var(--qc,#F2D4D7);opacity:.75;pointer-events:none}
+.quote::after{content:"";position:absolute;left:0;top:0;right:0;height:5px;background:var(--qc,#F2D4D7)}
+.quote .q-tag{position:relative;align-self:flex-start;background:var(--qbg,#F7E6E7);color:var(--qink,#7A3A44);padding:6px 12px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase}
+.quote blockquote{position:relative;margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-size:21px;line-height:1.45;flex-grow:1}
+.quote figcaption{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--line)}
+.quote .av{flex:0 0 46px;width:46px;height:46px;border-radius:999px;background:var(--qc,#F2D4D7);color:var(--qink,#7A3A44);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:700}
+.quote .who{display:flex;flex-direction:column;gap:2px;line-height:1.3}
+.quote .who b{font-size:15.5px;font-weight:600;color:var(--ink)}
+.quote .who span{font-size:13px;color:var(--muted2)}
+.quote.q-pink{--qc:#F2D4D7;--qbg:#F7E6E7;--qink:#7A3A44}
+.quote.q-sage{--qc:#DCE5D3;--qbg:#EEF1EA;--qink:#3B4C35}
+.quote.q-peach{--qc:#F6DCC4;--qbg:#FBEDE1;--qink:#7A4B2A}
+.quote.q-feature{background:var(--sage);color:#fff;box-shadow:0 18px 40px rgba(79,99,71,.28)}
+.quote.q-feature::before{color:rgba(255,255,255,.18);opacity:1}
+.quote.q-feature::after{background:var(--pink)}
+.quote.q-feature .q-tag{background:rgba(255,255,255,.16);color:#fff}
+.quote.q-feature figcaption{border-top-color:rgba(255,255,255,.2)}
+.quote.q-feature .av{background:var(--pink);color:var(--wine)}
+.quote.q-feature .who b{color:#fff}.quote.q-feature .who span{color:#DCE5D3}
+@media (min-width:900px){.quote.q-feature{transform:translateY(-12px)}}
+.faq{max-width:860px}
+.faq-item{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.faq-q{width:100%;min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;background:transparent;border:0;text-align:left;font:600 17px 'DM Sans',sans-serif;color:var(--ink);cursor:pointer}
+.faq-q span:last-child{font-size:22px;color:var(--sage)}
+.faq-a{padding:0 20px 22px;font-size:15.5px;line-height:1.65;color:var(--muted)}
+.contact{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,48px)}
+.contact-text{flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:18px}
+.panel{flex:1 1 380px;min-width:0;background:#fff;border-radius:24px;padding:clamp(22px,4vw,32px);display:flex;flex-direction:column;gap:14px}
+footer{background:var(--ink);color:#EDE6DE}
+.foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:36px;padding-bottom:36px}
+.foot a{color:#EDE6DE;padding:8px 0}
+.foot-links{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:14px}
+
+/* forms */
+label.lbl{font-size:14px;font-weight:600}
+.ctl{width:100%;min-height:48px;padding:12px 16px;border:1px solid var(--field);border-radius:12px;font:16px 'DM Sans',sans-serif;background:#fff;color:var(--ink)}
+textarea.ctl{resize:vertical}
+.panel .ctl{background:var(--cream)}
+.err{font-size:13.5px;color:var(--err)}
+.ok{font-size:14.5px;color:var(--sage-d);background:var(--sage-l);border-radius:12px;padding:12px 14px}
+
+/* enroll modal */
+.overlay{position:fixed;inset:0;z-index:50;background:rgba(46,42,39,.55);display:flex;align-items:flex-start;justify-content:center;padding:24px 12px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.overlay[hidden]{display:none}
+.dialog{width:100%;max-width:560px;margin:auto 0;background:var(--cream);border-radius:24px;padding:clamp(20px,4vw,28px);display:flex;flex-direction:column;gap:18px;box-shadow:0 20px 60px rgba(46,42,39,.25)}
+.d-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.d-step{font-size:13px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--sage)}
+.d-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;line-height:1.1;font-weight:700}
+.x{flex:0 0 44px;width:44px;height:44px;border-radius:999px;border:1px solid var(--field);background:#fff;font-size:22px;line-height:1;color:var(--ink);cursor:pointer}
+.blk{display:flex;flex-direction:column;gap:14px;min-width:0}
+.blk h3{font-size:18px;font-weight:600}
+.hint{font-size:14px;line-height:1.55;color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:14px}
+.fld{flex:1 1 200px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.fhelp{font-size:13px;color:var(--muted2)}
+fieldset.conds{margin:0;border:1px solid var(--field);border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:2px;background:#fff}
+fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
+.chk{display:flex;align-items:center;gap:10px;min-height:40px;font-size:15px}
+.chk input,.consent input{width:20px;height:20px;flex:0 0 20px}
+.consent{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.5}
+.consent input{margin-top:2px}
+.summary{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;font-size:15px}
+.summary div{display:flex;justify-content:space-between;gap:12px}
+.summary span:first-child{color:var(--muted2)}
+.summary span:last-child{text-align:right;word-break:break-all}
+.summary .total{border-top:1px solid var(--line);padding-top:10px;font-size:18px}
+.summary .total span{color:var(--ink)!important;font-weight:700}
+.navrow{display:flex;justify-content:space-between;gap:12px;padding-top:4px}
+.result{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:8px 0}
+.result .ico{width:64px;height:64px;border-radius:999px;display:flex;align-items:center;justify-content:center}
+.result h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;font-weight:700}
+.result p{font-size:15.5px;line-height:1.6}
+.box{color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+@media (max-width:600px){.navrow .btn{flex:1 1 auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a class="logo" href="#home">Sahithiness</a>
+    <div class="navlinks">
+      <a href="#offer">What we offer</a><a href="#programs">Programs</a><a href="#consultation">Consultation</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <button type="button" class="btn btn-sage" data-consult>Book a call</button>
+      <button type="button" class="menubtn" id="menubtn" aria-label="Menu" aria-expanded="false" aria-controls="mmenu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </nav>
+  <div class="mmenu" id="mmenu">
+    <a href="#offer">What we offer</a><a href="#programs">Programs</a><a href="#consultation">Consultation</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#contact" style="border-bottom:0">Contact</a>
+    <button type="button" class="btn btn-sage" data-consult>Book a consultation call</button>
+  </div>
+</header>
+
+<main>
+<section id="home" class="wrap hero">
+  <div class="hero-text">
+    <div class="tags"><span class="tag tag-pink">🥗 Nutrition</span><span class="tag tag-sage">🧘‍♀️ Yoga</span><span class="tag tag-sage">🏋️‍♀️ Strength training</span></div>
+    <h1>Nutrition + Movement for women, at every stage</h1>
+    <p>Yoga, at-home strength training and personalised nutrition, through pregnancy, after childbirth and beyond. Move the way that suits your body and your stage of life.</p>
+    <div class="ctas">
+      <a class="btn btn-sage" href="#offer">Explore programs</a>
+      <a class="btn btn-outline" href="#consultation">Not sure? Book a call</a>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="images/hero.webp" alt="Sahithi, founder of Sahithiness" width="760" height="949" fetchpriority="high" decoding="async">
+  </div>
+</section>
+
+<section style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap stack" style="padding-top:clamp(48px,7vw,72px);padding-bottom:clamp(48px,7vw,72px)">
+    <div class="head">
+      <span class="eyebrow">Our approach</span>
+      <h2 class="h2">Nutrition + Movement, built around you</h2>
+      <p class="lead">Every plan pairs what you eat with how you move. Movement can be yoga, strength training at home, or both, depending on your needs and your stage of life.</p>
+    </div>
+    <div class="grid g240">
+      <div class="pillar"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Nutrition">🥗</span><h3>Nutrition guidance</h3><p>Personalised nutrition support that works alongside your movement program.</p></div>
+      <div class="pillar"><span class="ic" style="background:var(--sage-bg)" role="img" aria-label="Yoga">🧘‍♀️</span><h3>Yoga</h3><p>Mobility, breathing and gentle strength, especially suited to pregnancy.</p></div>
+      <div class="pillar"><span class="ic" style="background:var(--sage-bg)" role="img" aria-label="Strength training">🏋️‍♀️</span><h3>Strength training</h3><p>Safe, progressive workouts at home, during pregnancy when appropriate and after childbirth.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap sec stack">
+  <div class="head">
+    <span class="eyebrow">Two ways to move</span>
+    <h2 class="h2">Yoga or strength training? Both belong here.</h2>
+  </div>
+  <div class="grid g300">
+    <article class="split" style="background:var(--sage-bg)">
+      <img class="ph" src="images/yoga.webp" alt="Sahithi meditating in a yoga pose" width="448" height="358" loading="lazy">
+      <div class="split-body">
+        <h3>Yoga</h3>
+        <p>Breath, mobility and calm strength. A natural fit for pregnancy and a gentle way back after childbirth.</p>
+        <ul><li>Prenatal yoga for each trimester</li><li>Recorded classes for any time of day</li><li>Breathing and relaxation practice</li></ul>
+      </div>
+    </article>
+    <article class="split" style="background:var(--pink-bg)">
+      <img class="ph" src="images/strength.webp" alt="Sahithi strength training during her pregnancy" width="820" height="656" loading="lazy">
+      <div class="split-body">
+        <h3>Strength training</h3>
+        <p>Build real strength safely, at home, without a gym or complicated equipment.</p>
+        <ul><li>Prenatal strength, when appropriate for you</li><li>Postnatal and C-section recovery workouts</li><li>At-home workouts with minimal equipment</li></ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="offer" style="background:var(--sage-bg)">
+  <div class="wrap sec stack">
+    <div class="head">
+      <span class="eyebrow">What we offer</span>
+      <h2 class="h2">Programs for every stage</h2>
+      <p class="lead">From pregnancy to postpartum recovery to everyday fitness at home, all paired with nutrition guidance.</p>
+    </div>
+    <div class="grid g280">
+      <div class="offer"><div class="offer-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Yoga">🧘‍♀️</span><span class="kicker" style="color:var(--wine)">Pregnancy</span></div><h3>Prenatal Yoga</h3><p>Yoga and movement practices suitable for pregnancy.</p></div>
+      <div class="offer"><div class="offer-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Strength">💪</span><span class="kicker" style="color:var(--wine)">Pregnancy</span></div><h3>Prenatal Strength Training</h3><p>Safe, appropriate strength workouts during pregnancy, when cleared for you.</p></div>
+      <div class="offer"><div class="offer-top"><span class="ic" style="background:var(--sage-bg)" role="img" aria-label="Baby">👶</span><span class="kicker" style="color:var(--sage-d)">After childbirth</span></div><h3>Postnatal Workouts</h3><p>Programs to help you return to fitness gradually after childbirth. Recorded series coming soon.</p></div>
+      <div class="offer"><div class="offer-top"><span class="ic" style="background:var(--sage-bg)" role="img" aria-label="Recovery">🩹</span><span class="kicker" style="color:var(--sage-d)">After childbirth</span></div><h3>C-section Recovery Workouts</h3><p>Specific, progressive workouts for C-section recovery, to be started only after medical clearance from your doctor.</p></div>
+      <div class="offer hi"><div class="offer-top"><span class="ic" style="background:rgba(255,255,255,.16)" role="img" aria-label="Home">🏠</span><span class="badge" style="background:var(--pink);color:var(--wine)">Key highlight</span></div><h3>At-Home Strength Training</h3><p>Workouts you can follow at home. No gym, no complicated equipment.</p></div>
+      <div class="offer"><div class="offer-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Nutrition">🥗</span><span class="kicker" style="color:var(--wine)">With every program</span></div><h3>Nutrition Guidance</h3><p>Nutrition support alongside your movement and fitness program.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="consultation" class="wrap sec">
+  <div class="consult">
+    <img src="images/consult.webp" alt="Sahithi, ready for your consultation" width="480" height="480" loading="lazy">
+    <div class="consult-text">
+      <span class="eyebrow" style="color:var(--sage-l)">1:1 Consultation call</span>
+      <h2 class="h2">Not sure which program is right for you?</h2>
+      <p class="lead" style="color:#E6ECE0">Talk to Sahithi. Share your stage, your health and your goals, and get guidance on the most suitable program: yoga, strength training, or a mix of both, with nutrition.</p>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px">
+        <button type="button" class="btn btn-pink" data-consult>Book a consultation call · <span id="consult-price">₹999</span></button>
+        <span style="font-size:14px;color:var(--sage-l)">Pick any day and time between 2 PM and 11 PM.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="programs" style="background:#fff;border-top:1px solid var(--line)">
+  <div class="wrap sec stack">
+    <div class="head">
+      <span class="eyebrow">Programs and pricing</span>
+      <h2 class="h2">Join a program</h2>
+      <p class="lead" style="max-width:560px">Tap a program, answer a few quick questions and send them on WhatsApp. Sahithi’s team will reply with your next steps.</p>
+    </div>
+    <div id="program-grid" class="grid g250"></div>
+    <p class="swipe-hint">Swipe to see all programs →</p>
+    <p style="text-align:center;font-size:15.5px;color:var(--muted)">Can't decide? <a href="#consultation" style="font-weight:600">Book a consultation call</a> and Sahithi will help you choose.</p>
+  </div>
+</section>
+
+<section style="background:var(--pink-bg)">
+  <div class="wrap sec stack">
+    <h2 class="h2" style="text-align:center;font-size:clamp(32px,4vw,46px)">How it works</h2>
+    <div class="grid g220">
+      <div class="step"><div class="step-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Choose">🧭</span><span class="step-no">Step 1</span></div><h3>Choose a program</h3><p>Pick a program, or book a call and let Sahithi guide you.</p></div>
+      <div class="step"><div class="step-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Form">📝</span><span class="step-no">Step 2</span></div><h3>Share your details</h3><p>A short health form so your plan is safe for your stage.</p></div>
+      <div class="step"><div class="step-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Chat">💬</span><span class="step-no">Step 3</span></div><h3>Talk to the team</h3><p>Sahithi’s team confirms your plan on WhatsApp and shares the payment details.</p></div>
+      <div class="step"><div class="step-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Start">🌸</span><span class="step-no">Step 4</span></div><h3>Start moving</h3><p>Get your workouts, nutrition plan or call slot and begin.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="wrap sec about">
+  <div class="about-img"><img class="ph" src="images/about.webp" alt="Sahithi, founder of Sahithiness" width="720" height="900" loading="lazy"></div>
+  <div class="about-text">
+    <span class="eyebrow">About Sahithi · My Journey</span>
+    <h2 class="h2" style="font-size:clamp(34px,4.5vw,52px)">Hi, I'm Sahithi</h2>
+    <div class="tags"><span class="tag tag-sage">Certified yoga &amp; fitness instructor</span><span class="tag tag-pink">Prenatal &amp; postnatal fitness + nutrition</span></div>
+    <p class="lead">Pregnancy strengthened my belief in the power of movement. I continued exercising and strength training throughout my pregnancy with appropriate modifications, helping me feel strong, active, and confident.</p>
+    <p class="lead">Through my journey, I want to inspire women to embrace safe movement during pregnancy and gradually rebuild their strength after childbirth with the right guidance and support.</p>
+    <p class="serif" style="font-size:clamp(24px,2.6vw,30px);line-height:1.25;font-weight:600;color:var(--sage);border-left:3px solid var(--pink);padding-left:16px">Because motherhood is a journey of strength, not limitations.</p>
+  </div>
+</section>
+
+<section id="testimonials" style="background:var(--sage-bg)">
+  <div class="wrap sec stack">
+    <div class="head"><span class="eyebrow">Testimonials</span><h2 class="h2">Words from our women</h2><p class="lead">Real women, real journeys, from pregnancy to postpartum strength.</p></div>
+    <div class="grid g280">
+      <figure tabindex="0" class="quote q-pink"><span class="q-tag">Pregnancy Fitness</span><blockquote>“Staying active during pregnancy felt much easier with Sahithi’s guidance. The workouts were comfortable, well-planned, and helped me feel stronger and more confident throughout my journey.”</blockquote><figcaption><span class="av" aria-hidden="true">P</span><span class="who"><b>Pavani</b><span>Prenatal Fitness</span></span></figcaption></figure>
+      <figure tabindex="0" class="quote q-sage q-feature"><span class="q-tag">Postpartum Strength</span><blockquote>“Getting back to fitness after delivery felt overwhelming at first. Sahithi helped me rebuild my strength gradually, with workouts that suited my body and routine. I genuinely enjoyed the process.”</blockquote><figcaption><span class="av" aria-hidden="true">H</span><span class="who"><b>Hamsaveni</b><span>Postpartum Fitness</span></span></figcaption></figure>
+      <figure tabindex="0" class="quote q-peach"><span class="q-tag">Women’s Strength Training</span><blockquote>“I always thought fitness meant intense workouts, but Sahithi changed my perspective. Her approach made strength training simple, enjoyable, and something I could stay consistent with.”</blockquote><figcaption><span class="av" aria-hidden="true">K</span><span class="who"><b>Kiranmai</b><span>Strength &amp; Wellness</span></span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="wrap sec stack faq">
+  <h2 class="h2" style="text-align:center">Frequently asked questions</h2>
+  <div id="faq-list" style="display:flex;flex-direction:column;gap:12px"></div>
+</section>
+
+<section id="contact" style="background:var(--pink-bg)">
+  <div class="wrap sec contact">
+    <div class="contact-text">
+      <span class="eyebrow" style="color:var(--wine)">Contact</span>
+      <h2 class="h2">Have a question? We're here.</h2>
+      <p class="lead">Message us and we'll get back to you on WhatsApp.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:16px">
+        <a class="btn btn-sage" style="align-self:flex-start" href="https://wa.me/919980184295" target="_blank" rel="noopener">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.5 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>
+          WhatsApp: +91 99801 84295
+        </a>
+        <span style="padding:6px 0">Email: [YOUR EMAIL]</span>
+      </div>
+    </div>
+    <form id="contact-form" class="panel" novalidate>
+      <label class="lbl" for="c-name">Your name</label>
+      <input class="ctl" id="c-name" name="name" type="text" placeholder="Full name" autocomplete="name">
+      <label class="lbl" for="c-phone">Phone / WhatsApp</label>
+      <input class="ctl" id="c-phone" name="phone" type="tel" placeholder="+91" autocomplete="tel">
+      <label class="lbl" for="c-msg">Message</label>
+      <textarea class="ctl" id="c-msg" name="message" rows="4" placeholder="How can we help?"></textarea>
+      <span id="contact-status" role="status"></span>
+      <button type="submit" class="btn btn-sage">Send message</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div style="display:flex;flex-direction:column;gap:4px"><span class="serif" style="font-size:26px;font-weight:700">Sahithiness</span><span style="font-size:13.5px;color:#BDB3A8">Nutrition + Movement for women</span></div>
+    <div class="foot-links"><a href="#home">Privacy Policy</a><a href="#home">Refund Policy</a><a href="#home">Terms &amp; Conditions</a></div>
+    <span style="font-size:13.5px;color:#BDB3A8">© 2026 Sahithiness. All rights reserved.</span>
+  </div>
+</footer>
+
+<div id="overlay" class="overlay" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="d-title" id="dialog"></div>
+</div>
+
+<script>
+(function () {
+  var WHATSAPP = 'https://wa.me/919980184295';
+  var TINT = { prenatal: '#F2D4D7', postnatal: '#E9D9CF', general: '#DCE5D3', consult: '#EEE6D8' };
+
+  /* Sample class for General Yoga. Paste a YouTube link or a Google Drive video link between the quotes. */
+  var SAMPLE_VIDEO = '';
+
+  /* Programs shown on the page. Edit names, prices and text here. */
+  var PACKAGES = [
+    { name: 'Prenatal Movement + Nutrition', kind: 'prenatal', price: '₹36,000', duration: '/ 90 days', desc: 'Live 1:1 training with Sahithi through your pregnancy, plus nutrition.', points: ['1:1 live virtual sessions', '3 sessions a week · 90 days', 'Yoga, strength or both, by trimester', 'Personalised nutrition plan'], badge: '1:1 Live sessions · Screening included', image: 'images/prenatal.webp', pos: 'center', cta: 'Enroll now' },
+    { name: 'Postnatal Movement + Nutrition', kind: 'postnatal', price: '₹36,000', duration: '/ 90 days', desc: 'Live 1:1 training with Sahithi to rebuild your strength after childbirth, plus nutrition.', points: ['1:1 live virtual sessions', '3 sessions a week · 90 days', 'Yoga, strength or functional training', 'Personalised nutrition plan'], badge: '1:1 Live sessions · Screening included', image: 'images/postnatal.webp', pos: 'center', cta: 'Enroll now' },
+    { name: 'General Yoga', kind: 'general', price: '₹3,500', duration: '/ 90 days · 45 classes', desc: 'New to yoga? No time for a personal instructor? Practise at home, at your own pace.', points: ['45 video classes · 90 days', 'Beginner-friendly, step by step', 'Practise anytime, as often as you like'], badge: 'Recorded classes · Beginner-friendly', image: 'images/general.webp', pos: 'center', video: SAMPLE_VIDEO, cta: 'Enroll now' },
+    { name: '1:1 Consultation Call', kind: 'consult', price: '₹999', duration: '/ session', desc: 'Not sure which program fits? Talk to Sahithi and get guidance on the right plan for you.', badge: 'Personal session', image: 'images/consult.webp', pos: 'center', cta: 'Book consultation' }
+  ];
+
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function openWhatsApp(text) {
+    var url = WHATSAPP + '?text=' + encodeURIComponent(text), w = null;
+    try { w = window.open(url, '_blank'); } catch (e) {}
+    if (!w) { try { window.top.location.href = url; } catch (e) { location.href = url; } }
+  }
+
+  /* ---------- in-page links + mobile menu ---------- */
+  var menu = $('mmenu'), menuBtn = $('menubtn');
+  function setMenu(open) { menu.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', String(open)); }
+  menuBtn.addEventListener('click', function () { setMenu(!menu.classList.contains('open')); });
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var el = document.getElementById(a.getAttribute('href').slice(1));
+    if (el) { e.preventDefault(); setMenu(false); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+
+  /* ---------- program cards ---------- */
+  function consultIndex() { for (var i = 0; i < PACKAGES.length; i++) if (PACKAGES[i].kind === 'consult') return i; return -1; }
+  function videoInfo(url) {
+    url = String(url || '').trim();
+    var m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/))([\w-]{11})/);
+    if (m) return { yt: m[1], full: 'https://www.youtube.com/embed/' + m[1] + '?autoplay=1&rel=0&playsinline=1',
+      preview: 'https://www.youtube.com/embed/' + m[1] + '?autoplay=1&mute=1&loop=1&playlist=' + m[1] + '&controls=0&modestbranding=1&playsinline=1&rel=0' };
+    m = url.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?id=)([\w-]{20,})/);
+    if (m) return { full: 'https://drive.google.com/file/d/' + m[1] + '/preview' };
+    return null;
+  }
+  function mediaHtml(p, i) {
+    var img = '<img src="' + esc(p.image) + '" alt="' + esc(p.name) + '" width="560" height="560" loading="lazy" style="object-position:' + (p.pos || 'center') + ';background:' + (TINT[p.kind] || '#EEE6D8') + '">';
+    if (!('video' in p)) return img;
+    var v = videoInfo(p.video);
+    return '<button type="button" class="media" data-video="' + i + '" aria-label="Watch a sample class">' + img +
+      (v && v.preview ? '<iframe src="' + v.preview + '" title="Sample class preview" allow="autoplay; encrypted-media" loading="lazy" tabindex="-1"></iframe>' : '') +
+      '<span class="play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="#4F6347"><path d="M8 5v14l11-7z"/></svg></span>' +
+      '<span class="tagv">▶ Watch a sample class</span></button>';
+  }
+  function openVideo(p) {
+    var v = videoInfo(p.video);
+    S = { video: true };
+    document.body.classList.add('lock');
+    $('overlay').hidden = false;
+    $('dialog').innerHTML = '<div class="d-head"><div style="display:flex;flex-direction:column;gap:4px;min-width:0"><span class="d-step">Sample class</span><h2 class="d-title" id="d-title">' + esc(p.name) + '</h2></div>' +
+      '<button type="button" class="x" data-act="close" aria-label="Close">×</button></div>' +
+      (v ? '<div class="vbox"><iframe src="' + v.full + '" title="Sample class" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe></div>'
+         : '<p class="box">The sample class video is coming soon. Meanwhile, tap Enroll now or message us on WhatsApp to know more.</p>') +
+      '<ul class="card-pts">' + (p.points || []).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' +
+      '<button type="button" class="btn btn-sage" data-act="enroll-from-video">Enroll now · ' + esc(p.price) + '</button>';
+    S.pkgIndex = PACKAGES.indexOf(p);
+  }
+
+  function renderPrograms() {
+    $('program-grid').innerHTML = PACKAGES.map(function (p, i) {
+      var pink = p.kind === 'prenatal' || p.kind === 'postnatal';
+      return '<article class="card">' + mediaHtml(p, i) +
+        '<div class="card-body">' +
+        (p.badge ? '<span class="badge" style="background:' + (pink ? '#F2D4D7' : '#DCE5D3') + ';color:' + (pink ? '#7A3A44' : '#3B4C35') + '">' + esc(p.badge) + '</span>' : '') +
+        '<h3>' + esc(p.name) + '</h3><p>' + esc(p.desc) + '</p>' +
+        (p.points ? '<ul class="card-pts">' + p.points.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' : '') +
+        '<div class="price"><b>' + esc(p.price) + '</b><span>' + esc(p.duration) + '</span></div>' +
+        '<button type="button" class="btn btn-sage" data-enroll="' + i + '">' + esc(p.cta) + '</button></div></article>';
+    }).join('');
+    var ci = consultIndex();
+    if (ci >= 0) $('consult-price').textContent = PACKAGES[ci].price;
+  }
+  document.addEventListener('click', function (e) {
+    var vb = e.target.closest && e.target.closest('[data-video]');
+    if (vb) { openVideo(PACKAGES[Number(vb.getAttribute('data-video'))]); return; }
+    var b = e.target.closest && e.target.closest('[data-enroll],[data-consult]');
+    if (!b) return;
+    if (b.hasAttribute('data-consult')) { setMenu(false); var ci = consultIndex(); if (ci >= 0) openProgram(ci); return; }
+    openProgram(Number(b.getAttribute('data-enroll')));
+  });
+
+  /* ---------- FAQ ---------- */
+  var FAQS = [
+    ['Is this only a yoga program?', 'No. Sahithiness is nutrition plus movement. Movement can be yoga, strength training at home, or a mix of both, depending on your needs and your stage of life.'],
+    ['Which program is right for me?', 'Book a 1:1 consultation call. Share your stage, health and goals, and Sahithi will guide you to the most suitable program.'],
+    ['Is strength training safe during pregnancy?', 'When appropriate for you, yes. Every prenatal client completes a health screening first, and Sahithi may ask for your doctor’s clearance before you start.'],
+    ['Do I need a gym or equipment?', 'No. Our at-home strength workouts are designed for home, without a gym or complicated equipment.'],
+    ['When can I start after a C-section?', 'Only once your doctor clears you. C-section recovery workouts then progress gradually, step by step.'],
+    ['How do I join?', 'Tap Enroll now, answer a few quick questions and send them on WhatsApp. Sahithi’s team will confirm your plan and share the payment details.'],
+    ['What is your refund policy?', 'Please read our Refund Policy, linked at the bottom of this page, before joining.']
+  ];
+  var openFaq = 0;
+  function renderFaq() {
+    $('faq-list').innerHTML = FAQS.map(function (f, i) {
+      var open = i === openFaq;
+      return '<div class="faq-item"><button type="button" class="faq-q" data-faq="' + i + '" aria-expanded="' + open + '"><span>' + esc(f[0]) + '</span><span aria-hidden="true">' + (open ? '−' : '+') + '</span></button>' +
+        (open ? '<p class="faq-a">' + esc(f[1]) + '</p>' : '') + '</div>';
+    }).join('');
+  }
+  $('faq-list').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-faq]');
+    if (!b) return;
+    var i = Number(b.getAttribute('data-faq'));
+    openFaq = openFaq === i ? -1 : i;
+    renderFaq();
+  });
+
+  /* ---------- contact form → WhatsApp ---------- */
+  $('contact-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = e.target, st = $('contact-status');
+    var d = { name: f.name.value.trim(), phone: f.phone.value.trim(), message: f.message.value.trim() };
+    if (!d.name || !d.phone) { st.className = 'err'; st.textContent = 'Please enter your name and phone number.'; return; }
+    openWhatsApp('Hi Sahithi, I have a question.\nName: ' + d.name + '\nPhone: ' + d.phone + (d.message ? '\n\n' + d.message : ''));
+    f.reset(); st.className = 'ok'; st.textContent = 'Opening WhatsApp… Send the message there and we will reply soon.';
+  });
+
+  /* ---------- enrollment questions ---------- */
+  var DIET = ['Vegetarian', 'Eggetarian', 'Non-vegetarian', 'Vegan'];
+  var MONTHS = ['1 month', '2 months', '3 months', '4 months', '5 months', '6 months', '7 months', '8 months', '9 months'];
+  var PRIVATE = 'Your answers are private and seen only by Sahithi. They help her keep your plan safe.';
+  var CONSENT_MED = 'I confirm these details are correct and I will share my doctor’s clearance if Sahithi asks for it.';
+  var CONSENT_GEN = 'I will practise within my comfort and check with my doctor if I am unsure about any exercise.';
+  var REQ = 'Please choose an option.';
+  var MOVE = { t: 'select', n: 'movePref', l: 'Which movement would you like?', o: ['Yoga', 'Strength training', 'Both yoga and strength', 'Not sure – help me choose'], req: REQ, help: 'Sahithi will confirm what is safe for your stage.' };
+
+  var FORMS = {
+    prenatal: {
+      title: 'Pregnancy health questions', note: PRIVATE, consent: CONSENT_MED,
+      conds: [['diab', 'Diabetes or gestational diabetes'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS / PCOD'], ['anae', 'Anaemia (low haemoglobin)'], ['bleed', 'Bleeding or spotting'], ['placenta', 'Low-lying placenta / placenta previa'], ['misc', 'Previous miscarriage'], ['rest', 'Doctor advised rest or no exercise']],
+      rows: [
+        [{ t: 'select', n: 'months', l: 'How many months pregnant are you?', o: MONTHS, req: 'Please select how many months.' }, { t: 'date', n: 'edd', l: 'Expected delivery date', req: 'Please enter your expected delivery date.' }],
+        [{ t: 'select', n: 'firstPreg', l: 'Is this your first pregnancy?', o: ['Yes', 'No'], req: REQ }, { t: 'select', n: 'activity', l: 'How active are you right now?', o: ['Not active', 'Light walking', 'Regular exercise, yoga or gym'], req: REQ }],
+        [MOVE],
+        'conds',
+        [{ t: 'select', n: 'diet', l: 'Food preference', o: DIET, req: 'Please choose your food preference.' }, { t: 'text', n: 'allergies', l: 'Food allergies (optional)', ph: 'e.g. peanuts' }],
+        [{ t: 'textarea', n: 'preOther', l: 'Anything else your doctor has asked you to avoid? (optional)', ph: 'Medicines, restrictions, other complications' }],
+        'consent'
+      ]
+    },
+    postnatal: {
+      title: 'Postnatal health questions', note: PRIVATE, consent: CONSENT_MED,
+      conds: [['diab', 'Diabetes (including during pregnancy)'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS / PCOD'], ['anae', 'Anaemia (low haemoglobin)'], ['back', 'Back pain'], ['dr', 'Tummy gap (diastasis recti)'], ['leak', 'Urine leakage when coughing or laughing'], ['stitch', 'Stitches still healing']],
+      rows: [
+        [{ t: 'date', n: 'delDate', l: 'Delivery date', req: 'Please enter your delivery date.' }, { t: 'select', n: 'delType', l: 'Delivery type', o: ['Normal delivery', 'C-section', 'Assisted delivery'], req: 'Please select your delivery type.' }],
+        [{ t: 'select', n: 'recovery', l: 'How is your recovery?', o: ['Fully recovered', 'Recovering well', 'Still healing or in pain'], req: 'Please select your recovery status.' }, { t: 'select', n: 'breastfeed', l: 'Are you breastfeeding?', o: ['Yes, exclusively', 'Yes, partly', 'No'], req: REQ }],
+        [MOVE],
+        'conds',
+        [{ t: 'select', n: 'goal', l: 'Your main goal', o: ['Weight loss', 'Core and strength', 'Back pain relief', 'Energy and mood', 'C-section recovery', 'Return to strength training'], req: 'Please choose your main goal.' }, { t: 'select', n: 'diet', l: 'Food preference', o: DIET, req: 'Please choose your food preference.' }],
+        [{ t: 'textarea', n: 'postRestr', l: 'Anything else your doctor has asked you to avoid? (optional)', ph: 'Medicines, restrictions, other concerns' }],
+        'consent'
+      ]
+    },
+    general: {
+      title: 'A little about you', note: 'This helps Sahithi suggest safe modifications for you.', consent: CONSENT_GEN,
+      conds: [['diab', 'Diabetes'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS / PCOD'], ['back', 'Back pain'], ['knee', 'Knee or joint pain'], ['preg', 'Currently pregnant']],
+      rows: [
+        [{ t: 'number', n: 'age', l: 'Your age', ph: 'e.g. 30', req: 'Please enter your age.', check: function (v) { var n = parseInt(v, 10); return n >= 13 && n <= 90; } }, { t: 'select', n: 'level', l: 'Experience', o: ['Beginner', 'Some experience', 'Train regularly'], req: 'Please choose your experience.' }],
+        'conds',
+        [{ t: 'select', n: 'goal', l: 'Your main goal', o: ['Flexibility', 'Weight loss', 'Stress relief', 'Strength'], req: 'Please choose your main goal.' }],
+        'consent'
+      ]
+    },
+    consult: {
+      title: 'What would you like to discuss?', note: 'This helps Sahithi prepare for your call.',
+      conds: [['diab', 'Diabetes'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS / PCOD'], ['back', 'Back pain'], ['knee', 'Knee or joint pain']],
+      rows: [
+        [{ t: 'select', n: 'topic', l: 'Main topic', o: ['Choosing the right program', 'Pregnancy', 'Postnatal recovery', 'Weight loss', 'PCOS or thyroid', 'General fitness'], req: 'Please choose a topic.' }, { t: 'select', n: 'stage', l: 'Right now you are', o: ['Pregnant', 'After delivery', 'Neither'], req: REQ }],
+        'conds',
+        [{ t: 'textarea', n: 'notes', l: 'Anything you want Sahithi to know? (optional)', ph: 'Your questions or concerns' }]
+      ]
+    }
+  };
+
+  var DETAILS = [
+    [{ t: 'text', n: 'name', l: 'Full name', ph: 'Your full name', ac: 'name', req: 'Please enter your full name.', check: function (v) { return v.trim().length >= 2; } }],
+    [{ t: 'tel', n: 'phone', l: 'Phone / WhatsApp', ph: '10-digit mobile number', ac: 'tel', req: 'Please enter a valid 10-digit mobile number.', check: function (v) { return /^(91)?[6-9]\d{9}$/.test(v.replace(/\D/g, '')); } }],
+    [{ t: 'email', n: 'email', l: 'Email', ph: 'you@example.com', ac: 'email', req: 'Please enter a valid email address.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }]
+  ];
+  var CONSULT_SLOT = [{ t: 'cal', n: 'cDate', l: 'Preferred date', req: 'Please choose a date.' }, { t: 'calslot', n: 'cSlot', l: 'Preferred time', req: 'Please choose a time.' }];
+
+  /* ---------- enrollment window ---------- */
+  var S = null;
+
+  function openProgram(i) {
+    S = { pkg: PACKAGES[i], step: 'details', form: {}, conds: {}, errors: {}, sent: false };
+    document.body.classList.add('lock');
+    $('overlay').hidden = false;
+    render();
+    $('overlay').scrollTop = 0;
+  }
+  function closeModal() { $('overlay').hidden = true; $('dialog').innerHTML = ''; document.body.classList.remove('lock'); S = null; }
+
+  /* ---------- consultation calendar (2 PM – 11 PM, 30-minute slots) ---------- */
+  var MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  var WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var DAYS_AHEAD = 60, FIRST_HOUR = 14, LAST_START = 22.5;
+  function dayStart(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+  function slotLabel(h) { var hr = Math.floor(h), mn = h % 1 ? '30' : '00', ap = hr >= 12 ? 'PM' : 'AM'; return ((hr + 11) % 12 + 1) + ':' + mn + ' ' + ap; }
+  function calHtml(err1, err2) {
+    var today = dayStart(new Date()), now = new Date(), h = '<div class="cal"><div class="cal-sub">Pick a day <small>· swipe for more dates</small></div><div class="dates">';
+    for (var k = 0; k <= DAYS_AHEAD; k++) {
+      var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() + k);
+      if (k === 0 && now.getHours() * 60 + now.getMinutes() + 60 >= LAST_START * 60) continue;
+      var sel = S.calDay && S.calDay.getTime() === dt.getTime();
+      h += '<button type="button" class="dchip' + (sel ? ' sel' : '') + '" data-cal="day" data-d="' + dt.getTime() + '" aria-pressed="' + sel + '"><span>' + (k === 0 ? 'Today' : WD[dt.getDay()]) + '</span><b>' + dt.getDate() + '</b><span>' + MON[dt.getMonth()].slice(0, 3) + '</span></button>';
+    }
+    h += '</div>' + (err1 ? '<span class="err">' + esc(err1) + '</span>' : '');
+    if (S.calDay) {
+      var isToday = S.calDay.getTime() === today.getTime(), slots = '';
+      for (var t = FIRST_HOUR; t <= LAST_START; t += 0.5) {
+        var past = isToday && (t * 60 <= now.getHours() * 60 + now.getMinutes() + 60), lab = slotLabel(t);
+        slots += '<button type="button" class="slot' + (S.form.cSlot === lab ? ' sel' : '') + '" data-cal="slot" data-t="' + lab + '"' + (past ? ' disabled' : '') + '>' + lab + '</button>';
+      }
+      h += '<div class="cal-sub">Pick a time <small>· ' + esc(S.form.cDate) + '</small></div><div class="slots">' + slots + '</div>' + (err2 ? '<span class="err">' + esc(err2) + '</span>' : '');
+    }
+    return h + '</div>';
+  }
+
+  function fieldHtml(f) {
+    if (f.t === 'calslot') return '';
+    if (f.t === 'cal') return '<div class="fld" style="flex:1 1 100%"><span class="lbl">Choose a date and time for your call</span>' + calHtml(S.errors.cDate, S.errors.cSlot) + '</div>';
+    var v = S.form[f.n] || '', err = S.errors[f.n], id = 'q-' + f.n, ctl;
+    if (f.t === 'select') {
+      ctl = '<select class="ctl" id="' + id + '" name="' + f.n + '"><option value="">' + esc(f.ph || 'Select') + '</option>' +
+        f.o.map(function (o) { return '<option' + (o === v ? ' selected' : '') + '>' + esc(o) + '</option>'; }).join('') + '</select>';
+    } else if (f.t === 'textarea') {
+      ctl = '<textarea class="ctl" id="' + id + '" name="' + f.n + '" rows="3" placeholder="' + esc(f.ph || '') + '">' + esc(v) + '</textarea>';
+    } else {
+      ctl = '<input class="ctl" id="' + id + '" name="' + f.n + '" type="' + f.t + '" value="' + esc(v) + '" placeholder="' + esc(f.ph || '') + '"' +
+        (f.ac ? ' autocomplete="' + f.ac + '"' : '') + (f.t === 'number' ? ' inputmode="numeric" min="13" max="90"' : '') + (f.t === 'tel' ? ' inputmode="tel"' : '') + (f.n === 'cDate' ? ' min="' + new Date(Date.now() - new Date().getTimezoneOffset() * 6e4).toISOString().slice(0, 10) + '"' : '') + '>';
+    }
+    return '<div class="fld"><label class="lbl" for="' + id + '">' + esc(f.l) + '</label>' + ctl +
+      (f.help ? '<span class="fhelp">' + esc(f.help) + '</span>' : '') + (err ? '<span class="err">' + esc(err) + '</span>' : '') + '</div>';
+  }
+  function rowHtml(r, cfg) {
+    if (r === 'conds') {
+      return '<fieldset class="conds"><legend>Do you have any of these?</legend><span class="fhelp" style="padding-bottom:4px">Tick all that apply. Leave blank if none.</span>' +
+        cfg.conds.map(function (c) { return '<label class="chk"><input type="checkbox" data-cond="' + c[0] + '"' + (S.conds[c[0]] ? ' checked' : '') + '>' + esc(c[1]) + '</label>'; }).join('') + '</fieldset>';
+    }
+    if (r === 'consent') {
+      return '<label class="consent"><input type="checkbox" name="consent"' + (S.form.consent ? ' checked' : '') + '>' + esc(cfg.consent) + '</label>' +
+        (S.errors.consent ? '<span class="err">' + esc(S.errors.consent) + '</span>' : '');
+    }
+    return '<div class="row">' + r.map(fieldHtml).join('') + '</div>';
+  }
+  function cfgFor() { return FORMS[S.pkg.kind] || FORMS.general; }
+  function allFields() {
+    var list = [];
+    DETAILS.concat(S.pkg.kind === 'consult' ? [CONSULT_SLOT] : []).concat(cfgFor().rows).forEach(function (r) { if (Array.isArray(r)) list = list.concat(r); });
+    return list;
+  }
+  function validate() {
+    var e = {};
+    allFields().forEach(function (f) {
+      if (!f.req) return;
+      var v = String(S.form[f.n] || '');
+      if (!v.trim() || (f.check && !f.check(v))) e[f.n] = f.req;
+    });
+    if (cfgFor().rows.indexOf('consent') >= 0 && !S.form.consent) e.consent = 'Please confirm to continue.';
+    return e;
+  }
+  function enquiryText() {
+    var p = S.pkg, cfg = cfgFor(), lines = ['Hi Sahithi, I would like to join: ' + p.name + ' (' + p.price + ' ' + p.duration + ')', ''];
+    allFields().forEach(function (f) { var v = S.form[f.n]; if (v) lines.push(f.l.replace(/ \(optional\)$/, '') + ': ' + v); });
+    var ticked = cfg.conds.filter(function (c) { return S.conds[c[0]]; }).map(function (c) { return c[1]; });
+    lines.push('Health conditions: ' + (ticked.length ? ticked.join(', ') : 'None'));
+    return lines.join('\n');
+  }
+
+  function render() {
+    var p = S.pkg, cfg = cfgFor();
+    var stepText = S.sent ? '' : (S.step === 'details' ? 'Step 1 of 2' : 'Step 2 of 2');
+    var h = '<div class="d-head"><div style="display:flex;flex-direction:column;gap:4px;min-width:0">' +
+      (stepText ? '<span class="d-step">' + stepText + '</span>' : '') +
+      '<h2 class="d-title" id="d-title">' + esc(p.name) + '</h2><span style="font-size:15px;color:var(--muted)">' + esc(p.price + ' ' + p.duration) + '</span></div>' +
+      '<button type="button" class="x" data-act="close" aria-label="Close">×</button></div>';
+
+    if (S.step === 'details') {
+      h += '<div class="blk"><h3>Your details</h3>' + DETAILS.map(function (r) { return rowHtml(r, cfg); }).join('') +
+        (p.kind === 'consult' ? rowHtml(CONSULT_SLOT, cfg) : '') + '</div>';
+      h += '<div class="blk"><h3>' + esc(cfg.title) + '</h3><p class="hint">' + esc(cfg.note) + '</p>' + cfg.rows.map(function (r) { return rowHtml(r, cfg); }).join('') + '</div>';
+      h += '<div class="navrow"><span></span><button type="button" class="btn btn-sage" data-act="next">Continue</button></div>';
+    } else if (S.sent) {
+      h += '<div class="result"><span class="ico" aria-hidden="true" style="background:#DCE5D3;color:#3B4C35"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>' +
+        '<h3>Thank you, ' + esc(S.form.name) + '!</h3><p class="box">Press send in WhatsApp. Sahithi’s team will reply with your next steps and payment details.</p>' +
+        '<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px"><button type="button" class="btn btn-outline" data-act="wa">Open WhatsApp again</button><button type="button" class="btn btn-sage" data-act="close">Done</button></div></div>';
+    } else {
+      h += '<div class="blk"><h3>Review and send</h3><div class="summary">' +
+        '<div><span>Program</span><span style="font-weight:600">' + esc(p.name) + '</span></div>' +
+        '<div><span>Name</span><span>' + esc(S.form.name) + '</span></div>' +
+        '<div><span>Phone</span><span>' + esc(S.form.phone) + '</span></div>' +
+        '<div><span>Email</span><span>' + esc(S.form.email) + '</span></div>' +
+        '<div class="total"><span>Fee</span><span>' + esc(p.price) + '</span></div></div>' +
+        '<button type="button" class="btn btn-sage" data-act="wa"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.5 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>Send my details on WhatsApp</button>' +
+        '<span style="font-size:13px;color:var(--muted2);text-align:center">Sahithi’s team will confirm your plan and share payment details.</span></div>' +
+        '<div class="navrow"><button type="button" class="btn btn-outline" data-act="back">Back</button><span></span></div>';
+    }
+    $('dialog').innerHTML = h;
+  }
+
+  $('dialog').addEventListener('input', capture);
+  $('dialog').addEventListener('change', capture);
+  function capture(e) {
+    if (!S || S.video) return;
+    var t = e.target;
+    if (t.getAttribute('data-cond')) { S.conds[t.getAttribute('data-cond')] = t.checked; return; }
+    if (t.name) S.form[t.name] = t.type === 'checkbox' ? t.checked : t.value;
+  }
+  $('dialog').addEventListener('click', function (e) {
+    var c = e.target.closest('[data-cal]');
+    if (c && S && !c.disabled) {
+      var k = c.getAttribute('data-cal'), v = S.calView;
+      if (k === 'prev') S.calView = new Date(v.getFullYear(), v.getMonth() - 1, 1);
+      if (k === 'next') S.calView = new Date(v.getFullYear(), v.getMonth() + 1, 1);
+      if (k === 'day') {
+        S.calDay = new Date(Number(c.getAttribute('data-d')));
+        S.form.cDate = S.calDay.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+        S.form.cSlot = ''; delete S.errors.cDate;
+      }
+      if (k === 'slot') { S.form.cSlot = c.getAttribute('data-t'); delete S.errors.cSlot; }
+      var y = $('overlay').scrollTop, dx = (document.querySelector('.dates') || {}).scrollLeft || 0; render(); $('overlay').scrollTop = y; var ds = document.querySelector('.dates'); if (ds) ds.scrollLeft = dx;
+      return;
+    }
+    var b = e.target.closest('[data-act]');
+    if (!b || !S) return;
+    var act = b.getAttribute('data-act');
+    if (act === 'close') return closeModal();
+    if (act === 'enroll-from-video') { var k = S.pkgIndex; closeModal(); openProgram(k); return; }
+    if (S.video) return;
+    if (act === 'back') { S.step = 'details'; S.sent = false; render(); return; }
+    if (act === 'next') {
+      S.errors = validate();
+      if (Object.keys(S.errors).length) {
+        render();
+        var first = $('dialog').querySelector('.err');
+        if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      S.step = 'review'; render(); $('overlay').scrollTop = 0; return;
+    }
+    if (act === 'wa') { openWhatsApp(enquiryText()); S.sent = true; render(); }
+  });
+  $('overlay').addEventListener('click', function (e) { if (e.target === $('overlay')) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && S) closeModal(); });
+
+  /* ---------- testimonials: highlight the card you click, tap or point at ---------- */
+  var quotes = Array.prototype.slice.call(document.querySelectorAll('#testimonials .quote'));
+  function feature(q) { quotes.forEach(function (x) { x.classList.toggle('q-feature', x === q); }); }
+  var canHover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
+  quotes.forEach(function (q) {
+    q.addEventListener('click', function () { feature(q); });
+    q.addEventListener('focus', function () { feature(q); });
+    if (canHover) q.addEventListener('mouseenter', function () { feature(q); });
+  });
+
+  renderPrograms();
+  renderFaq();
+})();
+</script>
+</body>
+</html>
