@@ -342,6 +342,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
         <button type="button" class="btn btn-pink" data-consult>Book a consultation call · <span id="consult-price">₹999</span></button>
         <span style="font-size:14px;color:var(--sage-l)">Pick any day and time between 2 PM and 11 PM.</span>
       </div>
+      <p style="margin:0;padding:12px 16px;border-radius:14px;background:rgba(255,255,255,.12);font-size:15px;line-height:1.5;color:#fff">💡 <b>Your ₹999 is not extra.</b> Join any program after the call and we deduct it from the fee. For example, General Yoga becomes ₹3,500 − ₹999 = <b>₹2,501</b>.</p>
     </div>
   </div>
 </section>
@@ -452,7 +453,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     { name: 'Prenatal Movement + Nutrition', kind: 'prenatal', price: '₹36,000', duration: '/ 90 days', desc: 'Live 1:1 training with Sahithi through your pregnancy, plus nutrition.', points: ['1:1 live virtual sessions', '3 sessions a week · 90 days', 'Yoga, strength or both, by trimester', 'Personalised nutrition plan'], badge: '1:1 Live sessions · Screening included', image: 'images/prenatal.webp', pos: 'center', cta: 'Enroll now' },
     { name: 'Postnatal Movement + Nutrition', kind: 'postnatal', price: '₹36,000', duration: '/ 90 days', desc: 'Live 1:1 training with Sahithi to rebuild your strength after childbirth, plus nutrition.', points: ['1:1 live virtual sessions', '3 sessions a week · 90 days', 'Yoga, strength or functional training', 'Personalised nutrition plan'], badge: '1:1 Live sessions · Screening included', image: 'images/postnatal.webp', pos: 'center', cta: 'Enroll now' },
     { name: 'General Yoga', kind: 'general', price: '₹3,500', duration: '/ 90 days · 45 classes', desc: 'New to yoga? No time for a personal instructor? Practise at home, at your own pace.', points: ['45 video classes · 90 days', 'Beginner-friendly, step by step', 'Practise anytime, as often as you like'], badge: 'Recorded classes · Beginner-friendly', image: 'images/general.webp', pos: 'center', video: SAMPLE_VIDEO, cta: 'Enroll now' },
-    { name: '1:1 Consultation Call', kind: 'consult', price: '₹999', duration: '/ session', desc: 'Not sure which program fits? Talk to Sahithi and get guidance on the right plan for you.', badge: 'Personal session', image: 'images/consult.webp', pos: 'center', cta: 'Book consultation' }
+    { name: '1:1 Consultation Call', kind: 'consult', price: '₹999', duration: '/ session', desc: 'Not sure which program fits? Talk to Sahithi and get guidance on the right plan for you.', points: ['Personal guidance on the right program', '₹999 adjusted in any program you join', 'E.g. General Yoga: ₹3,500 − ₹999 = ₹2,501'], badge: 'Personal session', image: 'images/consult.webp', pos: 'center', cta: 'Book consultation' }
   ];
 
   function $(id) { return document.getElementById(id); }
@@ -542,6 +543,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     ['Is strength training safe during pregnancy?', 'When appropriate for you, yes. Every prenatal client completes a health screening first, and Sahithi may ask for your doctor’s clearance before you start.'],
     ['Do I need a gym or equipment?', 'No. Our at-home strength workouts are designed for home, without a gym or complicated equipment.'],
     ['When can I start after a C-section?', 'Only once your doctor clears you. C-section recovery workouts then progress gradually, step by step.'],
+    ['Is the ₹999 consultation fee adjusted?', 'Yes. If you join any program after your consultation, the ₹999 is deducted from the program fee. For example, General Yoga costs ₹3,500 − ₹999 = ₹2,501.'],
     ['How do I join?', 'Tap Enroll now, answer a few quick questions and send them on WhatsApp. Sahithi’s team will confirm your plan and share the payment details.'],
     ['What is your refund policy?', 'Please read our Refund Policy, linked at the bottom of this page, before joining.']
   ];
