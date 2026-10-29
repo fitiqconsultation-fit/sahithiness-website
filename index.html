@@ -748,7 +748,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       } else if (PAY_LINKS[p.kind]) {
         h += '<a class="btn btn-sage" href="' + esc(PAY_LINKS[p.kind]) + '" target="_blank" rel="noopener" data-act="paylink">' + LOCK + '1. Pay ' + rupees(full) + ' on Razorpay</a>' +
           '<button type="button" class="btn ' + (S.paidClicked ? 'btn-sage' : 'btn-outline') + '" data-act="wa">' + WA_ICON + '2. Send my details on WhatsApp</button>' +
-          '<span style="font-size:13px;color:var(--muted2);text-align:center">UPI, cards and net banking. After paying, send your details so we can share your videos.</span></div>';
+          '<span style="font-size:13px;color:var(--muted2);text-align:center">Use the same phone number (' + esc(S.form.phone) + ') on the payment page so we can match your payment. UPI, cards and net banking accepted.</span></div>';
       } else {
         h += '<button type="button" class="btn btn-sage" data-act="wa">' + WA_ICON + 'Send my details on WhatsApp</button>' +
           '<span style="font-size:13px;color:var(--muted2);text-align:center">Sahithi’s team will confirm your plan and share payment details.</span></div>';
