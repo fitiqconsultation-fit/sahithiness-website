@@ -328,6 +328,8 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   /* Razorpay payment link. One link for all programs; you can set a different link per program here. */
   var PAY_LINK = 'https://rzp.io/rzp/Mb2OjID';
   var PAY_LINKS = { postnatal: PAY_LINK, pcos: PAY_LINK };
+  /* Clients sheet: paste the Apps Script Web app URL between the quotes. Form details are saved there when a client taps Pay. */
+  var SHEET_URL = '';
   var TINT = { postnatal: '#F2D4D7', pcos: '#DCE5D3' };
 
   /* Sample class for General Yoga. Paste a YouTube link or a Google Drive video link between the quotes. */
@@ -660,6 +662,19 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       if (S === st) render();
     });
   }
+  function saveToSheet() {
+    if (!SHEET_URL || S.savedToSheet) return;
+    var cfg = cfgFor(), answers = [];
+    allFields().forEach(function (f) {
+      var v = S.form[f.n];
+      if (v && ['name', 'phone', 'email', 'gmail', 'consent'].indexOf(f.n) < 0) answers.push([f.l.replace(/ \(optional\)$/, ''), String(v)]);
+    });
+    var body = JSON.stringify({
+      action: 'client', kind: S.pkg.kind, name: S.form.name, phone: S.form.phone, email: S.form.email, gmail: S.form.gmail || '',
+      answers: answers, flags: cfg.conds.filter(function (c) { return S.conds[c[0]]; }).map(function (c) { return c[1]; })
+    });
+    try { fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', keepalive: true, body: body }); S.savedToSheet = true; } catch (e) {}
+  }
   function applyCode() {
     var st = S, code = String(st.form.code || '').trim().toUpperCase();
     if (!code) { st.codeErr = 'Please enter your code.'; render(); return; }
@@ -783,8 +798,8 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       }
       S.step = 'review'; render(); $('overlay').scrollTop = 0; return;
     }
-    if (act === 'wa') { openWhatsApp(enquiryText()); S.sent = true; render(); }
-    if (act === 'paylink') { S.paidClicked = true; setTimeout(render, 300); return; }
+    if (act === 'wa') { saveToSheet(); openWhatsApp(enquiryText()); S.sent = true; render(); }
+    if (act === 'paylink') { saveToSheet(); S.paidClicked = true; setTimeout(render, 300); return; }
     if (act === 'pay' && !S.busy) startPayment();
     if (act === 'code' && !S.busy) applyCode();
     if (act === 'code-remove') { S.codeApplied = ''; S.form.code = ''; render(); }
