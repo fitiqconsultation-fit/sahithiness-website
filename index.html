@@ -455,6 +455,9 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   /* Online payments: paste the Apps Script Web app URL between the quotes. Empty = enquiries go to WhatsApp. */
   var API_URL = '';
   var PAY = !!API_URL;
+  /* Razorpay payment link. One link for all programs; you can set a different link per program here. */
+  var PAY_LINK = 'https://rzp.io/rzp/Mb2OjID';
+  var PAY_LINKS = { prenatal: PAY_LINK, postnatal: PAY_LINK, general: PAY_LINK, consult: PAY_LINK };
   var TINT = { prenatal: '#F2D4D7', postnatal: '#E9D9CF', general: '#DCE5D3', consult: '#EEE6D8' };
 
   /* Sample class for General Yoga. Paste a YouTube link or a Google Drive video link between the quotes. */
@@ -555,8 +558,8 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     ['Is strength training safe during pregnancy?', 'When appropriate for you, yes. Every prenatal client completes a health screening first, and Sahithi may ask for your doctor’s clearance before you start.'],
     ['Do I need a gym or equipment?', 'No. Our at-home strength workouts are designed for home, without a gym or complicated equipment.'],
     ['When can I start after a C-section?', 'Only once your doctor clears you. C-section recovery workouts then progress gradually, step by step.'],
-    ['Is the ₹999 consultation fee adjusted?', 'Yes. If you join any program within 48 hours of your consultation, the ₹999 is deducted from the program fee' + (PAY ? ': just enter the code from your booking email when you pay' : '') + '. For example, General Yoga costs ₹3,500 − ₹999 = ₹2,501.'],
-    ['How do I join?', PAY ? 'Tap Enroll now, answer a few quick questions and pay securely online by UPI, card or net banking. You get a confirmation email straight away.' : 'Tap Enroll now, answer a few quick questions and send them on WhatsApp. Sahithi’s team will confirm your plan and share the payment details.'],
+    ['Is the ₹999 consultation fee adjusted?', 'Yes. If you join any program within 48 hours of your consultation, the ₹999 is deducted from the program fee' + (PAY ? ': just enter the code from your booking email when you pay' : PAY_LINK ? ': just pay the lower amount on the payment page' : '') + '. For example, General Yoga costs ₹3,500 − ₹999 = ₹2,501.'],
+    ['How do I join?', PAY ? 'Tap Enroll now, answer a few quick questions and pay securely online by UPI, card or net banking. You get a confirmation email straight away.' : (PAY_LINK ? 'Tap Enroll now, answer a few quick questions, pay securely on Razorpay and send your details on WhatsApp. Sahithi’s team will confirm your place.' : 'Tap Enroll now, answer a few quick questions and send them on WhatsApp. Sahithi’s team will confirm your plan and share the payment details.')],
     ['What is your refund policy?', 'Please read our Refund Policy, linked at the bottom of this page, before joining.']
   ];
   var openFaq = 0;
@@ -740,6 +743,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     allFields().forEach(function (f) { var v = S.form[f.n]; if (v) lines.push(f.l.replace(/ \(optional\)$/, '') + ': ' + v); });
     var ticked = cfg.conds.filter(function (c) { return S.conds[c[0]]; }).map(function (c) { return c[1]; });
     lines.push('Health conditions: ' + (ticked.length ? ticked.join(', ') : 'None'));
+    if (!PAY && PAY_LINKS[p.kind]) lines.push('', S.paidClicked ? 'Payment: paid on the Razorpay link (screenshot attached)' : 'Payment: not paid yet');
     return lines.join('\n');
   }
 
@@ -862,18 +866,18 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       h += doneHtml();
     } else if (S.sent) {
       h += '<div class="result"><span class="ico" aria-hidden="true" style="background:#DCE5D3;color:#3B4C35">' + TICK + '</span>' +
-        '<h3>Thank you, ' + esc(S.form.name) + '!</h3><p class="box">Press send in WhatsApp. Sahithi’s team will reply with your next steps' + (PAY ? '.' : ' and payment details.') + '</p>' +
+        '<h3>Thank you, ' + esc(S.form.name) + '!</h3><p class="box">Press send in WhatsApp' + (!PAY && PAY_LINKS[p.kind] ? ' and attach your payment screenshot' : '') + '. Sahithi’s team will reply with your next steps' + (PAY || PAY_LINKS[p.kind] ? '.' : ' and payment details.') + '</p>' +
         '<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px"><button type="button" class="btn btn-outline" data-act="wa">Open WhatsApp again</button><button type="button" class="btn btn-sage" data-act="close">Done</button></div></div>';
     } else {
       var full = paise(p.price), amt = S.codeApplied ? full - CREDIT : full;
-      h += '<div class="blk"><h3>' + (PAY ? 'Review and pay' : 'Review and send') + '</h3><div class="summary">' +
+      h += '<div class="blk"><h3>' + (PAY || PAY_LINKS[p.kind] ? 'Review and pay' : 'Review and send') + '</h3><div class="summary">' +
         '<div><span>Program</span><span style="font-weight:600">' + esc(p.name) + '</span></div>' +
         (p.kind === 'consult' ? '<div><span>Call</span><span>' + esc(S.form.cDate + ', ' + S.form.cSlot) + '</span></div>' : '') +
         '<div><span>Name</span><span>' + esc(S.form.name) + '</span></div>' +
         '<div><span>Phone</span><span>' + esc(S.form.phone) + '</span></div>' +
         '<div><span>Email</span><span>' + esc(S.form.email) + '</span></div>' +
         (S.codeApplied ? '<div><span>Fee</span><span>' + rupees(full) + '</span></div><div class="disc"><span>Code ' + esc(S.codeApplied) + '</span><span>− ' + rupees(CREDIT) + '</span></div>' : '') +
-        '<div class="total"><span>' + (PAY ? 'To pay' : 'Fee') + '</span><span>' + rupees(amt) + '</span></div></div>';
+        '<div class="total"><span>' + (PAY || PAY_LINKS[p.kind] ? 'To pay' : 'Fee') + '</span><span>' + rupees(amt) + '</span></div></div>';
       if (PAY) {
         if (p.kind !== 'consult') {
           h += S.codeApplied
@@ -885,6 +889,11 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
           '<button type="button" class="btn btn-sage" data-act="pay"' + (S.busy ? ' disabled' : '') + '>' + LOCK + (S.busy ? 'Please wait…' : 'Pay ' + rupees(amt) + ' securely') + '</button>' +
           '<span style="font-size:13px;color:var(--muted2);text-align:center">UPI, cards, net banking and wallets · Secured by Razorpay</span>' +
           '<button type="button" class="linkbtn" data-act="wa" style="align-self:center">Prefer WhatsApp? Send your details instead</button></div>';
+      } else if (PAY_LINKS[p.kind]) {
+        h += (p.kind !== 'consult' ? '<p class="fhelp" style="text-align:center">Had a consultation call in the last 48 hours? Pay ' + rupees(full - CREDIT) + ' instead of ' + rupees(full) + '.</p>' : '') +
+          '<a class="btn btn-sage" href="' + esc(PAY_LINKS[p.kind]) + '" target="_blank" rel="noopener" data-act="paylink">' + LOCK + '1. Pay ' + rupees(full) + ' on Razorpay</a>' +
+          '<button type="button" class="btn ' + (S.paidClicked ? 'btn-sage' : 'btn-outline') + '" data-act="wa">' + WA_ICON + '2. Send my details on WhatsApp</button>' +
+          '<span style="font-size:13px;color:var(--muted2);text-align:center">UPI, cards and net banking. After paying, send your details so Sahithi can confirm your place.</span></div>';
       } else {
         h += '<button type="button" class="btn btn-sage" data-act="wa">' + WA_ICON + 'Send my details on WhatsApp</button>' +
           '<span style="font-size:13px;color:var(--muted2);text-align:center">Sahithi’s team will confirm your plan and share payment details.</span></div>';
@@ -935,6 +944,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       S.step = 'review'; render(); $('overlay').scrollTop = 0; return;
     }
     if (act === 'wa') { openWhatsApp(enquiryText()); S.sent = true; render(); }
+    if (act === 'paylink') { S.paidClicked = true; setTimeout(render, 300); return; }
     if (act === 'pay' && !S.busy) startPayment();
     if (act === 'code' && !S.busy) applyCode();
     if (act === 'code-remove') { S.codeApplied = ''; S.form.code = ''; render(); }
