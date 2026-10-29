@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sahithiness – Nutrition and Movement for Women</title>
-<meta name="description" content="Nutrition + Movement for women at every stage: prenatal yoga, prenatal strength training, postnatal and C-section recovery workouts, at-home strength training and nutrition guidance with Sahithi.">
+<title>Sahithiness – Postnatal and PCOS / PCOD Workouts</title>
+<meta name="description" content="Recorded postnatal and PCOS / PCOD workouts with Sahithi. 5 new videos every week, all year round. ₹2,784 a month.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="images/hero.webp" fetchpriority="high">
-<meta property="og:title" content="Sahithiness – Nutrition + Movement for women">
-<meta property="og:description" content="Prenatal yoga, prenatal strength training, postnatal and C-section recovery workouts, at-home strength training and nutrition guidance with Sahithi.">
-<meta property="og:image" content="https://lh3.googleusercontent.com/d/1dGwgXda9ppKVAlB1Yr5X3TfaE8BVy6ip=w1200">
+<meta property="og:title" content="Sahithiness – Postnatal and PCOS / PCOD workouts">
+<meta property="og:description" content="Recorded postnatal and PCOS / PCOD workouts with Sahithi. 5 new videos every week, all year round. ₹2,784 a month.">
+<meta property="og:image" content="https://sahithiness.in/images/hero.webp">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sahithiness">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sahithiness – Nutrition + Movement for women">
-<meta name="twitter:description" content="Prenatal yoga, prenatal strength training, postnatal workouts, at-home strength training and nutrition guidance with Sahithi.">
-<meta name="twitter:image" content="https://lh3.googleusercontent.com/d/1dGwgXda9ppKVAlB1Yr5X3TfaE8BVy6ip=w1200">
+<meta name="twitter:title" content="Sahithiness – Postnatal and PCOS / PCOD workouts">
+<meta name="twitter:description" content="Recorded postnatal and PCOS / PCOD workouts with Sahithi. 5 new videos every week, all year round. ₹2,784 a month.">
+<meta name="twitter:image" content="https://sahithiness.in/images/hero.webp">
 <meta name="theme-color" content="#4F6347">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap">
 <style>
@@ -107,6 +107,7 @@ nav{display:flex;align-items:center;justify-content:space-between;gap:16px;paddi
 /* programs */
 .card{background:var(--cream);border:1px solid var(--line);border-radius:24px;overflow:hidden;display:flex;flex-direction:column}
 .card img,.card .ph{width:100%;aspect-ratio:1/1;object-fit:cover}
+.card-top{height:120px;display:flex;align-items:center;justify-content:center;font-size:56px}
 .card-body{padding:20px;display:flex;flex-direction:column;gap:10px;flex-grow:1}
 .badge{align-self:flex-start;padding:6px 12px;border-radius:999px;font-size:12.5px;font-weight:600}
 .card h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;line-height:1.15;font-weight:700}
@@ -132,10 +133,6 @@ nav{display:flex;align-items:center;justify-content:space-between;gap:16px;paddi
 .slot[disabled]{opacity:.4;text-decoration:line-through;cursor:default}
 .swipe-hint{display:none;text-align:center;font-size:13px;color:var(--muted2);margin-top:-18px}
 @media (max-width:700px){
-#program-grid{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:4px 20px 8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-#program-grid::-webkit-scrollbar{display:none}
-#program-grid .card{flex:0 0 84%;scroll-snap-align:center}
-.swipe-hint{display:block}
 }
 .card-pts{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:1.4}
 .card-pts li{display:flex;gap:8px;align-items:flex-start}
@@ -253,119 +250,57 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   <nav class="wrap">
     <a class="logo" href="#home">Sahithiness</a>
     <div class="navlinks">
-      <a href="#offer">What we offer</a><a href="#programs">Programs</a><a href="#consultation">Consultation</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+      <a href="#programs">Programs</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
     </div>
     <div class="nav-right">
-      <button type="button" class="btn btn-sage" data-consult>Book a call</button>
+      <a class="btn btn-sage" href="#programs">Join now</a>
       <button type="button" class="menubtn" id="menubtn" aria-label="Menu" aria-expanded="false" aria-controls="mmenu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </nav>
   <div class="mmenu" id="mmenu">
-    <a href="#offer">What we offer</a><a href="#programs">Programs</a><a href="#consultation">Consultation</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#contact" style="border-bottom:0">Contact</a>
-    <button type="button" class="btn btn-sage" data-consult>Book a consultation call</button>
+    <a href="#programs">Programs</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#contact" style="border-bottom:0">Contact</a>
+    <a class="btn btn-sage" href="#programs">Join a program</a>
   </div>
 </header>
 
 <main>
 <section id="home" class="wrap hero">
   <div class="hero-text">
-    <div class="tags"><span class="tag tag-pink">🥗 Nutrition</span><span class="tag tag-sage">🧘‍♀️ Yoga</span><span class="tag tag-sage">🏋️‍♀️ Strength training</span></div>
-    <h1>Nutrition + Movement for women, at every stage</h1>
-    <p>Yoga, at-home strength training and personalised nutrition, through pregnancy, after childbirth and beyond. Move the way that suits your body and your stage of life.</p>
+    <div class="tags"><span class="tag tag-pink">🤱 Postnatal</span><span class="tag tag-sage">🌸 PCOS / PCOD</span><span class="tag tag-sage">🎥 Recorded classes</span></div>
+    <h1>Workouts for women, at home, at your pace</h1>
+    <p>Recorded classes with Sahithi for postnatal recovery and PCOS / PCOD. 5 new videos every week, all year round.</p>
     <div class="ctas">
-      <a class="btn btn-sage" href="#offer">Explore programs</a>
-      <a class="btn btn-outline" href="#consultation">Not sure? Book a call</a>
+      <a class="btn btn-sage" href="#programs">See programs · ₹2,784/month</a>
+      <a class="btn btn-outline" href="https://wa.me/919980184295" target="_blank" rel="noopener">Ask on WhatsApp</a>
     </div>
   </div>
   <div class="hero-img">
-    <img src="images/hero.webp" alt="Sahithi, founder of Sahithiness" width="760" height="949" fetchpriority="high" decoding="async">
+    <img src="images/hero.webp" alt="Sahithi, founder of Sahithiness" width="582" height="652" fetchpriority="high" decoding="async">
   </div>
 </section>
 
 <section style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
   <div class="wrap stack" style="padding-top:clamp(48px,7vw,72px);padding-bottom:clamp(48px,7vw,72px)">
     <div class="head">
-      <span class="eyebrow">Our approach</span>
-      <h2 class="h2">Nutrition + Movement, built around you</h2>
-      <p class="lead">Every plan pairs what you eat with how you move. Movement can be yoga, strength training at home, or both, depending on your needs and your stage of life.</p>
+      <span class="eyebrow">How the programs work</span>
+      <h2 class="h2">Simple, steady and made for home</h2>
     </div>
     <div class="grid g240">
-      <div class="pillar"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Nutrition">🥗</span><h3>Nutrition guidance</h3><p>Personalised nutrition support that works alongside your movement program.</p></div>
-      <div class="pillar"><span class="ic" style="background:var(--sage-bg)" role="img" aria-label="Yoga">🧘‍♀️</span><h3>Yoga</h3><p>Mobility, breathing and gentle strength, especially suited to pregnancy.</p></div>
-      <div class="pillar"><span class="ic" style="background:var(--sage-bg)" role="img" aria-label="Strength training">🏋️‍♀️</span><h3>Strength training</h3><p>Safe, progressive workouts at home, during pregnancy when appropriate and after childbirth.</p></div>
+      <div class="pillar"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Videos">🎥</span><h3>5 videos a week</h3><p>New recorded classes every week. Practise whenever it suits you.</p></div>
+      <div class="pillar"><span class="ic" style="background:var(--sage-bg)" role="img" aria-label="Calendar">📅</span><h3>All year round</h3><p>Fresh videos across all 365 days of the year, so you never run out.</p></div>
+      <div class="pillar"><span class="ic" style="background:var(--sage-bg)" role="img" aria-label="Home">🏠</span><h3>At home, no gym</h3><p>Follow along at home, without a gym or complicated equipment.</p></div>
     </div>
   </div>
 </section>
 
-<section class="wrap sec stack">
-  <div class="head">
-    <span class="eyebrow">Two ways to move</span>
-    <h2 class="h2">Yoga or strength training? Both belong here.</h2>
-  </div>
-  <div class="grid g300">
-    <article class="split" style="background:var(--sage-bg)">
-      <img class="ph" src="images/yoga.webp" alt="Sahithi meditating in a yoga pose" width="448" height="358" loading="lazy">
-      <div class="split-body">
-        <h3>Yoga</h3>
-        <p>Breath, mobility and calm strength. A natural fit for pregnancy and a gentle way back after childbirth.</p>
-        <ul><li>Prenatal yoga for each trimester</li><li>Recorded classes for any time of day</li><li>Breathing and relaxation practice</li></ul>
-      </div>
-    </article>
-    <article class="split" style="background:var(--pink-bg)">
-      <img class="ph" src="images/strength.webp" alt="Sahithi strength training during her pregnancy" width="820" height="656" loading="lazy">
-      <div class="split-body">
-        <h3>Strength training</h3>
-        <p>Build real strength safely, at home, without a gym or complicated equipment.</p>
-        <ul><li>Prenatal strength, when appropriate for you</li><li>Postnatal and C-section recovery workouts</li><li>At-home workouts with minimal equipment</li></ul>
-      </div>
-    </article>
-  </div>
-</section>
-
-<section id="offer" style="background:var(--sage-bg)">
-  <div class="wrap sec stack">
-    <div class="head">
-      <span class="eyebrow">What we offer</span>
-      <h2 class="h2">Programs for every stage</h2>
-      <p class="lead">From pregnancy to postpartum recovery to everyday fitness at home, all paired with nutrition guidance.</p>
-    </div>
-    <div class="grid g280">
-      <div class="offer"><div class="offer-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Yoga">🧘‍♀️</span><span class="kicker" style="color:var(--wine)">Pregnancy</span></div><h3>Prenatal Yoga</h3><p>Yoga and movement practices suitable for pregnancy.</p></div>
-      <div class="offer"><div class="offer-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Strength">💪</span><span class="kicker" style="color:var(--wine)">Pregnancy</span></div><h3>Prenatal Strength Training</h3><p>Safe, appropriate strength workouts during pregnancy, when cleared for you.</p></div>
-      <div class="offer"><div class="offer-top"><span class="ic" style="background:var(--sage-bg)" role="img" aria-label="Baby">👶</span><span class="kicker" style="color:var(--sage-d)">After childbirth</span></div><h3>Postnatal Workouts</h3><p>Programs to help you return to fitness gradually after childbirth. Recorded series coming soon.</p></div>
-      <div class="offer"><div class="offer-top"><span class="ic" style="background:var(--sage-bg)" role="img" aria-label="Recovery">🩹</span><span class="kicker" style="color:var(--sage-d)">After childbirth</span></div><h3>C-section Recovery Workouts</h3><p>Specific, progressive workouts for C-section recovery, to be started only after medical clearance from your doctor.</p></div>
-      <div class="offer hi"><div class="offer-top"><span class="ic" style="background:rgba(255,255,255,.16)" role="img" aria-label="Home">🏠</span><span class="badge" style="background:var(--pink);color:var(--wine)">Key highlight</span></div><h3>At-Home Strength Training</h3><p>Workouts you can follow at home. No gym, no complicated equipment.</p></div>
-      <div class="offer"><div class="offer-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Nutrition">🥗</span><span class="kicker" style="color:var(--wine)">With every program</span></div><h3>Nutrition Guidance</h3><p>Nutrition support alongside your movement and fitness program.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="consultation" class="wrap sec">
-  <div class="consult">
-    <img src="images/consult.webp" alt="Sahithi, ready for your consultation" width="480" height="480" loading="lazy">
-    <div class="consult-text">
-      <span class="eyebrow" style="color:var(--sage-l)">1:1 Consultation call</span>
-      <h2 class="h2">Not sure which program is right for you?</h2>
-      <p class="lead" style="color:#E6ECE0">Talk to Sahithi. Share your stage, your health and your goals, and get guidance on the most suitable program: yoga, strength training, or a mix of both, with nutrition.</p>
-      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px">
-        <button type="button" class="btn btn-pink" data-consult>Book a consultation call · <span id="consult-price">₹999</span></button>
-        <span style="font-size:14px;color:var(--sage-l)">Pick any day and time between 2 PM and 11 PM.</span>
-      </div>
-      <p style="margin:0;padding:12px 16px;border-radius:14px;background:rgba(255,255,255,.12);font-size:15px;line-height:1.5;color:#fff">💡 <b>Your ₹999 is not extra.</b> Join any program within 48 hours of the call and we deduct it from the fee. For example, General Yoga becomes ₹3,500 − ₹999 = <b>₹2,501</b>.</p>
-    </div>
-  </div>
-</section>
-
-<section id="programs" style="background:#fff;border-top:1px solid var(--line)">
+<section id="programs" style="background:var(--sage-bg)">
   <div class="wrap sec stack">
     <div class="head">
       <span class="eyebrow">Programs and pricing</span>
-      <h2 class="h2">Join a program</h2>
-      <p class="lead" style="max-width:560px">Tap a program, answer a few quick questions and send them on WhatsApp. Sahithi’s team will reply with your next steps.</p>
+      <h2 class="h2">Choose your program</h2>
+      <p class="lead" style="max-width:560px">₹2,784 a month, renewed monthly. Recorded classes only, no live sessions.</p>
     </div>
-    <div id="program-grid" class="grid g250"></div>
-    <p class="swipe-hint">Swipe to see all programs →</p>
-    <p style="text-align:center;font-size:15.5px;color:var(--muted)">Can't decide? <a href="#consultation" style="font-weight:600">Book a consultation call</a> and Sahithi will help you choose.</p>
+    <div id="program-grid" class="grid g250" style="max-width:820px;margin:0 auto;width:100%"></div>
   </div>
 </section>
 
@@ -373,20 +308,19 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   <div class="wrap sec stack">
     <h2 class="h2" style="text-align:center;font-size:clamp(32px,4vw,46px)">How it works</h2>
     <div class="grid g220">
-      <div class="step"><div class="step-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Choose">🧭</span><span class="step-no">Step 1</span></div><h3>Choose a program</h3><p>Pick a program, or book a call and let Sahithi guide you.</p></div>
-      <div class="step"><div class="step-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Form">📝</span><span class="step-no">Step 2</span></div><h3>Share your details</h3><p>A short health form so your plan is safe for your stage.</p></div>
-      <div class="step"><div class="step-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Chat">💬</span><span class="step-no">Step 3</span></div><h3>Talk to the team</h3><p>Sahithi’s team confirms your plan on WhatsApp and shares the payment details.</p></div>
-      <div class="step"><div class="step-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Start">🌸</span><span class="step-no">Step 4</span></div><h3>Start moving</h3><p>Get your workouts, nutrition plan or call slot and begin.</p></div>
+      <div class="step"><div class="step-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Choose">🧭</span><span class="step-no">Step 1</span></div><h3>Choose a program</h3><p>Postnatal or PCOS / PCOD.</p></div>
+      <div class="step"><div class="step-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Form">📝</span><span class="step-no">Step 2</span></div><h3>Share your details</h3><p>A short health form so the workouts are safe for you.</p></div>
+      <div class="step"><div class="step-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Pay">💳</span><span class="step-no">Step 3</span></div><h3>Pay ₹2,784</h3><p>Pay securely on Razorpay and send your details on WhatsApp.</p></div>
+      <div class="step"><div class="step-top"><span class="ic" style="background:var(--pink-bg)" role="img" aria-label="Start">🌸</span><span class="step-no">Step 4</span></div><h3>Get your videos</h3><p>5 new videos every week. Renew each month to keep going.</p></div>
     </div>
   </div>
 </section>
 
-<section id="about" class="wrap sec about">
-  <div class="about-img"><img class="ph" src="images/about.webp" alt="Sahithi, founder of Sahithiness" width="720" height="900" loading="lazy"></div>
+<section id="about" class="wrap sec about" style="max-width:860px">
   <div class="about-text">
     <span class="eyebrow">About Sahithi · My Journey</span>
     <h2 class="h2" style="font-size:clamp(34px,4.5vw,52px)">Hi, I'm Sahithi</h2>
-    <div class="tags"><span class="tag tag-sage">Certified yoga &amp; fitness instructor</span><span class="tag tag-pink">Prenatal &amp; postnatal fitness + nutrition</span></div>
+    <div class="tags"><span class="tag tag-sage">Certified yoga &amp; fitness instructor</span><span class="tag tag-pink">Postnatal &amp; PCOS / PCOD fitness</span></div>
     <p class="lead">Pregnancy strengthened my belief in the power of movement. I continued exercising and strength training throughout my pregnancy with appropriate modifications, helping me feel strong, active, and confident.</p>
     <p class="lead">Through my journey, I want to inspire women to embrace safe movement during pregnancy and gradually rebuild their strength after childbirth with the right guidance and support.</p>
     <p class="serif" style="font-size:clamp(24px,2.6vw,30px);line-height:1.25;font-weight:600;color:var(--sage);border-left:3px solid var(--pink);padding-left:16px">Because motherhood is a journey of strength, not limitations.</p>
@@ -439,7 +373,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
 
 <footer>
   <div class="wrap foot">
-    <div style="display:flex;flex-direction:column;gap:4px"><span class="serif" style="font-size:26px;font-weight:700">Sahithiness</span><span style="font-size:13.5px;color:#BDB3A8">Nutrition + Movement for women</span></div>
+    <div style="display:flex;flex-direction:column;gap:4px"><span class="serif" style="font-size:26px;font-weight:700">Sahithiness</span><span style="font-size:13.5px;color:#BDB3A8">Postnatal and PCOS / PCOD workouts</span></div>
     <div class="foot-links"><a href="/privacy.html">Privacy Policy</a><a href="/refund.html">Refund Policy</a><a href="/terms.html">Terms &amp; Conditions</a><a href="/delivery.html">Delivery Policy</a></div>
     <span style="font-size:13.5px;color:#BDB3A8">© 2026 Sahithiness. All rights reserved.</span>
   </div>
@@ -457,18 +391,16 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   var PAY = !!API_URL;
   /* Razorpay payment link. One link for all programs; you can set a different link per program here. */
   var PAY_LINK = 'https://rzp.io/rzp/Mb2OjID';
-  var PAY_LINKS = { prenatal: PAY_LINK, postnatal: PAY_LINK, general: PAY_LINK, consult: PAY_LINK };
-  var TINT = { prenatal: '#F2D4D7', postnatal: '#E9D9CF', general: '#DCE5D3', consult: '#EEE6D8' };
+  var PAY_LINKS = { postnatal: PAY_LINK, pcos: PAY_LINK };
+  var TINT = { postnatal: '#F2D4D7', pcos: '#DCE5D3' };
 
   /* Sample class for General Yoga. Paste a YouTube link or a Google Drive video link between the quotes. */
   var SAMPLE_VIDEO = '';
 
   /* Programs shown on the page. Edit names, prices and text here. */
   var PACKAGES = [
-    { name: 'Prenatal Movement + Nutrition', kind: 'prenatal', price: '₹36,000', duration: '/ 90 days', desc: 'Live 1:1 training with Sahithi through your pregnancy, plus nutrition.', points: ['1:1 live virtual sessions', '3 sessions a week · 90 days', 'Yoga, strength or both, by trimester', 'Personalised nutrition plan'], badge: '1:1 Live sessions · Screening included', image: 'images/prenatal.webp', pos: 'center', cta: 'Enroll now' },
-    { name: 'Postnatal Movement + Nutrition', kind: 'postnatal', price: '₹36,000', duration: '/ 90 days', desc: 'Live 1:1 training with Sahithi to rebuild your strength after childbirth, plus nutrition.', points: ['1:1 live virtual sessions', '3 sessions a week · 90 days', 'Yoga, strength or functional training', 'Personalised nutrition plan'], badge: '1:1 Live sessions · Screening included', image: 'images/postnatal.webp', pos: 'center', cta: 'Enroll now' },
-    { name: 'General Yoga', kind: 'general', price: '₹3,500', duration: '/ 90 days · 45 classes', desc: 'New to yoga? No time for a personal instructor? Practise at home, at your own pace.', points: ['45 video classes · 90 days', 'Beginner-friendly, step by step', 'Practise anytime, as often as you like'], badge: 'Recorded classes · Beginner-friendly', image: 'images/general.webp', pos: 'center', video: SAMPLE_VIDEO, cta: 'Enroll now' },
-    { name: '1:1 Consultation Call', kind: 'consult', price: '₹999', duration: '/ session', desc: 'Not sure which program fits? Talk to Sahithi and get guidance on the right plan for you.', points: ['Personal guidance on the right program', '₹999 adjusted if you join within 48 hours', 'E.g. General Yoga: ₹3,500 − ₹999 = ₹2,501'], badge: 'Personal session', image: 'images/consult.webp', pos: 'center', cta: 'Book consultation' }
+    { name: 'Postnatal Workouts', kind: 'postnatal', icon: '🤱', price: '₹2,784', duration: '/ month', desc: 'Rebuild your strength after childbirth, gently and step by step.', points: ['5 recorded videos every week', 'New classes all year round', 'Core, back and full-body strength', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' },
+    { name: 'PCOS / PCOD Workouts', kind: 'pcos', icon: '🌸', price: '₹2,784', duration: '/ month', desc: 'Workouts to support your hormones, weight, energy and cycles.', points: ['5 recorded videos every week', 'New classes all year round', 'Strength, yoga and cardio for PCOS', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' }
   ];
 
   function $(id) { return document.getElementById(id); }
@@ -506,6 +438,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     return null;
   }
   function mediaHtml(p, i) {
+    if (!p.image) return '<div class="card-top" style="background:' + (TINT[p.kind] || '#EEE6D8') + '" aria-hidden="true">' + (p.icon || '') + '</div>';
     var img = '<img src="' + esc(p.image) + '" alt="' + esc(p.name) + '" width="560" height="560" loading="lazy" style="object-position:' + (p.pos || 'center') + ';background:' + (TINT[p.kind] || '#EEE6D8') + '">';
     if (!('video' in p)) return img;
     var v = videoInfo(p.video);
@@ -530,7 +463,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
 
   function renderPrograms() {
     $('program-grid').innerHTML = PACKAGES.map(function (p, i) {
-      var pink = p.kind === 'prenatal' || p.kind === 'postnatal';
+      var pink = p.kind === 'postnatal';
       return '<article class="card">' + mediaHtml(p, i) +
         '<div class="card-body">' +
         (p.badge ? '<span class="badge" style="background:' + (pink ? '#F2D4D7' : '#DCE5D3') + ';color:' + (pink ? '#7A3A44' : '#3B4C35') + '">' + esc(p.badge) + '</span>' : '') +
@@ -539,8 +472,6 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
         '<div class="price"><b>' + esc(p.price) + '</b><span>' + esc(p.duration) + '</span></div>' +
         '<button type="button" class="btn btn-sage" data-enroll="' + i + '">' + esc(p.cta) + '</button></div></article>';
     }).join('');
-    var ci = consultIndex();
-    if (ci >= 0) $('consult-price').textContent = PACKAGES[ci].price;
   }
   document.addEventListener('click', function (e) {
     var vb = e.target.closest && e.target.closest('[data-video]');
@@ -553,13 +484,13 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
 
   /* ---------- FAQ ---------- */
   var FAQS = [
-    ['Is this only a yoga program?', 'No. Sahithiness is nutrition plus movement. Movement can be yoga, strength training at home, or a mix of both, depending on your needs and your stage of life.'],
-    ['Which program is right for me?', 'Book a 1:1 consultation call. Share your stage, health and goals, and Sahithi will guide you to the most suitable program.'],
-    ['Is strength training safe during pregnancy?', 'When appropriate for you, yes. Every prenatal client completes a health screening first, and Sahithi may ask for your doctor’s clearance before you start.'],
-    ['Do I need a gym or equipment?', 'No. Our at-home strength workouts are designed for home, without a gym or complicated equipment.'],
-    ['When can I start after a C-section?', 'Only once your doctor clears you. C-section recovery workouts then progress gradually, step by step.'],
-    ['Is the ₹999 consultation fee adjusted?', 'Yes. If you join any program within 48 hours of your consultation, the ₹999 is deducted from the program fee' + (PAY ? ': just enter the code from your booking email when you pay' : PAY_LINK ? ': just pay the lower amount on the payment page' : '') + '. For example, General Yoga costs ₹3,500 − ₹999 = ₹2,501.'],
-    ['How do I join?', PAY ? 'Tap Enroll now, answer a few quick questions and pay securely online by UPI, card or net banking. You get a confirmation email straight away.' : (PAY_LINK ? 'Tap Enroll now, answer a few quick questions, pay securely on Razorpay and send your details on WhatsApp. Sahithi’s team will confirm your place.' : 'Tap Enroll now, answer a few quick questions and send them on WhatsApp. Sahithi’s team will confirm your plan and share the payment details.')],
+    ['Are the classes live?', 'No. All classes are recorded, so you can practise any time that suits you. You get 5 new videos every week.'],
+    ['How much does it cost?', '₹2,784 a month for either program. You renew every month to keep getting new videos.'],
+    ['How do I get the videos?', 'After you pay and send your details on WhatsApp, we share your videos with you. New videos are added every week, all year round.'],
+    ['When can I start after delivery?', 'Once your doctor clears you for exercise, usually around 6 weeks after a normal delivery. After a C-section, start only with your doctor’s clearance.'],
+    ['Do I need a gym or equipment?', 'No. The workouts are designed for home, without a gym or complicated equipment.'],
+    ['Can I do the PCOS / PCOD program if I am not sure I have PCOS?', 'Yes. The workouts support hormonal health, weight and energy for most women. Please check with your doctor if you have any medical condition.'],
+    ['How do I join?', 'Tap Join now, answer a few quick questions, pay ₹2,784 on Razorpay and send your details on WhatsApp.'],
     ['What is your refund policy?', 'Please read our Refund Policy, linked at the bottom of this page, before joining.']
   ];
   var openFaq = 0;
@@ -615,12 +546,24 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       title: 'Postnatal health questions', note: PRIVATE, consent: CONSENT_MED,
       conds: [['diab', 'Diabetes (including during pregnancy)'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS / PCOD'], ['anae', 'Anaemia (low haemoglobin)'], ['back', 'Back pain'], ['dr', 'Tummy gap (diastasis recti)'], ['leak', 'Urine leakage when coughing or laughing'], ['stitch', 'Stitches still healing']],
       rows: [
+        [{ t: 'email', n: 'gmail', l: 'Gmail ID for the videos', ph: 'yourname@gmail.com', ac: 'email', help: 'Your videos are shared with this Google account.', req: 'Please enter the Gmail ID you will watch the videos with.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }],
         [{ t: 'date', n: 'delDate', l: 'Delivery date', req: 'Please enter your delivery date.' }, { t: 'select', n: 'delType', l: 'Delivery type', o: ['Normal delivery', 'C-section', 'Assisted delivery'], req: 'Please select your delivery type.' }],
         [{ t: 'select', n: 'recovery', l: 'How is your recovery?', o: ['Fully recovered', 'Recovering well', 'Still healing or in pain'], req: 'Please select your recovery status.' }, { t: 'select', n: 'breastfeed', l: 'Are you breastfeeding?', o: ['Yes, exclusively', 'Yes, partly', 'No'], req: REQ }],
-        [MOVE],
         'conds',
-        [{ t: 'select', n: 'goal', l: 'Your main goal', o: ['Weight loss', 'Core and strength', 'Back pain relief', 'Energy and mood', 'C-section recovery', 'Return to strength training'], req: 'Please choose your main goal.' }, { t: 'select', n: 'diet', l: 'Food preference', o: DIET, req: 'Please choose your food preference.' }],
+        [{ t: 'select', n: 'goal', l: 'Your main goal', o: ['Weight loss', 'Core and strength', 'Back pain relief', 'Energy and mood', 'C-section recovery'], req: 'Please choose your main goal.' }],
         [{ t: 'textarea', n: 'postRestr', l: 'Anything else your doctor has asked you to avoid? (optional)', ph: 'Medicines, restrictions, other concerns' }],
+        'consent'
+      ]
+    },
+    pcos: {
+      title: 'A little about you', note: PRIVATE, consent: CONSENT_GEN,
+      conds: [['thy', 'Thyroid'], ['diab', 'Diabetes or insulin resistance'], ['bp', 'High blood pressure'], ['back', 'Back pain'], ['knee', 'Knee or joint pain'], ['preg', 'Currently pregnant']],
+      rows: [
+        [{ t: 'email', n: 'gmail', l: 'Gmail ID for the videos', ph: 'yourname@gmail.com', ac: 'email', help: 'Your videos are shared with this Google account.', req: 'Please enter the Gmail ID you will watch the videos with.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }],
+        [{ t: 'number', n: 'age', l: 'Your age', ph: 'e.g. 28', req: 'Please enter your age.', check: function (v) { var n = parseInt(v, 10); return n >= 13 && n <= 90; } }, { t: 'select', n: 'diagnosis', l: 'Diagnosed with', o: ['PCOS', 'PCOD', 'Not diagnosed / not sure'], req: REQ }],
+        [{ t: 'select', n: 'cycles', l: 'Your periods are', o: ['Regular', 'Irregular', 'Often missed'], req: REQ }, { t: 'select', n: 'activity', l: 'How active are you right now?', o: ['Not active', 'Light walking', 'Regular exercise, yoga or gym'], req: REQ }],
+        'conds',
+        [{ t: 'select', n: 'goal', l: 'Your main goal', o: ['Weight loss', 'Regular periods', 'More energy', 'Strength', 'Stress relief'], req: 'Please choose your main goal.' }],
         'consent'
       ]
     },
@@ -628,7 +571,6 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       title: 'A little about you', note: 'This helps Sahithi suggest safe modifications for you.', consent: CONSENT_GEN,
       conds: [['diab', 'Diabetes'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS / PCOD'], ['back', 'Back pain'], ['knee', 'Knee or joint pain'], ['preg', 'Currently pregnant']],
       rows: [
-        [{ t: 'email', n: 'gmail', l: 'Gmail ID for the videos', ph: 'yourname@gmail.com', ac: 'email', help: 'Your 45 classes are shared with this Google account.', req: 'Please enter the Gmail ID you will watch the videos with.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }],
         [{ t: 'number', n: 'age', l: 'Your age', ph: 'e.g. 30', req: 'Please enter your age.', check: function (v) { var n = parseInt(v, 10); return n >= 13 && n <= 90; } }, { t: 'select', n: 'level', l: 'Experience', o: ['Beginner', 'Some experience', 'Train regularly'], req: 'Please choose your experience.' }],
         'conds',
         [{ t: 'select', n: 'goal', l: 'Your main goal', o: ['Flexibility', 'Weight loss', 'Stress relief', 'Strength'], req: 'Please choose your main goal.' }],
@@ -890,10 +832,9 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
           '<span style="font-size:13px;color:var(--muted2);text-align:center">UPI, cards, net banking and wallets · Secured by Razorpay</span>' +
           '<button type="button" class="linkbtn" data-act="wa" style="align-self:center">Prefer WhatsApp? Send your details instead</button></div>';
       } else if (PAY_LINKS[p.kind]) {
-        h += (p.kind !== 'consult' ? '<p class="fhelp" style="text-align:center">Had a consultation call in the last 48 hours? Pay ' + rupees(full - CREDIT) + ' instead of ' + rupees(full) + '.</p>' : '') +
-          '<a class="btn btn-sage" href="' + esc(PAY_LINKS[p.kind]) + '" target="_blank" rel="noopener" data-act="paylink">' + LOCK + '1. Pay ' + rupees(full) + ' on Razorpay</a>' +
+        h += '<a class="btn btn-sage" href="' + esc(PAY_LINKS[p.kind]) + '" target="_blank" rel="noopener" data-act="paylink">' + LOCK + '1. Pay ' + rupees(full) + ' on Razorpay</a>' +
           '<button type="button" class="btn ' + (S.paidClicked ? 'btn-sage' : 'btn-outline') + '" data-act="wa">' + WA_ICON + '2. Send my details on WhatsApp</button>' +
-          '<span style="font-size:13px;color:var(--muted2);text-align:center">UPI, cards and net banking. After paying, send your details so Sahithi can confirm your place.</span></div>';
+          '<span style="font-size:13px;color:var(--muted2);text-align:center">UPI, cards and net banking. After paying, send your details so we can share your videos.</span></div>';
       } else {
         h += '<button type="button" class="btn btn-sage" data-act="wa">' + WA_ICON + 'Send my details on WhatsApp</button>' +
           '<span style="font-size:13px;color:var(--muted2);text-align:center">Sahithi’s team will confirm your plan and share payment details.</span></div>';
