@@ -658,6 +658,12 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   }
   function doneHtml() {
     var r = S.result || {}, k = S.pkg.kind, first = esc(String(S.form.name).split(' ')[0]), body;
+    if (r.link) {
+      return '<div class="result"><span class="ico" aria-hidden="true" style="background:#DCE5D3;color:#3B4C35">' + TICK + '</span>' +
+        '<h3>Thank you, ' + first + '!</h3><p class="box">Complete your payment in the Razorpay window. Your videos start from <b>' + esc(S.form.startDate) + '</b>.</p>' +
+        '<a class="linkbtn" href="' + esc(PAY_LINKS[k]) + '" target="_blank" rel="noopener">Payment window didn’t open? Tap here</a>' +
+        '<button type="button" class="btn btn-sage" data-act="close">Done</button></div>';
+    }
     if (r.pending) {
       body = '<h3>Payment received, ' + first + '!</h3><p class="box">We are confirming it now. You will get an email at <b>' + esc(S.form.email) + '</b> within 15 minutes with everything you need.' +
         (r.orderId ? '<br><small>Order ID: ' + esc(r.orderId) + '</small>' : '') + '</p>';
@@ -719,9 +725,8 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
           '<span style="font-size:13px;color:var(--muted2);text-align:center">UPI, cards, net banking and wallets · Secured by Razorpay</span>' +
           '<button type="button" class="linkbtn" data-act="wa" style="align-self:center">Prefer WhatsApp? Send your details instead</button></div>';
       } else if (PAY_LINKS[p.kind]) {
-        h += '<a class="btn btn-sage" href="' + esc(PAY_LINKS[p.kind]) + '" target="_blank" rel="noopener" data-act="paylink">' + LOCK + '1. Pay ' + rupees(full) + ' on Razorpay</a>' +
-          '<button type="button" class="btn ' + (S.paidClicked ? 'btn-sage' : 'btn-outline') + '" data-act="wa">' + WA_ICON + '2. Send my details on WhatsApp</button>' +
-          '<span style="font-size:13px;color:var(--muted2);text-align:center">UPI, cards and net banking. After paying, send your details so we can share your videos.</span></div>';
+        h += '<a class="btn btn-sage" href="' + esc(PAY_LINKS[p.kind]) + '" target="_blank" rel="noopener" data-act="paylink">' + LOCK + 'Pay ' + rupees(full) + ' on Razorpay</a>' +
+          '<span style="font-size:13px;color:var(--muted2);text-align:center">UPI, cards and net banking. Please use the same phone number and email on the payment page.</span></div>';
       } else {
         h += '<button type="button" class="btn btn-sage" data-act="wa">' + WA_ICON + 'Send my details on WhatsApp</button>' +
           '<span style="font-size:13px;color:var(--muted2);text-align:center">Sahithi’s team will confirm your plan and share payment details.</span></div>';
@@ -780,7 +785,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       S.step = 'review'; render(); $('overlay').scrollTop = 0; return;
     }
     if (act === 'wa') { openWhatsApp(enquiryText()); S.sent = true; render(); }
-    if (act === 'paylink') { S.paidClicked = true; setTimeout(render, 300); return; }
+    if (act === 'paylink') { S.paidClicked = true; setTimeout(function () { if (S) { S.step = 'done'; S.result = { link: true }; render(); } }, 300); return; }
     if (act === 'pay' && !S.busy) startPayment();
     if (act === 'code' && !S.busy) applyCode();
     if (act === 'code-remove') { S.codeApplied = ''; S.form.code = ''; render(); }
