@@ -257,7 +257,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   <nav class="wrap">
     <a class="logo" href="#home">Sahithiness</a>
     <div class="navlinks">
-      <a href="#programs">Programs</a><a href="https://wa.me/919980184295" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="#programs">Programs</a>
     </div>
     <div class="nav-right">
       <a class="btn btn-sage" href="#programs">Join now</a>
@@ -265,7 +265,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     </div>
   </nav>
   <div class="mmenu" id="mmenu">
-    <a href="#programs">Programs</a><a href="https://wa.me/919980184295" target="_blank" rel="noopener" style="border-bottom:0">WhatsApp</a>
+    <a href="#programs" style="border-bottom:0">Programs</a>
     <a class="btn btn-sage" href="#programs">Join a program</a>
   </div>
 </header>
@@ -442,33 +442,8 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
         'consent'
       ]
     },
-    postnatal: {
-      title: 'Postnatal health questions', note: PRIVATE, consent: CONSENT_MED,
-      conds: [['diab', 'Diabetes (including during pregnancy)'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS\u00a0/\u00a0PCOD'], ['anae', 'Anaemia (low haemoglobin)'], ['back', 'Back pain'], ['dr', 'Tummy gap (diastasis recti)'], ['leak', 'Urine leakage when coughing or laughing'], ['stitch', 'Stitches still healing']],
-      rows: [
-        [START],
-        [{ t: 'email', n: 'gmail', l: 'Gmail ID for the videos', ph: 'yourname@gmail.com', ac: 'email', help: 'Your videos are shared with this Google account.', req: 'Please enter the Gmail ID you will watch the videos with.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }],
-        [{ t: 'date', n: 'delDate', l: 'Delivery date', req: 'Please enter your delivery date.' }, { t: 'select', n: 'delType', l: 'Delivery type', o: ['Normal delivery', 'C-section', 'Assisted delivery'], req: 'Please select your delivery type.' }],
-        [{ t: 'select', n: 'recovery', l: 'How is your recovery?', o: ['Fully recovered', 'Recovering well', 'Still healing or in pain'], req: 'Please select your recovery status.' }, { t: 'select', n: 'breastfeed', l: 'Are you breastfeeding?', o: ['Yes, exclusively', 'Yes, partly', 'No'], req: REQ }],
-        'conds',
-        [{ t: 'select', n: 'goal', l: 'Your main goal', o: ['Weight loss', 'Core and strength', 'Back pain relief', 'Energy and mood', 'C-section recovery'], req: 'Please choose your main goal.' }],
-        [{ t: 'textarea', n: 'postRestr', l: 'Anything else your doctor has asked you to avoid? (optional)', ph: 'Medicines, restrictions, other concerns' }],
-        'consent'
-      ]
-    },
-    pcos: {
-      title: 'A little about you', note: PRIVATE, consent: CONSENT_GEN,
-      conds: [['thy', 'Thyroid'], ['diab', 'Diabetes or insulin resistance'], ['bp', 'High blood pressure'], ['back', 'Back pain'], ['knee', 'Knee or joint pain'], ['preg', 'Currently pregnant']],
-      rows: [
-        [START],
-        [{ t: 'email', n: 'gmail', l: 'Gmail ID for the videos', ph: 'yourname@gmail.com', ac: 'email', help: 'Your videos are shared with this Google account.', req: 'Please enter the Gmail ID you will watch the videos with.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }],
-        [{ t: 'number', n: 'age', l: 'Your age', ph: 'e.g. 28', req: 'Please enter your age.', check: function (v) { var n = parseInt(v, 10); return n >= 13 && n <= 90; } }, { t: 'select', n: 'diagnosis', l: 'Diagnosed with', o: ['PCOS', 'PCOD', 'Not diagnosed / not sure'], req: REQ }],
-        [{ t: 'select', n: 'cycles', l: 'Your periods are', o: ['Regular', 'Irregular', 'Often missed'], req: REQ }, { t: 'select', n: 'activity', l: 'How active are you right now?', o: ['Not active', 'Light walking', 'Regular exercise, yoga or gym'], req: REQ }],
-        'conds',
-        [{ t: 'select', n: 'goal', l: 'Your main goal', o: ['Weight loss', 'Regular periods', 'More energy', 'Strength', 'Stress relief'], req: 'Please choose your main goal.' }],
-        'consent'
-      ]
-    },
+    postnatal: { title: '', conds: [], rows: [[START]] },
+    pcos: { title: '', conds: [], rows: [[START]] },
     general: {
       title: 'A little about you', note: 'This helps Sahithi suggest safe modifications for you.', consent: CONSENT_GEN,
       conds: [['diab', 'Diabetes'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS\u00a0/\u00a0PCOD'], ['back', 'Back pain'], ['knee', 'Knee or joint pain'], ['preg', 'Currently pregnant']],
@@ -595,7 +570,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     var p = S.pkg, cfg = cfgFor(), lines = ['Hi Sahithi, I would like to join: ' + p.name + ' (' + p.price + ' ' + p.duration + ')', ''];
     allFields().forEach(function (f) { var v = S.form[f.n]; if (v) lines.push(f.l.replace(/ \(optional\)$/, '') + ': ' + v); });
     var ticked = cfg.conds.filter(function (c) { return S.conds[c[0]]; }).map(function (c) { return c[1]; });
-    lines.push('Health conditions: ' + (ticked.length ? ticked.join(', ') : 'None'));
+    if (cfg.conds.length) lines.push('Health conditions: ' + (ticked.length ? ticked.join(', ') : 'None'));
     if (!PAY && PAY_LINKS[p.kind]) lines.push('', S.paidClicked ? 'Payment: paid on the Razorpay link (screenshot attached)' : 'Payment: not paid yet');
     return lines.join('\n');
   }
@@ -710,8 +685,8 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
 
     if (S.step === 'details') {
       h += '<div class="blk"><h3>Your details</h3>' + DETAILS.map(function (r) { return rowHtml(r, cfg); }).join('') +
-        (p.kind === 'consult' ? rowHtml(CONSULT_SLOT, cfg) : '') + '</div>';
-      h += '<div class="blk"><h3>' + esc(cfg.title) + '</h3><p class="hint">' + esc(cfg.note) + '</p>' + cfg.rows.map(function (r) { return rowHtml(r, cfg); }).join('') + '</div>';
+        (p.kind === 'consult' ? rowHtml(CONSULT_SLOT, cfg) : '') + (cfg.title ? '' : cfg.rows.map(function (r) { return rowHtml(r, cfg); }).join('')) + '</div>';
+      if (cfg.title) h += '<div class="blk"><h3>' + esc(cfg.title) + '</h3><p class="hint">' + esc(cfg.note) + '</p>' + cfg.rows.map(function (r) { return rowHtml(r, cfg); }).join('') + '</div>';
       h += '<div class="navrow"><span></span><button type="button" class="btn btn-sage" data-act="next">Continue</button></div>';
     } else if (S.step === 'verifying') {
       h += '<div class="result"><span class="spin" aria-hidden="true"></span><h3>Confirming your payment…</h3><p class="box">Please don’t close this window. This takes a few seconds.</p></div>';
