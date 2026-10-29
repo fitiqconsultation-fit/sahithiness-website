@@ -427,6 +427,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   var REQ = 'Please choose an option.';
   var MOVE = { t: 'select', n: 'movePref', l: 'Which movement would you like?', o: ['Yoga', 'Strength training', 'Both yoga and strength', 'Not sure – help me choose'], req: REQ, help: 'Sahithi will confirm what is safe for your stage.' };
 
+  var START = { t: 'start', n: 'startDate', l: 'Preferred start date', req: 'Please choose when you want to start.' };
   var FORMS = {
     prenatal: {
       title: 'Pregnancy health questions', note: PRIVATE, consent: CONSENT_MED,
@@ -445,6 +446,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       title: 'Postnatal health questions', note: PRIVATE, consent: CONSENT_MED,
       conds: [['diab', 'Diabetes (including during pregnancy)'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS\u00a0/\u00a0PCOD'], ['anae', 'Anaemia (low haemoglobin)'], ['back', 'Back pain'], ['dr', 'Tummy gap (diastasis recti)'], ['leak', 'Urine leakage when coughing or laughing'], ['stitch', 'Stitches still healing']],
       rows: [
+        [START],
         [{ t: 'email', n: 'gmail', l: 'Gmail ID for the videos', ph: 'yourname@gmail.com', ac: 'email', help: 'Your videos are shared with this Google account.', req: 'Please enter the Gmail ID you will watch the videos with.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }],
         [{ t: 'date', n: 'delDate', l: 'Delivery date', req: 'Please enter your delivery date.' }, { t: 'select', n: 'delType', l: 'Delivery type', o: ['Normal delivery', 'C-section', 'Assisted delivery'], req: 'Please select your delivery type.' }],
         [{ t: 'select', n: 'recovery', l: 'How is your recovery?', o: ['Fully recovered', 'Recovering well', 'Still healing or in pain'], req: 'Please select your recovery status.' }, { t: 'select', n: 'breastfeed', l: 'Are you breastfeeding?', o: ['Yes, exclusively', 'Yes, partly', 'No'], req: REQ }],
@@ -458,6 +460,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       title: 'A little about you', note: PRIVATE, consent: CONSENT_GEN,
       conds: [['thy', 'Thyroid'], ['diab', 'Diabetes or insulin resistance'], ['bp', 'High blood pressure'], ['back', 'Back pain'], ['knee', 'Knee or joint pain'], ['preg', 'Currently pregnant']],
       rows: [
+        [START],
         [{ t: 'email', n: 'gmail', l: 'Gmail ID for the videos', ph: 'yourname@gmail.com', ac: 'email', help: 'Your videos are shared with this Google account.', req: 'Please enter the Gmail ID you will watch the videos with.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }],
         [{ t: 'number', n: 'age', l: 'Your age', ph: 'e.g. 28', req: 'Please enter your age.', check: function (v) { var n = parseInt(v, 10); return n >= 13 && n <= 90; } }, { t: 'select', n: 'diagnosis', l: 'Diagnosed with', o: ['PCOS', 'PCOD', 'Not diagnosed / not sure'], req: REQ }],
         [{ t: 'select', n: 'cycles', l: 'Your periods are', o: ['Regular', 'Irregular', 'Often missed'], req: REQ }, { t: 'select', n: 'activity', l: 'How active are you right now?', o: ['Not active', 'Light walking', 'Regular exercise, yoga or gym'], req: REQ }],
@@ -536,8 +539,17 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     return h + '</div>';
   }
 
+  function startHtml() {
+    var today = dayStart(new Date()), h = '<div class="cal"><div class="cal-sub">Pick a start date <small>· swipe for more dates</small></div><div class="dates">';
+    for (var k = 0; k <= DAYS_AHEAD; k++) {
+      var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() + k), sel = S.startDay && S.startDay.getTime() === dt.getTime();
+      h += '<button type="button" class="dchip' + (sel ? ' sel' : '') + '" data-start="' + dt.getTime() + '" aria-pressed="' + sel + '"><span>' + (k === 0 ? 'Today' : WD[dt.getDay()]) + '</span><b>' + dt.getDate() + '</b><span>' + MON[dt.getMonth()].slice(0, 3) + '</span></button>';
+    }
+    return h + '</div>' + (S.form.startDate ? '<div class="cal-sub" style="color:var(--sage)">Starting <b>' + esc(S.form.startDate) + '</b></div>' : '') + '</div>';
+  }
   function fieldHtml(f) {
     if (f.t === 'calslot') return '';
+    if (f.t === 'start') return '<div class="fld" style="flex:1 1 100%"><span class="lbl">When would you like to start?</span>' + startHtml() + (S.errors.startDate ? '<span class="err">' + esc(S.errors.startDate) + '</span>' : '') + '</div>';
     if (f.t === 'cal') return '<div class="fld" style="flex:1 1 100%"><span class="lbl">Choose a date and time for your call</span>' + calHtml(S.errors.cDate, S.errors.cSlot) + '</div>';
     var v = S.form[f.n] || '', err = S.errors[f.n], id = 'q-' + f.n, ctl;
     if (f.t === 'select') {
@@ -714,6 +726,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       h += '<div class="blk"><h3>' + (PAY || PAY_LINKS[p.kind] ? 'Review and pay' : 'Review and send') + '</h3><div class="summary">' +
         '<div><span>Program</span><span style="font-weight:600">' + esc(p.name) + '</span></div>' +
         (p.kind === 'consult' ? '<div><span>Call</span><span>' + esc(S.form.cDate + ', ' + S.form.cSlot) + '</span></div>' : '') +
+        (S.form.startDate ? '<div><span>Start date</span><span>' + esc(S.form.startDate) + '</span></div>' : '') +
         '<div><span>Name</span><span>' + esc(S.form.name) + '</span></div>' +
         '<div><span>Phone</span><span>' + esc(S.form.phone) + '</span></div>' +
         '<div><span>Email</span><span>' + esc(S.form.email) + '</span></div>' +
@@ -752,6 +765,14 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     if (t.name) S.form[t.name] = t.type === 'checkbox' ? t.checked : t.value;
   }
   $('dialog').addEventListener('click', function (e) {
+    var sd = e.target.closest('[data-start]');
+    if (sd && S) {
+      S.startDay = new Date(Number(sd.getAttribute('data-start')));
+      S.form.startDate = S.startDay.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+      delete S.errors.startDate;
+      var y0 = $('overlay').scrollTop, d0 = sd.parentNode.scrollLeft; render(); $('overlay').scrollTop = y0; var ds0 = document.querySelector('[data-start]'); if (ds0) ds0.parentNode.scrollLeft = d0;
+      return;
+    }
     var c = e.target.closest('[data-cal]');
     if (c && S && !c.disabled) {
       var k = c.getAttribute('data-cal'), v = S.calView;
