@@ -273,9 +273,9 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
 <main>
 <section id="home" class="wrap hero">
   <div class="hero-text">
-    <div class="tags"><span class="tag tag-pink">🤱 Postnatal</span><span class="tag tag-sage">🌸 PCOS / PCOD</span><span class="tag tag-sage">🎥 Recorded classes</span></div>
+    <div class="tags"><span class="tag tag-pink">🤱 Postnatal</span><span class="tag tag-sage">🌸 PCOS&nbsp;/&nbsp;PCOD</span><span class="tag tag-sage">🎥 Recorded classes</span></div>
     <h1>Home workouts for women</h1>
-    <p>Recorded classes with Sahithi for postnatal recovery and PCOS / PCOD. 5 new videos every week, all year round.</p>
+    <p>Recorded classes with Sahithi for postnatal recovery and PCOS&nbsp;/&nbsp;PCOD. 5 new videos every week, all year round.</p>
     <div class="ctas">
       <a class="btn btn-sage" href="#programs">See programs · ₹2,784/month</a>
     </div>
@@ -286,7 +286,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     </div>
     <div class="hfor">
       <div class="hfor-item"><span class="ic" style="background:var(--pink-bg)" aria-hidden="true">🤱</span><div><b>Postnatal</b><small>Rebuild core and strength after childbirth</small></div></div>
-      <div class="hfor-item"><span class="ic" style="background:var(--sage-bg)" aria-hidden="true">🌸</span><div><b>PCOS / PCOD</b><small>Support hormones, weight and energy</small></div></div>
+      <div class="hfor-item"><span class="ic" style="background:var(--sage-bg)" aria-hidden="true">🌸</span><div><b>PCOS&nbsp;/&nbsp;PCOD</b><small>Support hormones, weight and energy</small></div></div>
     </div>
   </div>
   <div class="hero-img">
@@ -309,7 +309,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
 
 <footer>
   <div class="wrap foot">
-    <div style="display:flex;flex-direction:column;gap:4px"><span class="serif" style="font-size:26px;font-weight:700">Sahithiness</span><span style="font-size:13.5px;color:#BDB3A8">Postnatal and PCOS / PCOD workouts</span></div>
+    <div style="display:flex;flex-direction:column;gap:4px"><span class="serif" style="font-size:26px;font-weight:700">Sahithiness</span><span style="font-size:13.5px;color:#BDB3A8">Postnatal and PCOS&nbsp;/&nbsp;PCOD workouts</span></div>
     <div class="foot-links"><a href="/privacy.html">Privacy Policy</a><a href="/refund.html">Refund Policy</a><a href="/terms.html">Terms &amp; Conditions</a><a href="/delivery.html">Delivery Policy</a></div>
     <span style="font-size:13.5px;color:#BDB3A8">© 2026 Sahithiness. All rights reserved.</span>
   </div>
@@ -336,7 +336,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   /* Programs shown on the page. Edit names, prices and text here. */
   var PACKAGES = [
     { name: 'Postnatal Workouts', kind: 'postnatal', icon: '🤱', price: '₹2,784', duration: '/ month', desc: 'Rebuild your strength after childbirth, gently and step by step.', points: ['5 recorded videos every week', 'New classes all year round', 'Core, back and full-body strength', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' },
-    { name: 'PCOS / PCOD Workouts', kind: 'pcos', icon: '🌸', price: '₹2,784', duration: '/ month', desc: 'Workouts to support your hormones, weight, energy and cycles.', points: ['5 recorded videos every week', 'New classes all year round', 'Strength, yoga and cardio for PCOS', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' }
+    { name: 'PCOS\u00a0/\u00a0PCOD Workouts', kind: 'pcos', icon: '🌸', price: '₹2,784', duration: '/ month', desc: 'Workouts to support your hormones, weight, energy and cycles.', points: ['5 recorded videos every week', 'New classes all year round', 'Strength, yoga and cardio for PCOS', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' }
   ];
 
   function $(id) { return document.getElementById(id); }
@@ -430,7 +430,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   var FORMS = {
     prenatal: {
       title: 'Pregnancy health questions', note: PRIVATE, consent: CONSENT_MED,
-      conds: [['diab', 'Diabetes or gestational diabetes'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS / PCOD'], ['anae', 'Anaemia (low haemoglobin)'], ['bleed', 'Bleeding or spotting'], ['placenta', 'Low-lying placenta / placenta previa'], ['misc', 'Previous miscarriage'], ['rest', 'Doctor advised rest or no exercise']],
+      conds: [['diab', 'Diabetes or gestational diabetes'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS\u00a0/\u00a0PCOD'], ['anae', 'Anaemia (low haemoglobin)'], ['bleed', 'Bleeding or spotting'], ['placenta', 'Low-lying placenta / placenta previa'], ['misc', 'Previous miscarriage'], ['rest', 'Doctor advised rest or no exercise']],
       rows: [
         [{ t: 'select', n: 'months', l: 'How many months pregnant are you?', o: MONTHS, req: 'Please select how many months.' }, { t: 'date', n: 'edd', l: 'Expected delivery date', req: 'Please enter your expected delivery date.' }],
         [{ t: 'select', n: 'firstPreg', l: 'Is this your first pregnancy?', o: ['Yes', 'No'], req: REQ }, { t: 'select', n: 'activity', l: 'How active are you right now?', o: ['Not active', 'Light walking', 'Regular exercise, yoga or gym'], req: REQ }],
@@ -443,7 +443,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     },
     postnatal: {
       title: 'Postnatal health questions', note: PRIVATE, consent: CONSENT_MED,
-      conds: [['diab', 'Diabetes (including during pregnancy)'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS / PCOD'], ['anae', 'Anaemia (low haemoglobin)'], ['back', 'Back pain'], ['dr', 'Tummy gap (diastasis recti)'], ['leak', 'Urine leakage when coughing or laughing'], ['stitch', 'Stitches still healing']],
+      conds: [['diab', 'Diabetes (including during pregnancy)'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS\u00a0/\u00a0PCOD'], ['anae', 'Anaemia (low haemoglobin)'], ['back', 'Back pain'], ['dr', 'Tummy gap (diastasis recti)'], ['leak', 'Urine leakage when coughing or laughing'], ['stitch', 'Stitches still healing']],
       rows: [
         [{ t: 'email', n: 'gmail', l: 'Gmail ID for the videos', ph: 'yourname@gmail.com', ac: 'email', help: 'Your videos are shared with this Google account.', req: 'Please enter the Gmail ID you will watch the videos with.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }],
         [{ t: 'date', n: 'delDate', l: 'Delivery date', req: 'Please enter your delivery date.' }, { t: 'select', n: 'delType', l: 'Delivery type', o: ['Normal delivery', 'C-section', 'Assisted delivery'], req: 'Please select your delivery type.' }],
@@ -468,7 +468,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     },
     general: {
       title: 'A little about you', note: 'This helps Sahithi suggest safe modifications for you.', consent: CONSENT_GEN,
-      conds: [['diab', 'Diabetes'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS / PCOD'], ['back', 'Back pain'], ['knee', 'Knee or joint pain'], ['preg', 'Currently pregnant']],
+      conds: [['diab', 'Diabetes'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS\u00a0/\u00a0PCOD'], ['back', 'Back pain'], ['knee', 'Knee or joint pain'], ['preg', 'Currently pregnant']],
       rows: [
         [{ t: 'number', n: 'age', l: 'Your age', ph: 'e.g. 30', req: 'Please enter your age.', check: function (v) { var n = parseInt(v, 10); return n >= 13 && n <= 90; } }, { t: 'select', n: 'level', l: 'Experience', o: ['Beginner', 'Some experience', 'Train regularly'], req: 'Please choose your experience.' }],
         'conds',
@@ -478,7 +478,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     },
     consult: {
       title: 'What would you like to discuss?', note: 'This helps Sahithi prepare for your call.',
-      conds: [['diab', 'Diabetes'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS / PCOD'], ['back', 'Back pain'], ['knee', 'Knee or joint pain']],
+      conds: [['diab', 'Diabetes'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS\u00a0/\u00a0PCOD'], ['back', 'Back pain'], ['knee', 'Knee or joint pain']],
       rows: [
         [{ t: 'select', n: 'topic', l: 'Main topic', o: ['Choosing the right program', 'Pregnancy', 'Postnatal recovery', 'Weight loss', 'PCOS or thyroid', 'General fitness'], req: 'Please choose a topic.' }, { t: 'select', n: 'stage', l: 'Right now you are', o: ['Pregnant', 'After delivery', 'Neither'], req: REQ }],
         'conds',
