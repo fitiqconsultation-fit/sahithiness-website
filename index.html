@@ -328,6 +328,8 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   /* Razorpay payment link. One link for all programs; you can set a different link per program here. */
   var PAY_LINK = 'https://rzp.io/rzp/Mb2OjID';
   var PAY_LINKS = { postnatal: PAY_LINK, pcos: PAY_LINK };
+  /* Lead & Payment Tracker sheet: paste the Apps Script Web app URL between the quotes. */
+  var SHEET_URL = '';
   var TINT = { postnatal: '#F2D4D7', pcos: '#DCE5D3' };
 
   /* Sample class for General Yoga. Paste a YouTube link or a Google Drive video link between the quotes. */
@@ -647,6 +649,11 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       if (S === st) render();
     });
   }
+  function saveLead() {
+    if (!SHEET_URL || S.leadSaved) return;
+    var body = JSON.stringify({ name: S.form.name, email: S.form.email, phone: S.form.phone, program: S.pkg.name, startDate: S.form.startDate || '' });
+    try { fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', keepalive: true, body: body }); S.leadSaved = true; } catch (e) {}
+  }
   function applyCode() {
     var st = S, code = String(st.form.code || '').trim().toUpperCase();
     if (!code) { st.codeErr = 'Please enter your code.'; render(); return; }
@@ -785,7 +792,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       S.step = 'review'; render(); $('overlay').scrollTop = 0; return;
     }
     if (act === 'wa') { openWhatsApp(enquiryText()); S.sent = true; render(); }
-    if (act === 'paylink') { S.paidClicked = true; setTimeout(function () { if (S) { S.step = 'done'; S.result = { link: true }; render(); } }, 300); return; }
+    if (act === 'paylink') { saveLead(); S.paidClicked = true; setTimeout(function () { if (S) { S.step = 'done'; S.result = { link: true }; render(); } }, 300); return; }
     if (act === 'pay' && !S.busy) startPayment();
     if (act === 'code' && !S.busy) applyCode();
     if (act === 'code-remove') { S.codeApplied = ''; S.form.code = ''; render(); }
