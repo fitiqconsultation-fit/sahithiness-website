@@ -329,7 +329,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   var PAY = !!API_URL;
   /* Razorpay payment link. One link for all programs; you can set a different link per program here. */
   var PAY_LINK = 'https://rzp.io/rzp/Mb2OjID';
-  var PAY_LINKS = { postnatal: PAY_LINK, pcos: PAY_LINK };
+  var PAY_LINKS = { postnatal: PAY_LINK, pcos: PAY_LINK, momstrength: PAY_LINK };
   /* Lead & Payment Tracker sheet: paste the Apps Script Web app URL between the quotes. */
   var SHEET_URL = 'https://script.google.com/macros/s/AKfycbxhVIIac981nqxuiM_RMf4D6P1bfkPCoXVUmwMc-c-IBta5kHpN3r385RyYlozRi2-WKQ/exec';
   var TINT = { postnatal: '#F2D4D7', pcos: '#DCE5D3', momstrength: '#F6E3C8' };
@@ -341,7 +341,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   var PACKAGES = [
     { name: 'Postnatal Workouts', kind: 'postnatal', icon: '🤱', price: '₹2,784', duration: '/ month', desc: 'Rebuild your strength after childbirth, gently and step by step.', points: ['5 recorded videos every week', 'New classes all year round', 'Core, back and full-body strength', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' },
     { name: 'PCOS\u00a0/\u00a0PCOD Workouts', kind: 'pcos', icon: '🌸', price: '₹2,784', duration: '/ month', desc: 'Workouts to support your hormones, weight, energy and cycles.', points: ['5 recorded videos every week', 'New classes all year round', 'Strength, yoga and cardio for PCOS', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' },
-    { name: 'Mom\u2019s Strength Training Classes', kind: 'momstrength', icon: '🏋️‍♀️', price: 'Mon–Fri', duration: '· 7–8 PM IST', isNew: true, desc: 'Live online group classes with Sahithi, for moms at every stage of their fitness journey.', points: ['Bodyweight and light to moderate weights', 'Form correction and individual guidance', 'Live on Zoom, Monday to Friday', 'Modifications and recovery clearance as needed'], badge: 'New · Live group classes', cta: 'Register now' }
+    { name: 'Mom\u2019s Strength Training Classes', kind: 'momstrength', icon: '🏋️‍♀️', price: 'Mon–Fri', duration: '· 7–8 PM IST', isNew: true, desc: 'Live online group classes with Sahithi, for moms at every stage of their fitness journey.', points: ['Bodyweight and light to moderate weights', 'Form correction and individual guidance', 'Live on Zoom, Monday to Friday', 'Modifications and recovery clearance as needed'], badge: 'New · Live group classes', cta: 'Join now' }
   ];
 
   function $(id) { return document.getElementById(id); }
@@ -676,7 +676,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     }
     if (r.link) {
       return '<div class="result"><span class="ico" aria-hidden="true" style="background:#DCE5D3;color:#3B4C35">' + TICK + '</span>' +
-        '<h3>Thank you, ' + first + '!</h3><p class="box">Complete your payment in the Razorpay window. Your videos start from <b>' + esc(S.form.startDate) + '</b>.</p>' +
+        '<h3>Thank you, ' + first + '!</h3><p class="box">Complete your payment in the Razorpay window. ' + (k === 'momstrength' ? 'Your live classes start from <b>' + esc(S.form.startDate) + '</b> (Mon–Fri, 7–8 PM IST). We will share your Zoom link.' : 'Your videos start from <b>' + esc(S.form.startDate) + '</b>.') + '</p>' +
         '<a class="linkbtn" href="' + esc(PAY_LINKS[k]) + '" target="_blank" rel="noopener">Payment window didn’t open? Tap here</a>' +
         '<button type="button" class="btn btn-sage" data-act="close">Done</button></div>';
     }
@@ -741,7 +741,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
           '<span style="font-size:13px;color:var(--muted2);text-align:center">UPI, cards, net banking and wallets · Secured by Razorpay</span>' +
           '<button type="button" class="linkbtn" data-act="wa" style="align-self:center">Prefer WhatsApp? Send your details instead</button></div>';
       } else if (PAY_LINKS[p.kind]) {
-        h += '<a class="btn btn-sage" href="' + esc(PAY_LINKS[p.kind]) + '" target="_blank" rel="noopener" data-act="paylink">' + LOCK + 'Pay ' + rupees(full) + ' on Razorpay</a>' +
+        h += '<a class="btn btn-sage" href="' + esc(PAY_LINKS[p.kind]) + '" target="_blank" rel="noopener" data-act="paylink">' + LOCK + (full ? 'Pay ' + rupees(full) + ' on Razorpay' : 'Pay on Razorpay') + '</a>' +
           '<span style="font-size:13px;color:var(--muted2);text-align:center">UPI, cards and net banking. Please use the same phone number and email on the payment page.</span></div>';
       } else {
         h += '<button type="button" class="btn btn-sage" data-act="register">Register for classes</button>' +
