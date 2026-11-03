@@ -80,6 +80,7 @@ nav{display:flex;align-items:center;justify-content:space-between;gap:16px;paddi
 .hstats span{font-size:22px;line-height:1;margin-bottom:6px}.hstats b{font-size:17px}.hstats small{font-size:13px;color:var(--muted2);line-height:1.35}
 .hfor{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:560px}
 .hfor-item{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+.hfor-wide{grid-column:1 / -1}.newpill{display:inline-block;background:#FCE9C8;color:#7A4B12;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;margin-left:4px;vertical-align:2px}
 .hfor-item .ic{width:44px;height:44px;flex:0 0 44px;font-size:22px}.hfor-item b{display:block;font-size:15.5px}.hfor-item small{font-size:13px;color:var(--muted2);line-height:1.35}
 @media (max-width:520px){.hfor{grid-template-columns:1fr}.hstats div{padding:12px 10px}.hstats b{font-size:15px}}
 .hero-img{flex:1 1 340px;min-width:0;display:flex;justify-content:center}
@@ -273,11 +274,11 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
 <main>
 <section id="home" class="wrap hero">
   <div class="hero-text">
-    <div class="tags"><span class="tag tag-pink">🤱 Postnatal</span><span class="tag tag-sage">🌸 PCOS&nbsp;/&nbsp;PCOD</span><span class="tag tag-sage">🎥 Recorded classes</span></div>
+    <div class="tags"><span class="tag tag-pink">🤱 Postnatal</span><span class="tag tag-sage">🌸 PCOS&nbsp;/&nbsp;PCOD</span><span class="tag" style="background:#FCE9C8;color:#7A4B12">🏋️‍♀️ Live strength classes · New</span></div>
     <h1>Home workouts for women</h1>
-    <p>Recorded classes with Sahithi for postnatal recovery and PCOS&nbsp;/&nbsp;PCOD. 5 new videos every week, all year round.</p>
+    <p>Recorded classes for postnatal recovery and PCOS&nbsp;/&nbsp;PCOD, plus live strength classes for moms with Sahithi.</p>
     <div class="ctas">
-      <a class="btn btn-sage" href="#programs">See programs · ₹2,784/month</a>
+      <a class="btn btn-sage" href="#programs">See programs</a>
     </div>
     <div class="hstats">
       <div><span aria-hidden="true">🎥</span><b>5 videos</b><small>every week</small></div>
@@ -287,6 +288,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     <div class="hfor">
       <div class="hfor-item"><span class="ic" style="background:var(--pink-bg)" aria-hidden="true">🤱</span><div><b>Postnatal</b><small>Rebuild core and strength after childbirth</small></div></div>
       <div class="hfor-item"><span class="ic" style="background:var(--sage-bg)" aria-hidden="true">🌸</span><div><b>PCOS&nbsp;/&nbsp;PCOD</b><small>Support hormones, weight and energy</small></div></div>
+      <div class="hfor-item hfor-wide"><span class="ic" style="background:#FCE9C8" aria-hidden="true">🏋️‍♀️</span><div><b>Mom’s Strength Training · Live <span class="newpill">New</span></b><small>Group classes on Zoom, Monday–Friday, 7–8 PM IST</small></div></div>
     </div>
   </div>
   <div class="hero-img">
@@ -299,9 +301,9 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     <div class="head">
       <span class="eyebrow">Programs and pricing</span>
       <h2 class="h2">Choose your program</h2>
-      <p class="lead" style="max-width:640px">₹2,784 a month, renewed monthly. Recorded classes only.</p>
+      <p class="lead" style="max-width:640px">Recorded programs at ₹2,784 a month, plus new live strength classes for moms.</p>
     </div>
-    <div id="program-grid" class="grid g250" style="max-width:820px;margin:0 auto;width:100%"></div>
+    <div id="program-grid" class="grid g250" style="max-width:1120px;margin:0 auto;width:100%"></div>
   </div>
 </section>
 
@@ -330,7 +332,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   var PAY_LINKS = { postnatal: PAY_LINK, pcos: PAY_LINK };
   /* Lead & Payment Tracker sheet: paste the Apps Script Web app URL between the quotes. */
   var SHEET_URL = 'https://script.google.com/macros/s/AKfycbxhVIIac981nqxuiM_RMf4D6P1bfkPCoXVUmwMc-c-IBta5kHpN3r385RyYlozRi2-WKQ/exec';
-  var TINT = { postnatal: '#F2D4D7', pcos: '#DCE5D3' };
+  var TINT = { postnatal: '#F2D4D7', pcos: '#DCE5D3', momstrength: '#F6E3C8' };
 
   /* Sample class for General Yoga. Paste a YouTube link or a Google Drive video link between the quotes. */
   var SAMPLE_VIDEO = '';
@@ -338,7 +340,8 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   /* Programs shown on the page. Edit names, prices and text here. */
   var PACKAGES = [
     { name: 'Postnatal Workouts', kind: 'postnatal', icon: '🤱', price: '₹2,784', duration: '/ month', desc: 'Rebuild your strength after childbirth, gently and step by step.', points: ['5 recorded videos every week', 'New classes all year round', 'Core, back and full-body strength', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' },
-    { name: 'PCOS\u00a0/\u00a0PCOD Workouts', kind: 'pcos', icon: '🌸', price: '₹2,784', duration: '/ month', desc: 'Workouts to support your hormones, weight, energy and cycles.', points: ['5 recorded videos every week', 'New classes all year round', 'Strength, yoga and cardio for PCOS', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' }
+    { name: 'PCOS\u00a0/\u00a0PCOD Workouts', kind: 'pcos', icon: '🌸', price: '₹2,784', duration: '/ month', desc: 'Workouts to support your hormones, weight, energy and cycles.', points: ['5 recorded videos every week', 'New classes all year round', 'Strength, yoga and cardio for PCOS', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' },
+    { name: 'Mom\u2019s Strength Training Classes', kind: 'momstrength', icon: '🏋️‍♀️', price: 'Mon–Fri', duration: '· 7–8 PM IST', isNew: true, desc: 'Live online group classes with Sahithi, for moms at every stage of their fitness journey.', points: ['Bodyweight and light to moderate weights', 'Form correction and individual guidance', 'Live on Zoom, Monday to Friday', 'Modifications and recovery clearance as needed'], badge: 'New · Live group classes', cta: 'Register now' }
   ];
 
   function $(id) { return document.getElementById(id); }
@@ -404,7 +407,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       var pink = p.kind === 'postnatal';
       return '<article class="card">' + mediaHtml(p, i) +
         '<div class="card-body">' +
-        (p.badge ? '<span class="badge" style="background:' + (pink ? '#F2D4D7' : '#DCE5D3') + ';color:' + (pink ? '#7A3A44' : '#3B4C35') + '">' + esc(p.badge) + '</span>' : '') +
+        (p.badge ? '<span class="badge" style="background:' + (p.isNew ? '#FCE9C8' : pink ? '#F2D4D7' : '#DCE5D3') + ';color:' + (p.isNew ? '#7A4B12' : pink ? '#7A3A44' : '#3B4C35') + '">' + esc(p.badge) + '</span>' : '') +
         '<h3>' + esc(p.name) + '</h3><p>' + esc(p.desc) + '</p>' +
         (p.points ? '<ul class="card-pts">' + p.points.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' : '') +
         '<div class="price"><b>' + esc(p.price) + '</b><span>' + esc(p.duration) + '</span></div>' +
@@ -446,6 +449,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     },
     postnatal: { title: '', conds: [], rows: [[START]] },
     pcos: { title: '', conds: [], rows: [[START]] },
+    momstrength: { title: '', conds: [], rows: [[START]] },
     general: {
       title: 'A little about you', note: 'This helps Sahithi suggest safe modifications for you.', consent: CONSENT_GEN,
       conds: [['diab', 'Diabetes'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS\u00a0/\u00a0PCOD'], ['back', 'Back pain'], ['knee', 'Knee or joint pain'], ['preg', 'Currently pregnant']],
@@ -665,6 +669,11 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   }
   function doneHtml() {
     var r = S.result || {}, k = S.pkg.kind, first = esc(String(S.form.name).split(' ')[0]), body;
+    if (r.registered) {
+      return '<div class="result"><span class="ico" aria-hidden="true" style="background:#DCE5D3;color:#3B4C35">' + TICK + '</span>' +
+        '<h3>You’re registered, ' + first + '!</h3><p class="box">Classes run <b>Monday to Friday, 7–8 PM IST</b> on Zoom. Sahithi’s team will contact you on <b>' + esc(S.form.phone) + '</b> with the fee and your Zoom link before <b>' + esc(S.form.startDate) + '</b>.</p>' +
+        '<button type="button" class="btn btn-sage" data-act="close">Done</button></div>';
+    }
     if (r.link) {
       return '<div class="result"><span class="ico" aria-hidden="true" style="background:#DCE5D3;color:#3B4C35">' + TICK + '</span>' +
         '<h3>Thank you, ' + first + '!</h3><p class="box">Complete your payment in the Razorpay window. Your videos start from <b>' + esc(S.form.startDate) + '</b>.</p>' +
@@ -711,7 +720,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
         '<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px"><button type="button" class="btn btn-outline" data-act="wa">Open WhatsApp again</button><button type="button" class="btn btn-sage" data-act="close">Done</button></div></div>';
     } else {
       var full = paise(p.price), amt = S.codeApplied ? full - CREDIT : full;
-      h += '<div class="blk"><h3>' + (PAY || PAY_LINKS[p.kind] ? 'Review and pay' : 'Review and send') + '</h3><div class="summary">' +
+      h += '<div class="blk"><h3>' + (PAY || PAY_LINKS[p.kind] ? 'Review and pay' : 'Review and register') + '</h3><div class="summary">' +
         '<div><span>Program</span><span style="font-weight:600">' + esc(p.name) + '</span></div>' +
         (p.kind === 'consult' ? '<div><span>Call</span><span>' + esc(S.form.cDate + ', ' + S.form.cSlot) + '</span></div>' : '') +
         (S.form.startDate ? '<div><span>Start date</span><span>' + esc(S.form.startDate) + '</span></div>' : '') +
@@ -719,7 +728,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
         '<div><span>Phone</span><span>' + esc(S.form.phone) + '</span></div>' +
         '<div><span>Email</span><span>' + esc(S.form.email) + '</span></div>' +
         (S.codeApplied ? '<div><span>Fee</span><span>' + rupees(full) + '</span></div><div class="disc"><span>Code ' + esc(S.codeApplied) + '</span><span>− ' + rupees(CREDIT) + '</span></div>' : '') +
-        '<div class="total"><span>' + (PAY || PAY_LINKS[p.kind] ? 'To pay' : 'Fee') + '</span><span>' + rupees(amt) + '</span></div></div>';
+        (full ? '<div class="total"><span>' + (PAY || PAY_LINKS[p.kind] ? 'To pay' : 'Fee') + '</span><span>' + rupees(amt) + '</span></div>' : '<div class="total"><span>Classes</span><span>Mon–Fri, 7–8 PM IST</span></div>') + '</div>';
       if (PAY) {
         if (p.kind !== 'consult') {
           h += S.codeApplied
@@ -735,8 +744,8 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
         h += '<a class="btn btn-sage" href="' + esc(PAY_LINKS[p.kind]) + '" target="_blank" rel="noopener" data-act="paylink">' + LOCK + 'Pay ' + rupees(full) + ' on Razorpay</a>' +
           '<span style="font-size:13px;color:var(--muted2);text-align:center">UPI, cards and net banking. Please use the same phone number and email on the payment page.</span></div>';
       } else {
-        h += '<button type="button" class="btn btn-sage" data-act="wa">' + WA_ICON + 'Send my details on WhatsApp</button>' +
-          '<span style="font-size:13px;color:var(--muted2);text-align:center">Sahithi’s team will confirm your plan and share payment details.</span></div>';
+        h += '<button type="button" class="btn btn-sage" data-act="register">Register for classes</button>' +
+          '<span style="font-size:13px;color:var(--muted2);text-align:center">Sahithi’s team will contact you with the fee and your Zoom link.</span></div>';
       }
       h += '<div class="navrow"><button type="button" class="btn btn-outline" data-act="back"' + (S.busy ? ' disabled' : '') + '>Back</button><span></span></div>';
     }
@@ -792,6 +801,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       S.step = 'review'; render(); $('overlay').scrollTop = 0; return;
     }
     if (act === 'wa') { openWhatsApp(enquiryText()); S.sent = true; render(); }
+    if (act === 'register') { saveLead(); S.step = 'done'; S.result = { registered: true }; render(); $('overlay').scrollTop = 0; return; }
     if (act === 'paylink') { saveLead(); S.paidClicked = true; setTimeout(function () { if (S) { S.step = 'done'; S.result = { link: true }; render(); } }, 300); return; }
     if (act === 'pay' && !S.busy) startPayment();
     if (act === 'code' && !S.busy) applyCode();
