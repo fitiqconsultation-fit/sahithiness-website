@@ -341,7 +341,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   var PACKAGES = [
     { name: 'Postnatal Workouts', kind: 'postnatal', icon: '🤱', price: '₹2,784', duration: '/ month', desc: 'Rebuild your strength after childbirth, gently and step by step.', points: ['5 recorded videos every week', 'New classes all year round', 'Core, back and full-body strength', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' },
     { name: 'PCOS\u00a0/\u00a0PCOD Workouts', kind: 'pcos', icon: '🌸', price: '₹2,784', duration: '/ month', desc: 'Workouts to support your hormones, weight, energy and cycles.', points: ['5 recorded videos every week', 'New classes all year round', 'Strength, yoga and cardio for PCOS', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' },
-    { name: 'Strength Training Classes', kind: 'momstrength', icon: '🏋️‍♀️', price: 'Mon–Fri', duration: '· 7–8 PM IST', isNew: true, desc: 'Live online group classes with Sahithi, for moms at every stage of their fitness journey.', points: ['Bodyweight and light to moderate weights', 'Form correction and individual guidance', 'Live on Zoom, Monday to Friday', 'Modifications and recovery clearance as needed'], badge: 'New · Live group classes', cta: 'Join now' }
+    { name: 'Strength Training Classes', kind: 'momstrength', icon: '🏋️‍♀️', price: '₹3,000', duration: '/ month', isNew: true, desc: 'Live online group classes with Sahithi, for moms at every stage of their fitness journey.', points: ['Bodyweight and light to moderate weights', 'Form correction and individual guidance', 'Live on Zoom, Mon–Fri, 7–8 PM IST', 'Modifications and recovery clearance as needed'], badge: 'New · Live group classes', cta: 'Join now' }
   ];
 
   function $(id) { return document.getElementById(id); }
@@ -724,6 +724,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       h += '<div class="blk"><h3>' + (PAY || PAY_LINKS[p.kind] ? 'Review and pay' : 'Review and register') + '</h3><div class="summary">' +
         '<div><span>Program</span><span style="font-weight:600">' + esc(p.name) + '</span></div>' +
         (p.kind === 'consult' ? '<div><span>Call</span><span>' + esc(S.form.cDate + ', ' + S.form.cSlot) + '</span></div>' : '') +
+        (p.kind === 'momstrength' ? '<div><span>Classes</span><span>Mon–Fri, 7–8 PM IST</span></div>' : '') +
         (S.form.stage ? '<div><span>Stage</span><span>' + esc(S.form.stage) + '</span></div>' : '') +
         (S.form.startDate ? '<div><span>Start date</span><span>' + esc(S.form.startDate) + '</span></div>' : '') +
         '<div><span>Name</span><span>' + esc(S.form.name) + '</span></div>' +
