@@ -473,7 +473,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
 
   var DETAILS = [
     [{ t: 'text', n: 'name', l: 'Full name', ph: 'Your full name', ac: 'name', req: 'Please enter your full name.', check: function (v) { return v.trim().length >= 2; } }],
-    [{ t: 'tel', n: 'phone', l: 'WhatsApp number', ph: '10-digit mobile number', ac: 'tel', req: 'Please enter a valid 10-digit mobile number.', check: function (v) { return /^(91)?[6-9]\d{9}$/.test(v.replace(/\D/g, '')); } }],
+    [{ t: 'tel', n: 'phone', l: 'Phone / WhatsApp', ph: '10-digit mobile number', ac: 'tel', req: 'Please enter a valid 10-digit mobile number.', check: function (v) { return /^(91)?[6-9]\d{9}$/.test(v.replace(/\D/g, '')); } }],
     [{ t: 'email', n: 'email', l: 'Email', ph: 'you@example.com', ac: 'email', req: 'Please enter a valid email address.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }]
   ];
   var CONSULT_SLOT = [{ t: 'cal', n: 'cDate', l: 'Preferred date', req: 'Please choose a date.' }, { t: 'calslot', n: 'cSlot', l: 'Preferred time', req: 'Please choose a time.' }];
@@ -529,6 +529,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     return h + '</div>' + (S.form.startDate ? '<div class="cal-sub" style="color:var(--sage)">Starting <b>' + esc(S.form.startDate) + '</b></div>' : '') + '</div>';
   }
   function fieldHtml(f) {
+    if (f.n === 'phone' && S.pkg.kind === 'momstrength') f = Object.assign({}, f, { l: 'WhatsApp number' });
     if (f.t === 'calslot') return '';
     if (f.t === 'start') return '<div class="fld" style="flex:1 1 100%"><span class="lbl">When would you like to start?</span>' + startHtml() + (S.errors.startDate ? '<span class="err">' + esc(S.errors.startDate) + '</span>' : '') + '</div>';
     if (f.t === 'cal') return '<div class="fld" style="flex:1 1 100%"><span class="lbl">Choose a date and time for your call</span>' + calHtml(S.errors.cDate, S.errors.cSlot) + '</div>';
@@ -726,7 +727,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
         (S.form.stage ? '<div><span>Stage</span><span>' + esc(S.form.stage) + '</span></div>' : '') +
         (S.form.startDate ? '<div><span>Start date</span><span>' + esc(S.form.startDate) + '</span></div>' : '') +
         '<div><span>Name</span><span>' + esc(S.form.name) + '</span></div>' +
-        '<div><span>WhatsApp</span><span>' + esc(S.form.phone) + '</span></div>' +
+        '<div><span>' + (p.kind === 'momstrength' ? 'WhatsApp' : 'Phone') + '</span><span>' + esc(S.form.phone) + '</span></div>' +
         '<div><span>Email</span><span>' + esc(S.form.email) + '</span></div>' +
         (S.codeApplied ? '<div><span>Fee</span><span>' + rupees(full) + '</span></div><div class="disc"><span>Code ' + esc(S.codeApplied) + '</span><span>− ' + rupees(CREDIT) + '</span></div>' : '') +
         (full ? '<div class="total"><span>' + (PAY || PAY_LINKS[p.kind] ? 'To pay' : 'Fee') + '</span><span>' + rupees(amt) + '</span></div>' : '<div class="total"><span>Classes</span><span>Mon–Fri, 7–8 PM IST</span></div>') + '</div>';
