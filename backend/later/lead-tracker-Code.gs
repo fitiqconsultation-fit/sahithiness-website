@@ -20,7 +20,7 @@ function doPost(e) {
 
     var sh = tab_();
     var head = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0];
-    ['Start Date', 'Enquiry Date'].forEach(function (h) {           // extra columns, added once at the end
+    ['Start Date', 'Enquiry Date', 'Postpartum Stage / Fitness Category'].forEach(function (h) {           // extra columns, added once at the end
       if (head.indexOf(h) < 0) { sh.getRange(1, head.length + 1).setValue(h).setFontWeight('bold'); head.push(h); }
     });
 
@@ -31,6 +31,7 @@ function doPost(e) {
       'Program': clean_(d.program, 80),
       'Payment Status': 'Pending',
       'Start Date': clean_(d.startDate, 40),
+      'Postpartum Stage / Fitness Category': clean_(d.stage, 80),
       'Enquiry Date': Utilities.formatDate(new Date(), TZ, 'dd MMM yyyy, h:mm a')
     };
 

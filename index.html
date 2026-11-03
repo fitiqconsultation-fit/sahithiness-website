@@ -449,7 +449,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     },
     postnatal: { title: '', conds: [], rows: [[START]] },
     pcos: { title: '', conds: [], rows: [[START]] },
-    momstrength: { title: '', conds: [], rows: [[START]] },
+    momstrength: { title: '', conds: [], rows: [[{ t: 'select', n: 'stage', l: 'Postpartum stage or fitness category', o: ['Currently pregnant', '0–6 weeks after delivery', '6 weeks – 6 months after delivery', '6–12 months after delivery', '1–2 years after delivery', 'More than 2 years after delivery', 'General fitness (not postpartum)'], req: 'Please choose your stage or category.', help: 'Helps Sahithi plan safe modifications for you.' }], [START]] },
     general: {
       title: 'A little about you', note: 'This helps Sahithi suggest safe modifications for you.', consent: CONSENT_GEN,
       conds: [['diab', 'Diabetes'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS\u00a0/\u00a0PCOD'], ['back', 'Back pain'], ['knee', 'Knee or joint pain'], ['preg', 'Currently pregnant']],
@@ -473,7 +473,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
 
   var DETAILS = [
     [{ t: 'text', n: 'name', l: 'Full name', ph: 'Your full name', ac: 'name', req: 'Please enter your full name.', check: function (v) { return v.trim().length >= 2; } }],
-    [{ t: 'tel', n: 'phone', l: 'Phone / WhatsApp', ph: '10-digit mobile number', ac: 'tel', req: 'Please enter a valid 10-digit mobile number.', check: function (v) { return /^(91)?[6-9]\d{9}$/.test(v.replace(/\D/g, '')); } }],
+    [{ t: 'tel', n: 'phone', l: 'WhatsApp number', ph: '10-digit mobile number', ac: 'tel', req: 'Please enter a valid 10-digit mobile number.', check: function (v) { return /^(91)?[6-9]\d{9}$/.test(v.replace(/\D/g, '')); } }],
     [{ t: 'email', n: 'email', l: 'Email', ph: 'you@example.com', ac: 'email', req: 'Please enter a valid email address.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }]
   ];
   var CONSULT_SLOT = [{ t: 'cal', n: 'cDate', l: 'Preferred date', req: 'Please choose a date.' }, { t: 'calslot', n: 'cSlot', l: 'Preferred time', req: 'Please choose a time.' }];
@@ -655,7 +655,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   }
   function saveLead() {
     if (!SHEET_URL || S.leadSaved) return;
-    var body = JSON.stringify({ name: S.form.name, email: S.form.email, phone: S.form.phone, program: S.pkg.name, startDate: S.form.startDate || '' });
+    var body = JSON.stringify({ name: S.form.name, email: S.form.email, phone: S.form.phone, program: S.pkg.name, startDate: S.form.startDate || '', stage: S.form.stage || '' });
     try { fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', keepalive: true, body: body }); S.leadSaved = true; } catch (e) {}
   }
   function applyCode() {
@@ -723,9 +723,10 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       h += '<div class="blk"><h3>' + (PAY || PAY_LINKS[p.kind] ? 'Review and pay' : 'Review and register') + '</h3><div class="summary">' +
         '<div><span>Program</span><span style="font-weight:600">' + esc(p.name) + '</span></div>' +
         (p.kind === 'consult' ? '<div><span>Call</span><span>' + esc(S.form.cDate + ', ' + S.form.cSlot) + '</span></div>' : '') +
+        (S.form.stage ? '<div><span>Stage</span><span>' + esc(S.form.stage) + '</span></div>' : '') +
         (S.form.startDate ? '<div><span>Start date</span><span>' + esc(S.form.startDate) + '</span></div>' : '') +
         '<div><span>Name</span><span>' + esc(S.form.name) + '</span></div>' +
-        '<div><span>Phone</span><span>' + esc(S.form.phone) + '</span></div>' +
+        '<div><span>WhatsApp</span><span>' + esc(S.form.phone) + '</span></div>' +
         '<div><span>Email</span><span>' + esc(S.form.email) + '</span></div>' +
         (S.codeApplied ? '<div><span>Fee</span><span>' + rupees(full) + '</span></div><div class="disc"><span>Code ' + esc(S.codeApplied) + '</span><span>− ' + rupees(CREDIT) + '</span></div>' : '') +
         (full ? '<div class="total"><span>' + (PAY || PAY_LINKS[p.kind] ? 'To pay' : 'Fee') + '</span><span>' + rupees(amt) + '</span></div>' : '<div class="total"><span>Classes</span><span>Mon–Fri, 7–8 PM IST</span></div>') + '</div>';
