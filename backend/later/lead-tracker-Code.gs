@@ -12,14 +12,14 @@ var TZ = 'Asia/Kolkata';
 var ZOOM_LINK = 'PASTE_ZOOM_LINK_HERE';
 var WELCOME = {
   'Strength Training Classes':
-    'Hi {name}! 🌸\n\nWelcome to *Strength Training Classes* with Sahithi. Your payment is confirmed ✅\n\n' +
-    '🗓 Classes: Monday to Friday, 7–8 PM IST\n📅 Your start date: {start}\n🔗 Zoom link: {zoom}\n\n' +
+    'Hi {name}!\n\nWelcome to Strength Training Classes with Sahithi. Your payment is confirmed.\n\n' +
+    'Classes: Monday to Friday, 7-8 PM IST\nYour start date: {start}\nZoom link: {zoom}\n\n' +
     'Please join 5 minutes early with a mat, a water bottle and comfortable clothes. Keep light dumbbells or filled water bottles handy.\n\n' +
-    'See you in class! 💪\n– Team Sahithiness',
+    'See you in class!\nTeam Sahithiness',
   'default':
-    'Hi {name}! 🌸\n\nWelcome to *{program}* with Sahithi. Your payment is confirmed ✅\n\n' +
-    '📅 Your start date: {start}\n🎥 You will get 5 new recorded videos every week. We will share your video access with you here.\n\n' +
-    'Practise within your comfort, and message us here anytime.\n– Team Sahithiness'
+    'Hi {name}!\n\nWelcome to {program} with Sahithi. Your payment is confirmed.\n\n' +
+    'Your start date: {start}\nYou will get 5 new recorded videos every week. We will share your video access with you here.\n\n' +
+    'Practise within your comfort, and message us here anytime.\nTeam Sahithiness'
 };
 
 function doGet() { return ContentService.createTextOutput('Sahithiness lead tracker is running.'); }
@@ -115,11 +115,16 @@ function welcomeRow_(sh, r) {
   var msg = (WELCOME[program] || WELCOME['default'])
     .replace(/{name}/g, String(get('Full Name')).trim().split(' ')[0] || 'there')
     .replace(/{program}/g, program)
-    .replace(/{start}/g, get('Start Date') || 'as discussed')
+    .replace(/{start}/g, dateText_(get('Start Date')) || 'as discussed')
     .replace(/{zoom}/g, ZOOM_LINK);
-  var url = 'https://wa.me/91' + phone + '?text=' + encodeURIComponent(msg);
+  var url = 'https://api.whatsapp.com/send?phone=91' + phone + '&text=' + encodeURIComponent(msg);
   sh.getRange(r, head.indexOf('WhatsApp Welcome') + 1).setFormula('=HYPERLINK("' + url.replace(/"/g, '""') + '","📲 Send welcome")');
   return true;
 }
 
+// The sheet turns "Wed, 4 Nov, 2026" into a date; show it as a readable date again
+function dateText_(v) {
+  if (v && typeof v.getTime === 'function') return Utilities.formatDate(v, TZ, 'EEE, d MMM yyyy');
+  return String(v || '').trim();
+}
 function headers_(sh) { return sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0]; }
