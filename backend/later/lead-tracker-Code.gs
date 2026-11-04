@@ -9,7 +9,8 @@ var TAB_ID = 1864207904;   // the tab from the sheet link (gid=1864207904)
 var TZ = 'Asia/Kolkata';
 
 /* ===== Welcome messages: edit the Zoom link and texts here ===== */
-var ZOOM_LINK = 'PASTE_ZOOM_LINK_HERE';
+// The Zoom link is kept private: add it under Project Settings → Script properties as ZOOM_LINK
+var ZOOM_LINK = PropertiesService.getScriptProperties().getProperty('ZOOM_LINK') || 'Zoom link will be shared soon';
 var WELCOME = {
   'Strength Training Classes':
     'Hi {name}!\n\nWelcome to Strength Training Classes with Sahithi. Your payment is confirmed.\n\n' +
