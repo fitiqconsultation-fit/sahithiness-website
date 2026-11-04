@@ -148,6 +148,8 @@ function headers_(sh) { return sh.getRange(1, 1, 1, sh.getLastColumn()).getValue
  * Then run setupAutoWelcome() once.
  */
 var MC = 'https://api.manychat.com';
+// ManyChat custom field IDs (from the template preview: cuf_15128968 = program, etc.)
+var MC_FIELDS = { program: 15128968, start_date: 15128969, zoom_link: 15128970 };
 
 function setupAutoWelcome() {
   ScriptApp.getProjectTriggers().forEach(function (t) { if (t.getHandlerFunction() === 'onPaidEdit') ScriptApp.deleteTrigger(t); });
@@ -197,8 +199,9 @@ function sendWelcome_(sh, r) {
       id = made.data && made.data.id;
     }
     if (!id) throw new Error('Could not create contact');
-    [['wa_number', wa], ['program', program], ['start_date', isoDate_(get('Start Date'))], ['zoom_link', /strength/i.test(program) ? ZOOM_LINK : 'Your recorded videos will be shared here on WhatsApp']].forEach(function (f) {
-      mc_('post', '/fb/subscriber/setCustomFieldByName', { subscriber_id: id, field_name: f[0], field_value: f[1] });
+    [[Number(prop_('MANYCHAT_WA_FIELD_ID')), wa], [MC_FIELDS.program, program], [MC_FIELDS.start_date, isoDate_(get('Start Date'))],
+     [MC_FIELDS.zoom_link, /strength/i.test(program) ? ZOOM_LINK : 'Your recorded videos will be shared here on WhatsApp']].forEach(function (f) {
+      mc_('post', '/fb/subscriber/setCustomField', { subscriber_id: id, field_id: f[0], field_value: f[1] });
     });
     mc_('post', '/fb/sending/sendFlow', { subscriber_id: id, flow_ns: prop_('MANYCHAT_FLOW_NS') });
     cell.setValue('✓ ' + Utilities.formatDate(new Date(), TZ, 'dd MMM, h:mm a'));
