@@ -130,6 +130,12 @@ function dateText_(v) {
   if (v && typeof v.getTime === 'function') return Utilities.formatDate(v, TZ, 'EEE, d MMM yyyy');
   return String(v || '').trim();
 }
+// ManyChat "Date" fields need YYYY-MM-DD. Handles a sheet date or text like "Wed, 4 Nov, 2026".
+function isoDate_(v) {
+  var d = v && typeof v.getTime === 'function' ? v : new Date(String(v || '').replace(/^[A-Za-z]{3},\s*/, ''));
+  if (isNaN(d)) d = new Date();
+  return Utilities.formatDate(d, TZ, 'yyyy-MM-dd');
+}
 function headers_(sh) { return sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0]; }
 
 /* ============ Automatic welcome through ManyChat (WhatsApp 98885 88825) ============
@@ -191,7 +197,7 @@ function sendWelcome_(sh, r) {
       id = made.data && made.data.id;
     }
     if (!id) throw new Error('Could not create contact');
-    [['wa_number', wa], ['program', program], ['start_date', dateText_(get('Start Date')) || 'as discussed'], ['zoom_link', /strength/i.test(program) ? ZOOM_LINK : 'Your recorded videos will be shared here on WhatsApp']].forEach(function (f) {
+    [['wa_number', wa], ['program', program], ['start_date', isoDate_(get('Start Date'))], ['zoom_link', /strength/i.test(program) ? ZOOM_LINK : 'Your recorded videos will be shared here on WhatsApp']].forEach(function (f) {
       mc_('post', '/fb/subscriber/setCustomFieldByName', { subscriber_id: id, field_name: f[0], field_value: f[1] });
     });
     mc_('post', '/fb/sending/sendFlow', { subscriber_id: id, flow_ns: prop_('MANYCHAT_FLOW_NS') });
