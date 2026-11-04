@@ -36,7 +36,7 @@ function doPost(e) {
     var sh = tab_();
     var head = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0];
     ['Start Date', 'Enquiry Date', 'Postpartum Stage / Fitness Category'].forEach(function (h) {           // extra columns, added once at the end
-      if (head.indexOf(h) < 0) { sh.getRange(1, head.length + 1).setValue(h).setFontWeight('bold'); head.push(h); }
+      if (head.indexOf(h) < 0) { addHeader_(sh, head.length + 1, h); head.push(h); }
     });
 
     var v = {
@@ -84,6 +84,7 @@ function onOpen() {
   SpreadsheetApp.getUi().createMenu('Sahithiness')
     .addItem('Send welcome (ManyChat) to Paid clients not yet sent', 'sendPendingWelcomes')
     .addItem('Create WhatsApp links for Paid clients (manual backup)', 'createWelcomeLinks')
+    .addItem('Fix header colours', 'styleHeaders')
     .addSeparator()
     .addItem('Set up automatic welcome (run once)', 'setupAutoWelcome')
     .addToUi();
@@ -106,7 +107,7 @@ function createWelcomeLinks() {
 function welcomeRow_(sh, r) {
   var head = headers_(sh);
   ['WhatsApp Welcome'].forEach(function (h) {
-    if (head.indexOf(h) < 0) { sh.getRange(1, head.length + 1).setValue(h).setFontWeight('bold'); head.push(h); }
+    if (head.indexOf(h) < 0) { addHeader_(sh, head.length + 1, h); head.push(h); }
   });
   var row = sh.getRange(r, 1, 1, head.length).getValues()[0], get = function (h) { return row[head.indexOf(h)]; };
   if (String(get('Payment Status')).trim().toLowerCase() !== 'paid') return false;
@@ -178,7 +179,7 @@ function sendPendingWelcomes() {
 function sendWelcome_(sh, r) {
   var head = headers_(sh);
   ['Welcome Sent'].forEach(function (h) {
-    if (head.indexOf(h) < 0) { sh.getRange(1, head.length + 1).setValue(h).setFontWeight('bold'); head.push(h); }
+    if (head.indexOf(h) < 0) { addHeader_(sh, head.length + 1, h); head.push(h); }
   });
   var row = sh.getRange(r, 1, 1, head.length).getValues()[0], get = function (h) { return row[head.indexOf(h)]; };
   var cell = sh.getRange(r, head.indexOf('Welcome Sent') + 1);
@@ -239,4 +240,17 @@ function prop_(k) {
   var v = PropertiesService.getScriptProperties().getProperty(k);
   if (!v) throw new Error('Missing script property ' + k);
   return v.trim();
+}
+
+/** New header cells copy the look (green fill, bold, borders) of the "Full Name" header. */
+function addHeader_(sh, col, title) {
+  sh.getRange(1, 1).copyFormatToRange(sh, col, col, 1, 1);
+  sh.getRange(1, col).setValue(title);
+}
+
+/** Menu: make every header cell match the "Full Name" header. */
+function styleHeaders() {
+  var sh = tab_();
+  sh.getRange(1, 1).copyFormatToRange(sh, 2, sh.getLastColumn(), 1, 1);
+  SpreadsheetApp.getActive().toast('Header colours updated.', 'Sahithiness', 4);
 }
