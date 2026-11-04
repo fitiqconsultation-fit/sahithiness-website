@@ -81,7 +81,10 @@ function clean_(v, max) { var s = String(v == null ? '' : v).replace(/[\u0000-\u
  */
 function onOpen() {
   SpreadsheetApp.getUi().createMenu('Sahithiness')
-    .addItem('Create welcome links for Paid clients', 'createWelcomeLinks')
+    .addItem('Send welcome (ManyChat) to Paid clients not yet sent', 'sendPendingWelcomes')
+    .addItem('Create WhatsApp links for Paid clients (manual backup)', 'createWelcomeLinks')
+    .addSeparator()
+    .addItem('Set up automatic welcome (run once)', 'setupAutoWelcome')
     .addToUi();
 }
 
@@ -128,3 +131,102 @@ function dateText_(v) {
   return String(v || '').trim();
 }
 function headers_(sh) { return sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0]; }
+
+/* ============ Automatic welcome through ManyChat (WhatsApp 98885 88825) ============
+ * When Payment Status becomes Paid, the sheet sends the client to ManyChat, fills her details
+ * (wa_number, program, start_date, zoom_link) and starts the welcome flow, which sends the approved template.
+ * Script properties needed (Project Settings → Script properties):
+ *   MANYCHAT_API_KEY      ManyChat → Settings → API → Generate API key
+ *   MANYCHAT_FLOW_NS      the welcome flow's ID (from the flow's URL, looks like content20251104123456_123456)
+ *   MANYCHAT_WA_FIELD_ID  the ID of the custom field "wa_number" (Settings → Fields → wa_number)
+ * Then run setupAutoWelcome() once.
+ */
+var MC = 'https://api.manychat.com';
+
+function setupAutoWelcome() {
+  ScriptApp.getProjectTriggers().forEach(function (t) { if (t.getHandlerFunction() === 'onPaidEdit') ScriptApp.deleteTrigger(t); });
+  ScriptApp.newTrigger('onPaidEdit').forSpreadsheet(SpreadsheetApp.getActive()).onEdit().create();
+  var ok = mc_('get', '/fb/page/getInfo');
+  SpreadsheetApp.getActive().toast('ManyChat connected: ' + (ok.data && ok.data.name || 'OK') + '. Marking a client Paid will now send the welcome automatically.', 'Sahithiness', 10);
+}
+
+/** Runs on every edit (installed by setupAutoWelcome). */
+function onPaidEdit(e) {
+  var sh = e.range.getSheet();
+  if (sh.getSheetId() !== TAB_ID || e.range.getRow() < 2) return;
+  var cS = headers_(sh).indexOf('Payment Status') + 1;
+  if (cS < 1 || cS < e.range.getColumn() || cS > e.range.getLastColumn()) return;
+  for (var r = e.range.getRow(); r <= e.range.getLastRow(); r++) sendWelcome_(sh, r);
+}
+
+/** Menu: send to every Paid client who has not been sent a welcome yet. */
+function sendPendingWelcomes() {
+  var sh = tab_(), n = 0;
+  for (var r = 2; r <= sh.getLastRow(); r++) if (sendWelcome_(sh, r) === 'sent') n++;
+  SpreadsheetApp.getActive().toast(n + ' welcome message(s) sent through ManyChat.', 'Sahithiness', 8);
+}
+
+function sendWelcome_(sh, r) {
+  var head = headers_(sh);
+  ['Welcome Sent'].forEach(function (h) {
+    if (head.indexOf(h) < 0) { sh.getRange(1, head.length + 1).setValue(h).setFontWeight('bold'); head.push(h); }
+  });
+  var row = sh.getRange(r, 1, 1, head.length).getValues()[0], get = function (h) { return row[head.indexOf(h)]; };
+  var cell = sh.getRange(r, head.indexOf('Welcome Sent') + 1);
+  if (String(get('Payment Status')).trim().toLowerCase() !== 'paid') return 'skip';
+  if (/^✓/.test(String(get('Welcome Sent')))) return 'skip';                 // never send twice
+  var phone = String(get('Phone / WhatsApp')).replace(/\D/g, '').slice(-10);
+  if (!/^[6-9]\d{9}$/.test(phone)) { cell.setValue('✗ Invalid phone'); return 'error'; }
+  var lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    if (/^✓/.test(String(cell.getValue()))) return 'skip';
+    var wa = '91' + phone, name = String(get('Full Name')).trim(), program = String(get('Program')).replace(/ /g, ' ').trim();
+    var id = findContact_(wa);
+    if (!id) {
+      var made = mc_('post', '/fb/subscriber/createSubscriber', {
+        first_name: name.split(' ')[0] || name, last_name: name.split(' ').slice(1).join(' '),
+        whatsapp_phone: '+' + wa, consent_phrase: 'Paid on sahithiness.in and agreed to receive class updates on WhatsApp'
+      });
+      id = made.data && made.data.id;
+    }
+    if (!id) throw new Error('Could not create contact');
+    [['wa_number', wa], ['program', program], ['start_date', dateText_(get('Start Date')) || 'as discussed'], ['zoom_link', ZOOM_LINK]].forEach(function (f) {
+      mc_('post', '/fb/subscriber/setCustomFieldByName', { subscriber_id: id, field_name: f[0], field_value: f[1] });
+    });
+    mc_('post', '/fb/sending/sendFlow', { subscriber_id: id, flow_ns: prop_('MANYCHAT_FLOW_NS') });
+    cell.setValue('✓ ' + Utilities.formatDate(new Date(), TZ, 'dd MMM, h:mm a'));
+    return 'sent';
+  } catch (err) {
+    var msg = String(err && err.message || err);
+    if (/already exists/i.test(msg)) msg = 'Contact already in ManyChat without wa_number. Run the one-time "copy WhatsApp ID" broadcast, then try again';
+    cell.setValue('✗ ' + msg.slice(0, 180));
+    return 'error';
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function findContact_(wa) {
+  var res = mc_('get', '/fb/subscriber/findByCustomField?field_id=' + encodeURIComponent(prop_('MANYCHAT_WA_FIELD_ID')) + '&field_value=' + wa);
+  var list = res.data || [];
+  return list.length ? list[0].id : null;
+}
+
+function mc_(method, path, body) {
+  var opts = { method: method, muteHttpExceptions: true, headers: { Authorization: 'Bearer ' + prop_('MANYCHAT_API_KEY') } };
+  if (body) { opts.contentType = 'application/json'; opts.payload = JSON.stringify(body); }
+  var res = UrlFetchApp.fetch(MC + path, opts), out = {};
+  try { out = JSON.parse(res.getContentText()); } catch (e) {}
+  if (res.getResponseCode() >= 300 || out.status === 'error') {
+    var detail = [out.message, out.details && JSON.stringify(out.details.messages || out.details)].filter(Boolean).join(' ') || res.getContentText();
+    throw new Error('ManyChat: ' + detail);
+  }
+  return out;
+}
+
+function prop_(k) {
+  var v = PropertiesService.getScriptProperties().getProperty(k);
+  if (!v) throw new Error('Missing script property ' + k);
+  return v.trim();
+}
