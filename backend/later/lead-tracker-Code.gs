@@ -95,7 +95,7 @@ function onEdit(e) {
   if (sh.getSheetId() !== TAB_ID || e.range.getRow() < 2) return;
   var head = headers_(sh), cS = head.indexOf('Payment Status') + 1;
   if (cS < 1 || cS < e.range.getColumn() || cS > e.range.getLastColumn()) return;
-  for (var r = e.range.getRow(); r <= e.range.getLastRow(); r++) welcomeRow_(sh, r);
+  for (var r = e.range.getRow(); r <= e.range.getLastRow(); r++) welcomeRow_(sh, r, true);
 }
 
 function createWelcomeLinks() {
@@ -104,9 +104,9 @@ function createWelcomeLinks() {
   SpreadsheetApp.getActive().toast(n + ' welcome link(s) ready in the "WhatsApp Welcome" column.', 'Sahithiness', 6);
 }
 
-function welcomeRow_(sh, r) {
+function welcomeRow_(sh, r, datesOnly) {
   var head = headers_(sh);
-  ['WhatsApp Welcome'].forEach(function (h) {
+  if (!datesOnly) ['WhatsApp Welcome'].forEach(function (h) {
     if (head.indexOf(h) < 0) { addHeader_(sh, head.length + 1, h); head.push(h); }
   });
   var row = sh.getRange(r, 1, 1, head.length).getValues()[0], get = function (h) { return row[head.indexOf(h)]; };
@@ -114,6 +114,7 @@ function welcomeRow_(sh, r) {
   var now = new Date();
   if (head.indexOf('Payment Date') >= 0 && !get('Payment Date')) sh.getRange(r, head.indexOf('Payment Date') + 1).setValue(Utilities.formatDate(now, TZ, 'dd MMM yyyy'));
   if (head.indexOf('Payment Time') >= 0 && !get('Payment Time')) sh.getRange(r, head.indexOf('Payment Time') + 1).setValue(Utilities.formatDate(now, TZ, 'h:mm a'));
+  if (datesOnly) return true;                       // ManyChat sends the message; no link needed
   var phone = String(get('Phone / WhatsApp')).replace(/\D/g, '').slice(-10);
   if (!/^[6-9]\d{9}$/.test(phone)) return false;
   var program = String(get('Program')).replace(/\u00a0/g, ' ').trim();
