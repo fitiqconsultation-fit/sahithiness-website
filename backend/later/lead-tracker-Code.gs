@@ -157,6 +157,7 @@ function setupAutoWelcome() {
   ScriptApp.getProjectTriggers().forEach(function (t) { if (t.getHandlerFunction() === 'onPaidEdit') ScriptApp.deleteTrigger(t); });
   ScriptApp.newTrigger('onPaidEdit').forSpreadsheet(SpreadsheetApp.getActive()).onEdit().create();
   var ok = mc_('get', '/fb/page/getInfo');
+  waFieldId_();
   SpreadsheetApp.getActive().toast('ManyChat connected: ' + (ok.data && ok.data.name || 'OK') + '. Marking a client Paid will now send the welcome automatically.', 'Sahithiness', 10);
 }
 
@@ -201,7 +202,7 @@ function sendWelcome_(sh, r) {
       id = made.data && made.data.id;
     }
     if (!id) throw new Error('Could not create contact');
-    [[Number(prop_('MANYCHAT_WA_FIELD_ID')), wa], [MC_FIELDS.program, program], [MC_FIELDS.start_date, isoDate_(get('Start Date'))],
+    [[Number(waFieldId_()), wa], [MC_FIELDS.program, program], [MC_FIELDS.start_date, isoDate_(get('Start Date'))],
      [MC_FIELDS.zoom_link, /strength/i.test(program) ? ZOOM_LINK : 'Your recorded videos will be shared here on WhatsApp']].forEach(function (f) {
       mc_('post', '/fb/subscriber/setCustomField', { subscriber_id: id, field_id: f[0], field_value: f[1] });
     });
@@ -218,8 +219,19 @@ function sendWelcome_(sh, r) {
   }
 }
 
+/** ID of the ManyChat field "wa_number": from Script properties if set, otherwise looked up once and remembered. */
+function waFieldId_() {
+  var props = PropertiesService.getScriptProperties(), id = props.getProperty('MANYCHAT_WA_FIELD_ID');
+  if (id) return id.trim();
+  var fields = mc_('get', '/fb/page/getCustomFields').data || [];
+  var f = fields.filter(function (x) { return String(x.name).trim().toLowerCase() === 'wa_number'; })[0];
+  if (!f) throw new Error('ManyChat field "wa_number" not found');
+  props.setProperty('MANYCHAT_WA_FIELD_ID', String(f.id));
+  return String(f.id);
+}
+
 function findContact_(wa) {
-  var res = mc_('get', '/fb/subscriber/findByCustomField?field_id=' + encodeURIComponent(prop_('MANYCHAT_WA_FIELD_ID')) + '&field_value=' + wa);
+  var res = mc_('get', '/fb/subscriber/findByCustomField?field_id=' + encodeURIComponent(waFieldId_()) + '&field_value=' + wa);
   var list = res.data || [];
   return list.length ? list[0].id : null;
 }
