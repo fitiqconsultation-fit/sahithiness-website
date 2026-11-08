@@ -25,11 +25,32 @@ var WELCOME = {
 
 function doGet() { return ContentService.createTextOutput('Sahithiness lead tracker is running.'); }
 
+var WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxhVIIac981nqxuiM_RMf4D6P1bfkPCoXVUmwMc-c-IBta5kHpN3r385RyYlozRi2-WKQ/exec';
+
 function doPost(e) {
+  var body;
+  try { body = JSON.parse(e.postData.contents); } catch (x) { return out_({ ok: false }); }
+  // Razorpay payment (relayed by sahithiness.in/razorpay-webhook.php after checking Razorpay's signature)
+  if (e.parameter && e.parameter.token) {
+    if (e.parameter.token !== PropertiesService.getScriptProperties().getProperty('WEBHOOK_TOKEN')) return out_({ ok: false });
+    var res = withLock_(function () { return markPaidFromRazorpay_(body); });
+    if (res.row && PropertiesService.getScriptProperties().getProperty('MANYCHAT_API_KEY')) {
+      try { sendWelcome_(tab_(), res.row); } catch (err) { console.error(err); }
+    }
+    return out_({ ok: true, status: res.status });
+  }
+  return out_(withLock_(function () { return saveLead_(body); }));
+}
+
+function withLock_(fn) {
   var lock = LockService.getScriptLock();
-  lock.waitLock(20000);
-  try {
-    var d = JSON.parse(e.postData.contents);
+  lock.waitLock(25000);
+  try { return fn(); } catch (err) { console.error(err && err.stack || err); return { ok: false }; } finally { lock.releaseLock(); }
+}
+
+/** Enquiry from the website (client tapped Pay / Register). */
+function saveLead_(d) {
+  {
     var phone = String(d.phone || '').replace(/\D/g, '').slice(-10);
     if (!/^[6-9]\d{9}$/.test(phone) || !String(d.name || '').trim()) return out_({ ok: false });
 
@@ -55,17 +76,66 @@ function doPost(e) {
     for (var i = rows.length - 1; i > 0; i--) {
       if (String(rows[i][cP]).replace(/\D/g, '').slice(-10) === phone && rows[i][cG] === v['Program'] && rows[i][cS] !== 'Paid') {
         head.forEach(function (h, c) { if (v[h] !== undefined) sh.getRange(i + 1, c + 1).setValue(v[h]); });
-        return out_({ ok: true, updated: true });
+        return { ok: true, updated: true };
       }
     }
     sh.appendRow(head.map(function (h) { return v[h] === undefined ? '' : v[h]; }));
-    return out_({ ok: true });
-  } catch (err) {
-    console.error(err && err.stack || err);
-    return out_({ ok: false });
-  } finally {
-    lock.releaseLock();
+    return { ok: true };
   }
+}
+
+/** Razorpay says a payment succeeded: mark the client's row Paid with the real payment date and time. */
+function markPaidFromRazorpay_(body) {
+  if (body.event !== 'payment.captured') return { status: 'ignored' };
+  var p = body.payload && body.payload.payment && body.payload.payment.entity;
+  if (!p || !p.id) return { status: 'no payment' };
+  var sh = tab_(), head = headers_(sh);
+  ['Payment ID', 'Amount (₹)'].forEach(function (h) { if (head.indexOf(h) < 0) { addHeader_(sh, head.length + 1, h); head.push(h); } });
+  var rows = sh.getDataRange().getValues(), c = function (h) { return head.indexOf(h); };
+  for (var k = 1; k < rows.length; k++) if (rows[k][c('Payment ID')] === p.id) return { status: 'duplicate' };   // Razorpay may resend
+
+  var phone = String(p.contact || '').replace(/\D/g, '').slice(-10), email = String(p.email || '').trim().toLowerCase();
+  var amount = (p.amount || 0) / 100, guess = amount === 3000 ? 'Strength Training Classes' : '';
+  var samePerson = function (r) {
+    return (phone && String(r[c('Phone / WhatsApp')]).replace(/\D/g, '').slice(-10) === phone) ||
+           (email && String(r[c('Email')]).trim().toLowerCase() === email);
+  };
+  var match = 0, earlier = null;
+  for (var i = rows.length - 1; i > 0; i--) {
+    if (!samePerson(rows[i])) continue;
+    earlier = earlier || rows[i];
+    var prog = String(rows[i][c('Program')]).replace(/\u00a0/g, ' ');
+    if (rows[i][c('Payment Status')] !== 'Paid' && (!guess || prog === guess)) { match = i + 1; break; }
+  }
+  var when = p.created_at ? new Date(p.created_at * 1000) : new Date();
+  var v = {
+    'Payment Status': 'Paid', 'Payment Date': Utilities.formatDate(when, TZ, 'dd MMM yyyy'),
+    'Payment Time': Utilities.formatDate(when, TZ, 'h:mm a'), 'Payment ID': p.id, 'Amount (₹)': amount
+  };
+  if (match) {
+    head.forEach(function (h, col) { if (v[h] !== undefined) sh.getRange(match, col + 1).setValue(v[h]); });
+    return { status: 'matched', row: match };
+  }
+  // No enquiry row: a renewal, or someone who paid without using the website form
+  v['Full Name'] = earlier ? earlier[c('Full Name')] : clean_((p.notes && (p.notes.name || p.notes.full_name)) || email || 'Unknown', 80);
+  v['Email'] = email || (earlier ? earlier[c('Email')] : '');
+  v['Phone / WhatsApp'] = phone ? "'" + phone : '';
+  v['Program'] = guess || (earlier ? earlier[c('Program')] : 'Check program (₹' + amount + ')');
+  v['Enquiry Date'] = earlier ? 'Renewal' : 'Paid without form';
+  // No automatic welcome for renewals or unknown programs (clear this cell to allow sending)
+  if (head.indexOf('Welcome Sent') >= 0 && (earlier || !guess)) v['Welcome Sent'] = earlier ? '✓ renewal (no welcome)' : '✓ check program first, then clear this cell';
+  sh.appendRow(head.map(function (h) { return v[h] === undefined ? '' : v[h]; }));
+  return { status: 'new row', row: sh.getLastRow() };
+}
+
+/** Menu: prepares the private link that lets Razorpay update this sheet. */
+function setupRazorpay() {
+  var props = PropertiesService.getScriptProperties();
+  if (!props.getProperty('WEBHOOK_TOKEN')) props.setProperty('WEBHOOK_TOKEN', Utilities.getUuid().replace(/-/g, ''));
+  var url = (ScriptApp.getService().getUrl() || WEB_APP_URL).replace(/\/dev$/, '/exec') + '?token=' + props.getProperty('WEBHOOK_TOKEN');
+  var html = HtmlService.createHtmlOutput('<div style="font:14px Arial"><p>Copy this private link into <b>sahithiness-config.php</b> on Hostinger as <b>sheet_webhook_url</b>:</p>' +
+    '<textarea style="width:100%;height:90px" onclick="this.select()">' + url + '</textarea><p>Keep it private.</p></div>').setWidth(520).setHeight(220);
+  SpreadsheetApp.getUi().showModalDialog(html, 'Razorpay → Sheet link');
 }
 
 function tab_() {
@@ -85,6 +155,7 @@ function onOpen() {
     .addItem('Send welcome (ManyChat) to Paid clients not yet sent', 'sendPendingWelcomes')
     .addItem('Create WhatsApp links for Paid clients (manual backup)', 'createWelcomeLinks')
     .addItem('Fix header colours', 'styleHeaders')
+    .addItem('Set up Razorpay auto-Paid (get private link)', 'setupRazorpay')
     .addSeparator()
     .addItem('Set up automatic welcome (run once)', 'setupAutoWelcome')
     .addToUi();
