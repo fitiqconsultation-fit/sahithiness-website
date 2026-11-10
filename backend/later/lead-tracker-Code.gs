@@ -51,12 +51,12 @@ function withLock_(fn) {
 /** Enquiry from the website (client tapped Pay / Register). */
 function saveLead_(d) {
   {
-    var phone = String(d.phone || '').replace(/\D/g, '').slice(-10);
-    if (!/^[6-9]\d{9}$/.test(phone) || !String(d.name || '').trim()) return out_({ ok: false });
+    var phone = phoneText_(d.phone), wa = phoneText_(d.whatsapp);
+    if (!phone || !String(d.name || '').trim()) return { ok: false };
 
     var sh = tab_();
     var head = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0];
-    ['Start Date', 'Enquiry Date', 'Postpartum Stage / Fitness Category'].forEach(function (h) {           // extra columns, added once at the end
+    ['Start Date', 'Enquiry Date', 'Postpartum Stage / Fitness Category', 'WhatsApp (if different)'].forEach(function (h) {           // extra columns, added once at the end
       if (head.indexOf(h) < 0) { addHeader_(sh, head.length + 1, h); head.push(h); }
     });
 
@@ -64,6 +64,7 @@ function saveLead_(d) {
       'Full Name': clean_(d.name, 80),
       'Email': clean_(d.email, 120).toLowerCase(),
       'Phone / WhatsApp': "'" + phone,
+      'WhatsApp (if different)': wa && wa !== phone ? "'" + wa : '',
       'Program': clean_(d.program, 80),
       'Payment Status': 'Pending',
       'Start Date': clean_(d.startDate, 40),
@@ -74,7 +75,7 @@ function saveLead_(d) {
     // Same person tapping Pay again for the same program: update their row instead of adding a duplicate
     var rows = sh.getDataRange().getValues(), cP = head.indexOf('Phone / WhatsApp'), cG = head.indexOf('Program'), cS = head.indexOf('Payment Status');
     for (var i = rows.length - 1; i > 0; i--) {
-      if (String(rows[i][cP]).replace(/\D/g, '').slice(-10) === phone && rows[i][cG] === v['Program'] && rows[i][cS] !== 'Paid') {
+      if (key_(rows[i][cP]) === key_(phone) && rows[i][cG] === v['Program'] && rows[i][cS] !== 'Paid') {
         head.forEach(function (h, c) { if (v[h] !== undefined) sh.getRange(i + 1, c + 1).setValue(v[h]); });
         return { ok: true, updated: true };
       }
@@ -119,7 +120,7 @@ function markPaidFromRazorpay_(body) {
   // No enquiry row: a renewal, or someone who paid without using the website form
   v['Full Name'] = earlier ? earlier[c('Full Name')] : clean_((p.notes && (p.notes.name || p.notes.full_name)) || email || 'Unknown', 80);
   v['Email'] = email || (earlier ? earlier[c('Email')] : '');
-  v['Phone / WhatsApp'] = phone ? "'" + phone : '';
+  v['Phone / WhatsApp'] = phoneText_(p.contact) ? "'" + phoneText_(p.contact) : '';
   v['Program'] = guess || (earlier ? earlier[c('Program')] : 'Check program (₹' + amount + ')');
   v['Enquiry Date'] = earlier ? 'Renewal' : 'Paid without form';
   // No automatic welcome for renewals or unknown programs (clear this cell to allow sending)
@@ -137,6 +138,23 @@ function setupRazorpay() {
     '<textarea style="width:100%;height:90px" onclick="this.select()">' + url + '</textarea><p>Keep it private.</p></div>').setWidth(520).setHeight(220);
   SpreadsheetApp.getUi().showModalDialog(html, 'Razorpay → Sheet link');
 }
+
+/** Phone as typed: Indian 10-digit numbers stay as 10 digits, others keep their country code (+...). */
+function phoneText_(v) {
+  var s = String(v || '').trim(), d = s.replace(/\D/g, '');
+  if (!d) return '';
+  if (/^[6-9]\d{9}$/.test(d)) return d;
+  if (/^(91|0)[6-9]\d{9}$/.test(d)) return d.slice(-10);
+  return d.length >= 8 && d.length <= 15 ? '+' + d : '';
+}
+/** Full international digits for WhatsApp/ManyChat (91 added for Indian numbers). */
+function waDigits_(v) {
+  var p = phoneText_(v);
+  if (!p) return '';
+  return p[0] === '+' ? p.slice(1) : '91' + p;
+}
+/** Matching key: last 10 digits. */
+function key_(v) { return String(v || '').replace(/\D/g, '').slice(-10); }
 
 function tab_() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -186,15 +204,15 @@ function welcomeRow_(sh, r, datesOnly) {
   if (head.indexOf('Payment Date') >= 0 && !get('Payment Date')) sh.getRange(r, head.indexOf('Payment Date') + 1).setValue(Utilities.formatDate(now, TZ, 'dd MMM yyyy'));
   if (head.indexOf('Payment Time') >= 0 && !get('Payment Time')) sh.getRange(r, head.indexOf('Payment Time') + 1).setValue(Utilities.formatDate(now, TZ, 'h:mm a'));
   if (datesOnly) return true;                       // ManyChat sends the message; no link needed
-  var phone = String(get('Phone / WhatsApp')).replace(/\D/g, '').slice(-10);
-  if (!/^[6-9]\d{9}$/.test(phone)) return false;
+  var phone = waDigits_(get('WhatsApp (if different)') || get('Phone / WhatsApp'));
+  if (!phone) return false;
   var program = String(get('Program')).replace(/\u00a0/g, ' ').trim();
   var msg = (WELCOME[program] || WELCOME['default'])
     .replace(/{name}/g, String(get('Full Name')).trim().split(' ')[0] || 'there')
     .replace(/{program}/g, program)
     .replace(/{start}/g, dateText_(get('Start Date')) || 'as discussed')
     .replace(/{zoom}/g, ZOOM_LINK);
-  var url = 'https://api.whatsapp.com/send?phone=91' + phone + '&text=' + encodeURIComponent(msg);
+  var url = 'https://api.whatsapp.com/send?phone=' + phone + '&text=' + encodeURIComponent(msg);
   sh.getRange(r, head.indexOf('WhatsApp Welcome') + 1).setFormula('=HYPERLINK("' + url.replace(/"/g, '""') + '","📲 Send welcome")');
   return true;
 }
@@ -258,13 +276,13 @@ function sendWelcome_(sh, r) {
   var cell = sh.getRange(r, head.indexOf('Welcome Sent') + 1);
   if (String(get('Payment Status')).trim().toLowerCase() !== 'paid') return 'skip';
   if (/^✓/.test(String(get('Welcome Sent')))) return 'skip';                 // never send twice
-  var phone = String(get('Phone / WhatsApp')).replace(/\D/g, '').slice(-10);
-  if (!/^[6-9]\d{9}$/.test(phone)) { cell.setValue('✗ Invalid phone'); return 'error'; }
+  var waNum = waDigits_(get('WhatsApp (if different)') || get('Phone / WhatsApp'));
+  if (!waNum) { cell.setValue('✗ Invalid phone'); return 'error'; }
   var lock = LockService.getScriptLock();
   lock.waitLock(20000);
   try {
     if (/^✓/.test(String(cell.getValue()))) return 'skip';
-    var wa = '91' + phone, name = String(get('Full Name')).trim(), program = String(get('Program')).replace(/ /g, ' ').trim();
+    var wa = waNum, name = String(get('Full Name')).trim(), program = String(get('Program')).replace(/ /g, ' ').trim();
     var id = findContact_(wa);
     if (!id) {
       var made = mc_('post', '/fb/subscriber/createSubscriber', {
