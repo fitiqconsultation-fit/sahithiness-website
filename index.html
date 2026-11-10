@@ -481,7 +481,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     [{ t: 'tel', n: 'whatsapp', l: 'WhatsApp number (optional)', opt: true, ph: 'Only if different from your phone number', ac: 'tel', check: function (v) { return !v.trim() || INTL_PHONE(v); }, req: 'Please enter a valid WhatsApp number or leave it empty.' }],
     [{ t: 'email', n: 'email', l: 'Email', ph: 'you@example.com', ac: 'email', req: 'Please enter a valid email address.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }]
   ];
-  function detailsFor() { return S.pkg.kind === 'momstrength' ? STRENGTH_DETAILS : DETAILS; }
+  function detailsFor() { return /^(momstrength|postnatal|pcos)$/.test(S.pkg.kind) ? STRENGTH_DETAILS : DETAILS; }
   var DETAILS = [
     [{ t: 'text', n: 'name', l: 'Full name', ph: 'Your full name', ac: 'name', req: 'Please enter your full name.', check: function (v) { return v.trim().length >= 2; } }],
     [{ t: 'tel', n: 'phone', l: 'Phone / WhatsApp', ph: '10-digit mobile number', ac: 'tel', req: 'Please enter a valid 10-digit mobile number.', check: function (v) { return /^(91)?[6-9]\d{9}$/.test(v.replace(/\D/g, '')); } }],
