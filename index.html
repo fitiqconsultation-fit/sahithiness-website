@@ -474,11 +474,11 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   };
 
   /* Strength Training: phone with any country code (required) + optional WhatsApp number */
-  var INTL_PHONE = function (v) { var d = v.replace(/[^\d+]/g, ''); return /^\+?\d{8,15}$/.test(d) && (d[0] === '+' || /^[6-9]\d{9}$/.test(d) || /^(91|0)[6-9]\d{9}$/.test(d) || d.length >= 11); };
+  var INTL_PHONE = function (v) { return /\d{5,}/.test(v.replace(/[\s\-()]/g, '')); };
   var STRENGTH_DETAILS = [
     [{ t: 'text', n: 'name', l: 'Full name', ph: 'Your full name', ac: 'name', req: 'Please enter your full name.', check: function (v) { return v.trim().length >= 2; } }],
-    [{ t: 'tel', n: 'phone', l: 'Phone / Mobile number', ph: '+91 98765 43210', ac: 'tel', help: 'Outside India? Add your country code, e.g. +1, +44, +971.', req: 'Please enter a valid phone number (add country code if outside India).', check: INTL_PHONE }],
-    [{ t: 'tel', n: 'whatsapp', l: 'WhatsApp number (optional)', opt: true, ph: 'Only if different from your phone number', ac: 'tel', check: function (v) { return !v.trim() || INTL_PHONE(v); }, req: 'Please enter a valid WhatsApp number or leave it empty.' }],
+    [{ t: 'tel', n: 'phone', l: 'Phone / Mobile number', ph: 'Enter your mobile number', ac: 'tel', req: 'Please enter your mobile number.', check: INTL_PHONE }],
+    [{ t: 'tel', n: 'whatsapp', l: 'WhatsApp number (optional)', opt: true, ph: 'Enter your WhatsApp number', ac: 'tel', check: function (v) { return !v.trim() || INTL_PHONE(v); }, req: 'Please enter your WhatsApp number or leave it empty.' }],
     [{ t: 'email', n: 'email', l: 'Email', ph: 'you@example.com', ac: 'email', req: 'Please enter a valid email address.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }]
   ];
   function detailsFor() { return /^(momstrength|postnatal|pcos)$/.test(S.pkg.kind) ? STRENGTH_DETAILS : DETAILS; }

@@ -142,16 +142,16 @@ function setupRazorpay() {
 /** Phone as typed: Indian 10-digit numbers stay as 10 digits, others keep their country code (+...). */
 function phoneText_(v) {
   var s = String(v || '').trim(), d = s.replace(/\D/g, '');
-  if (!d) return '';
-  if (/^[6-9]\d{9}$/.test(d)) return d;
-  if (/^(91|0)[6-9]\d{9}$/.test(d)) return d.slice(-10);
-  return d.length >= 8 && d.length <= 15 ? '+' + d : '';
+  if (d.length < 5) return '';
+  if (/^[6-9]\d{9}$/.test(d)) return d;                       // Indian 10-digit
+  if (/^(91|0)[6-9]\d{9}$/.test(d)) return d.slice(-10);       // Indian with 91 / 0
+  return s.charAt(0) === '+' ? '+' + d : d;                    // anything else, kept as typed
 }
-/** Full international digits for WhatsApp/ManyChat (91 added for Indian numbers). */
+/** Digits for WhatsApp/ManyChat (91 added for Indian 10-digit numbers). */
 function waDigits_(v) {
   var p = phoneText_(v);
   if (!p) return '';
-  return p[0] === '+' ? p.slice(1) : '91' + p;
+  return p.charAt(0) === '+' ? p.slice(1) : (/^[6-9]\d{9}$/.test(p) ? '91' + p : p);
 }
 /** Matching key: last 10 digits. */
 function key_(v) { return String(v || '').replace(/\D/g, '').slice(-10); }
