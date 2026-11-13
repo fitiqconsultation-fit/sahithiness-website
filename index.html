@@ -449,10 +449,15 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
         'consent'
       ]
     },
-    postnatal: { title: '', conds: [], rows: [[START]] },
+    postnatal: { title: '', conds: [], rows: [
+      [{ t: 'select', n: 'joinFor', l: 'What are you joining for?', o: ['Postnatal recovery', 'PCOS / PCOD', 'Both postnatal and PCOS / PCOD'], req: REQ }],
+      [{ t: 'select', n: 'since', l: 'Time since delivery', o: ['0–6 weeks after delivery', '6 weeks – 6 months after delivery', '6–12 months after delivery', '1–2 years after delivery', 'More than 2 years after delivery', 'Not applicable (PCOS / PCOD only)'], req: REQ }, { t: 'select', n: 'delType', l: 'Delivery type', o: ['Normal delivery', 'C-section', 'Not applicable'], req: REQ, help: 'After a C-section, start only with your doctor’s clearance.' }],
+      [START]] },
     pcos: { title: '', conds: [], rows: [[START]] },
-    yoga: { title: '', conds: [], rows: [[START]] },
-    momstrength: { title: '', conds: [], rows: [[{ t: 'select', n: 'stage', l: 'Postpartum stage or fitness category', o: ['Currently pregnant', '0–6 weeks after delivery', '6 weeks – 6 months after delivery', '6–12 months after delivery', '1–2 years after delivery', 'More than 2 years after delivery', 'General fitness (not postpartum)'], req: 'Please choose your stage or category.', help: 'Helps Sahithi plan safe modifications for you.' }], [START]] },
+    yoga: { title: '', conds: [], rows: [
+      [{ t: 'select', n: 'yogaExp', l: 'Your yoga experience', o: ['Complete beginner', 'Tried a few times', 'Practise sometimes'], req: REQ }, { t: 'select', n: 'goal', l: 'Your main goal', o: ['Flexibility', 'Stress relief and better sleep', 'Weight loss', 'Back or joint pain relief', 'General fitness'], req: REQ }],
+      [START]] },
+    momstrength: { title: '', conds: [], rows: [[{ t: 'select', n: 'stage', l: 'Postpartum stage or fitness category', o: ['Currently pregnant', '0–6 weeks after delivery', '6 weeks – 6 months after delivery', '6–12 months after delivery', '1–2 years after delivery', 'More than 2 years after delivery', 'General fitness (not postpartum)'], req: 'Please choose your stage or category.', help: 'Helps Sahithi plan safe modifications for you.' }], [{ t: 'select', n: 'dumbbells', l: 'Do you have dumbbells?', o: ['Yes, I have dumbbells', 'No, I will buy them', 'I will use filled water bottles for now'], req: REQ }], [START]] },
     general: {
       title: 'A little about you', note: 'This helps Sahithi suggest safe modifications for you.', consent: CONSENT_GEN,
       conds: [['diab', 'Diabetes'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS\u00a0/\u00a0PCOD'], ['back', 'Back pain'], ['knee', 'Knee or joint pain'], ['preg', 'Currently pregnant']],
@@ -666,9 +671,14 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       if (S === st) render();
     });
   }
+  function programAnswers() {
+    return cfgFor().rows.filter(Array.isArray).reduce(function (a, r) { return a.concat(r); }, [])
+      .filter(function (f) { return f.n !== 'startDate' && f.n !== 'stage' && S.form[f.n]; })
+      .map(function (f) { return f.l.replace(/\?$/, '') + ': ' + S.form[f.n]; }).join(' | ');
+  }
   function saveLead() {
     if (!SHEET_URL || S.leadSaved) return;
-    var body = JSON.stringify({ name: S.form.name, email: S.form.email, phone: S.form.phone, whatsapp: S.form.whatsapp || '', program: S.pkg.name, startDate: S.form.startDate || '', stage: S.form.stage || '' });
+    var body = JSON.stringify({ name: S.form.name, email: S.form.email, phone: S.form.phone, whatsapp: S.form.whatsapp || '', program: S.pkg.name, startDate: S.form.startDate || '', stage: S.form.stage || '', answers: programAnswers() });
     try { fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', keepalive: true, body: body }); S.leadSaved = true; } catch (e) {}
   }
   function applyCode() {
@@ -738,6 +748,8 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
         (p.kind === 'consult' ? '<div><span>Call</span><span>' + esc(S.form.cDate + ', ' + S.form.cSlot) + '</span></div>' : '') +
         (p.kind === 'momstrength' ? '<div><span>Classes</span><span>Mon–Fri, 7–8 PM IST</span></div>' : '') +
         (S.form.stage ? '<div><span>Stage</span><span>' + esc(S.form.stage) + '</span></div>' : '') +
+        (S.form.joinFor ? '<div><span>Joining for</span><span>' + esc(S.form.joinFor) + '</span></div>' : '') +
+        (S.form.yogaExp ? '<div><span>Experience</span><span>' + esc(S.form.yogaExp) + '</span></div>' : '') +
         (S.form.startDate ? '<div><span>Start date</span><span>' + esc(S.form.startDate) + '</span></div>' : '') +
         '<div><span>Name</span><span>' + esc(S.form.name) + '</span></div>' +
         '<div><span>Phone</span><span>' + esc(S.form.phone) + '</span></div>' +
