@@ -80,6 +80,10 @@ nav{display:flex;align-items:center;justify-content:space-between;gap:16px;paddi
 .hstats span{font-size:22px;line-height:1;margin-bottom:6px}.hstats b{font-size:17px}.hstats small{font-size:13px;color:var(--muted2);line-height:1.35}
 .hfor{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:560px}
 .hfor-item{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+.cfield{position:relative}
+.cdrop{position:absolute;left:0;right:0;top:100%;z-index:5;margin-top:4px;background:#fff;border:1px solid var(--field);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.12);max-height:280px;overflow:auto;padding:6px}
+.copt{display:block;width:100%;text-align:left;border:0;background:none;padding:10px 12px;border-radius:10px;font:500 15px 'DM Sans',sans-serif;color:var(--ink);cursor:pointer}
+.copt:hover,.copt:focus{background:var(--sage-bg)}.cnone{padding:10px 12px;font-size:14px;color:var(--muted2)}
 .hfor-wide{grid-column:1 / -1}.newpill{display:inline-block;background:#FCE9C8;color:#7A4B12;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;margin-left:4px;vertical-align:2px}
 .hfor-item .ic{width:44px;height:44px;flex:0 0 44px;font-size:22px}.hfor-item b{display:block;font-size:15.5px}.hfor-item small{font-size:13px;color:var(--muted2);line-height:1.35}
 @media (max-width:520px){.hfor{grid-template-columns:1fr}.hstats div{padding:12px 10px}.hstats b{font-size:15px}}
@@ -486,8 +490,23 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     [{ t: 'tel', n: 'phone', l: 'Phone / Mobile number', ph: 'Enter your mobile number', ac: 'tel', req: 'Please enter your mobile number.', check: INTL_PHONE }],
     [{ t: 'tel', n: 'whatsapp', l: 'WhatsApp number (optional)', opt: true, ph: 'Enter your WhatsApp number', ac: 'tel', check: function (v) { return !v.trim() || INTL_PHONE(v); }, req: 'Please enter your WhatsApp number or leave it empty.' }],
     [{ t: 'email', n: 'email', l: 'Email', ph: 'you@example.com', ac: 'email', req: 'Please enter a valid email address.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }],
-    [{ t: 'select', n: 'country', l: 'Country', ph: 'Select your country', o: ['India', 'United States', 'United Kingdom', 'Canada', 'Australia', 'United Arab Emirates', 'Saudi Arabia', 'Qatar', 'Kuwait', 'Oman', 'Bahrain', 'Singapore', 'Malaysia', 'New Zealand', 'Germany', 'Ireland', 'Netherlands', 'Other'], req: 'Please select your country.' }, { t: 'text', n: 'countryOther', l: 'If Other, which country?', ph: 'Type your country', opt: true }]
+    [{ t: 'country', n: 'country', l: 'Country', ph: 'Search or type your country', req: 'Please enter your country.', check: function (v) { return v.trim().length >= 2; } }]
   ];
+  var TOP_COUNTRIES = ['India', 'United States', 'United Kingdom', 'United Arab Emirates', 'Canada', 'Australia', 'Saudi Arabia', 'Singapore'];
+  var COUNTRIES = 'Afghanistan,Albania,Algeria,Andorra,Angola,Antigua and Barbuda,Argentina,Armenia,Australia,Austria,Azerbaijan,Bahamas,Bahrain,Bangladesh,Barbados,Belarus,Belgium,Belize,Benin,Bhutan,Bolivia,Bosnia and Herzegovina,Botswana,Brazil,Brunei,Bulgaria,Burkina Faso,Burundi,Cambodia,Cameroon,Canada,Cape Verde,Central African Republic,Chad,Chile,China,Colombia,Comoros,Congo,Costa Rica,Croatia,Cuba,Cyprus,Czech Republic,Denmark,Djibouti,Dominica,Dominican Republic,DR Congo,Ecuador,Egypt,El Salvador,Equatorial Guinea,Eritrea,Estonia,Eswatini,Ethiopia,Fiji,Finland,France,Gabon,Gambia,Georgia,Germany,Ghana,Greece,Grenada,Guatemala,Guinea,Guinea-Bissau,Guyana,Haiti,Honduras,Hong Kong,Hungary,Iceland,India,Indonesia,Iran,Iraq,Ireland,Israel,Italy,Ivory Coast,Jamaica,Japan,Jordan,Kazakhstan,Kenya,Kiribati,Kuwait,Kyrgyzstan,Laos,Latvia,Lebanon,Lesotho,Liberia,Libya,Liechtenstein,Lithuania,Luxembourg,Madagascar,Malawi,Malaysia,Maldives,Mali,Malta,Marshall Islands,Mauritania,Mauritius,Mexico,Micronesia,Moldova,Monaco,Mongolia,Montenegro,Morocco,Mozambique,Myanmar,Namibia,Nauru,Nepal,Netherlands,New Zealand,Nicaragua,Niger,Nigeria,North Korea,North Macedonia,Norway,Oman,Pakistan,Palau,Palestine,Panama,Papua New Guinea,Paraguay,Peru,Philippines,Poland,Portugal,Qatar,Romania,Russia,Rwanda,Saint Kitts and Nevis,Saint Lucia,Saint Vincent and the Grenadines,Samoa,San Marino,Sao Tome and Principe,Saudi Arabia,Senegal,Serbia,Seychelles,Sierra Leone,Singapore,Slovakia,Slovenia,Solomon Islands,Somalia,South Africa,South Korea,South Sudan,Spain,Sri Lanka,Sudan,Suriname,Sweden,Switzerland,Syria,Taiwan,Tajikistan,Tanzania,Thailand,Timor-Leste,Togo,Tonga,Trinidad and Tobago,Tunisia,Turkey,Turkmenistan,Tuvalu,Uganda,Ukraine,United Arab Emirates,United Kingdom,United States,Uruguay,Uzbekistan,Vanuatu,Vatican City,Venezuela,Vietnam,Yemen,Zambia,Zimbabwe'.split(',');
+  function countryMatches(q) {
+    q = q.trim().toLowerCase();
+    if (!q) return TOP_COUNTRIES;
+    var starts = COUNTRIES.filter(function (c) { return c.toLowerCase().indexOf(q) === 0; });
+    var has = COUNTRIES.filter(function (c) { return c.toLowerCase().indexOf(q) > 0; });
+    return starts.concat(has).slice(0, 8);
+  }
+  function showCountries(input) {
+    var box = input.parentNode.querySelector('.cdrop'), list = countryMatches(input.value);
+    box.innerHTML = (list.length ? list.map(function (c) { return '<button type="button" class="copt" data-country="' + esc(c) + '">' + esc(c) + '</button>'; }).join('') :
+      '<div class="cnone">Press Continue to use “' + esc(input.value.trim()) + '”</div>');
+    box.hidden = false;
+  }
   function detailsFor() { return /^(momstrength|postnatal|pcos|yoga)$/.test(S.pkg.kind) ? STRENGTH_DETAILS : DETAILS; }
   var DETAILS = [
     [{ t: 'text', n: 'name', l: 'Full name', ph: 'Your full name', ac: 'name', req: 'Please enter your full name.', check: function (v) { return v.trim().length >= 2; } }],
@@ -547,8 +566,11 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     return h + '</div>' + (S.form.startDate ? '<div class="cal-sub" style="color:var(--sage)">Starting <b>' + esc(S.form.startDate) + '</b></div>' : '') + '</div>';
   }
   function fieldHtml(f) {
-    if (f.n === 'countryOther' && S.form.country !== 'Other') return '';
     if (f.t === 'calslot') return '';
+    if (f.t === 'country') {
+      return '<div class="fld cfield"><label class="lbl" for="q-country">' + esc(f.l) + '</label><input class="ctl" id="q-country" name="country" type="text" autocomplete="off" value="' + esc(S.form.country || '') + '" placeholder="' + esc(f.ph) + '">' +
+        '<div class="cdrop" hidden></div>' + (S.errors.country ? '<span class="err">' + esc(S.errors.country) + '</span>' : '') + '</div>';
+    }
     if (f.t === 'start') return '<div class="fld" style="flex:1 1 100%"><span class="lbl">When would you like to start?</span>' + startHtml() + (S.errors.startDate ? '<span class="err">' + esc(S.errors.startDate) + '</span>' : '') + '</div>';
     if (f.t === 'cal') return '<div class="fld" style="flex:1 1 100%"><span class="lbl">Choose a date and time for your call</span>' + calHtml(S.errors.cDate, S.errors.cSlot) + '</div>';
     var v = S.form[f.n] || '', err = S.errors[f.n], id = 'q-' + f.n, ctl;
@@ -680,7 +702,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   }
   function saveLead() {
     if (!SHEET_URL || S.leadSaved) return;
-    var body = JSON.stringify({ name: S.form.name, email: S.form.email, phone: S.form.phone, whatsapp: S.form.whatsapp || '', program: S.pkg.name, startDate: S.form.startDate || '', stage: S.form.stage || '', country: S.form.country === 'Other' ? (S.form.countryOther || 'Other') : (S.form.country || ''), answers: programAnswers() });
+    var body = JSON.stringify({ name: S.form.name, email: S.form.email, phone: S.form.phone, whatsapp: S.form.whatsapp || '', program: S.pkg.name, startDate: S.form.startDate || '', stage: S.form.stage || '', country: (S.form.country || '').trim(), answers: programAnswers() });
     try { fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', keepalive: true, body: body }); S.leadSaved = true; } catch (e) {}
   }
   function applyCode() {
@@ -757,7 +779,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
         '<div><span>Phone</span><span>' + esc(S.form.phone) + '</span></div>' +
         (S.form.whatsapp ? '<div><span>WhatsApp</span><span>' + esc(S.form.whatsapp) + '</span></div>' : '') +
         '<div><span>Email</span><span>' + esc(S.form.email) + '</span></div>' +
-        (S.form.country ? '<div><span>Country</span><span>' + esc(S.form.country === 'Other' ? (S.form.countryOther || 'Other') : S.form.country) + '</span></div>' : '') +
+        (S.form.country ? '<div><span>Country</span><span>' + esc(S.form.country) + '</span></div>' : '') +
         (S.codeApplied ? '<div><span>Fee</span><span>' + rupees(full) + '</span></div><div class="disc"><span>Code ' + esc(S.codeApplied) + '</span><span>− ' + rupees(CREDIT) + '</span></div>' : '') +
         (full ? '<div class="total"><span>' + (PAY || PAY_LINKS[p.kind] ? 'To pay' : 'Fee') + '</span><span>' + rupees(amt) + '</span></div>' : '<div class="total"><span>Classes</span><span>Mon–Fri, 7–8 PM IST</span></div>') + '</div>';
       if (PAY) {
@@ -790,9 +812,20 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     var t = e.target;
     if (t.getAttribute('data-cond')) { S.conds[t.getAttribute('data-cond')] = t.checked; return; }
     if (t.name) S.form[t.name] = t.type === 'checkbox' ? t.checked : t.value;
-    if (t.name === 'country' && e.type === 'change') { var y = $('overlay').scrollTop; render(); $('overlay').scrollTop = y; }
+    if (t.name === 'country' && e.type === 'input') showCountries(t);
   }
+  $('dialog').addEventListener('focusin', function (e) { if (e.target.name === 'country') showCountries(e.target); });
+  $('dialog').addEventListener('mousedown', function (e) { if (e.target.closest('.copt')) e.preventDefault(); });
+  $('dialog').addEventListener('focusout', function (e) {
+    if (e.target.name === 'country') setTimeout(function () { var b = document.querySelector('.cdrop'); if (b && document.activeElement !== e.target) b.hidden = true; }, 150);
+  });
   $('dialog').addEventListener('click', function (e) {
+    var co = e.target.closest('[data-country]');
+    if (co && S) {
+      var inp = $('q-country'); inp.value = co.getAttribute('data-country'); S.form.country = inp.value; delete S.errors.country;
+      co.parentNode.hidden = true; var er = inp.parentNode.querySelector('.err'); if (er) er.remove();
+      return;
+    }
     var sd = e.target.closest('[data-start]');
     if (sd && S) {
       S.startDay = new Date(Number(sd.getAttribute('data-start')));
