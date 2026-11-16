@@ -56,7 +56,7 @@ function saveLead_(d) {
 
     var sh = tab_();
     var head = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0];
-    ['Start Date', 'Enquiry Date', 'Postpartum Stage / Fitness Category', 'WhatsApp (if different)', 'Program Answers'].forEach(function (h) {           // extra columns, added once at the end
+    ['Start Date', 'Enquiry Date', 'Postpartum Stage / Fitness Category', 'WhatsApp (if different)', 'Program Answers', 'Country'].forEach(function (h) {           // extra columns, added once at the end
       if (head.indexOf(h) < 0) { addHeader_(sh, head.length + 1, h); head.push(h); }
     });
 
@@ -70,6 +70,7 @@ function saveLead_(d) {
       'Start Date': clean_(d.startDate, 40),
       'Postpartum Stage / Fitness Category': clean_(d.stage, 80),
       'Program Answers': clean_(d.answers, 500),
+      'Country': clean_(d.country, 60),
       'Enquiry Date': Utilities.formatDate(new Date(), TZ, 'dd MMM yyyy, h:mm a')
     };
 

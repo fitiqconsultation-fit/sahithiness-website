@@ -485,7 +485,8 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     [{ t: 'text', n: 'name', l: 'Full name', ph: 'Your full name', ac: 'name', req: 'Please enter your full name.', check: function (v) { return v.trim().length >= 2; } }],
     [{ t: 'tel', n: 'phone', l: 'Phone / Mobile number', ph: 'Enter your mobile number', ac: 'tel', req: 'Please enter your mobile number.', check: INTL_PHONE }],
     [{ t: 'tel', n: 'whatsapp', l: 'WhatsApp number (optional)', opt: true, ph: 'Enter your WhatsApp number', ac: 'tel', check: function (v) { return !v.trim() || INTL_PHONE(v); }, req: 'Please enter your WhatsApp number or leave it empty.' }],
-    [{ t: 'email', n: 'email', l: 'Email', ph: 'you@example.com', ac: 'email', req: 'Please enter a valid email address.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }]
+    [{ t: 'email', n: 'email', l: 'Email', ph: 'you@example.com', ac: 'email', req: 'Please enter a valid email address.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }],
+    [{ t: 'select', n: 'country', l: 'Country', ph: 'Select your country', o: ['India', 'United States', 'United Kingdom', 'Canada', 'Australia', 'United Arab Emirates', 'Saudi Arabia', 'Qatar', 'Kuwait', 'Oman', 'Bahrain', 'Singapore', 'Malaysia', 'New Zealand', 'Germany', 'Ireland', 'Netherlands', 'Other'], req: 'Please select your country.' }, { t: 'text', n: 'countryOther', l: 'If Other, which country?', ph: 'Type your country', opt: true }]
   ];
   function detailsFor() { return /^(momstrength|postnatal|pcos|yoga)$/.test(S.pkg.kind) ? STRENGTH_DETAILS : DETAILS; }
   var DETAILS = [
@@ -546,6 +547,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     return h + '</div>' + (S.form.startDate ? '<div class="cal-sub" style="color:var(--sage)">Starting <b>' + esc(S.form.startDate) + '</b></div>' : '') + '</div>';
   }
   function fieldHtml(f) {
+    if (f.n === 'countryOther' && S.form.country !== 'Other') return '';
     if (f.t === 'calslot') return '';
     if (f.t === 'start') return '<div class="fld" style="flex:1 1 100%"><span class="lbl">When would you like to start?</span>' + startHtml() + (S.errors.startDate ? '<span class="err">' + esc(S.errors.startDate) + '</span>' : '') + '</div>';
     if (f.t === 'cal') return '<div class="fld" style="flex:1 1 100%"><span class="lbl">Choose a date and time for your call</span>' + calHtml(S.errors.cDate, S.errors.cSlot) + '</div>';
@@ -678,7 +680,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   }
   function saveLead() {
     if (!SHEET_URL || S.leadSaved) return;
-    var body = JSON.stringify({ name: S.form.name, email: S.form.email, phone: S.form.phone, whatsapp: S.form.whatsapp || '', program: S.pkg.name, startDate: S.form.startDate || '', stage: S.form.stage || '', answers: programAnswers() });
+    var body = JSON.stringify({ name: S.form.name, email: S.form.email, phone: S.form.phone, whatsapp: S.form.whatsapp || '', program: S.pkg.name, startDate: S.form.startDate || '', stage: S.form.stage || '', country: S.form.country === 'Other' ? (S.form.countryOther || 'Other') : (S.form.country || ''), answers: programAnswers() });
     try { fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', keepalive: true, body: body }); S.leadSaved = true; } catch (e) {}
   }
   function applyCode() {
@@ -755,6 +757,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
         '<div><span>Phone</span><span>' + esc(S.form.phone) + '</span></div>' +
         (S.form.whatsapp ? '<div><span>WhatsApp</span><span>' + esc(S.form.whatsapp) + '</span></div>' : '') +
         '<div><span>Email</span><span>' + esc(S.form.email) + '</span></div>' +
+        (S.form.country ? '<div><span>Country</span><span>' + esc(S.form.country === 'Other' ? (S.form.countryOther || 'Other') : S.form.country) + '</span></div>' : '') +
         (S.codeApplied ? '<div><span>Fee</span><span>' + rupees(full) + '</span></div><div class="disc"><span>Code ' + esc(S.codeApplied) + '</span><span>− ' + rupees(CREDIT) + '</span></div>' : '') +
         (full ? '<div class="total"><span>' + (PAY || PAY_LINKS[p.kind] ? 'To pay' : 'Fee') + '</span><span>' + rupees(amt) + '</span></div>' : '<div class="total"><span>Classes</span><span>Mon–Fri, 7–8 PM IST</span></div>') + '</div>';
       if (PAY) {
@@ -787,6 +790,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     var t = e.target;
     if (t.getAttribute('data-cond')) { S.conds[t.getAttribute('data-cond')] = t.checked; return; }
     if (t.name) S.form[t.name] = t.type === 'checkbox' ? t.checked : t.value;
+    if (t.name === 'country' && e.type === 'change') { var y = $('overlay').scrollTop; render(); $('overlay').scrollTop = y; }
   }
   $('dialog').addEventListener('click', function (e) {
     var sd = e.target.closest('[data-start]');
