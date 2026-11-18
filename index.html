@@ -349,7 +349,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   var PACKAGES = [
     { name: 'Postnatal & PCOS\u00a0/\u00a0PCOD Workouts', kind: 'postnatal', icon: '🤱', photo: 'images/postnatal.webp', alt: 'Sahithi doing a glute bridge at home', price: '₹2,784', duration: '/ month', desc: 'Rebuild your strength after childbirth and support your hormones, weight and energy with PCOS / PCOD.', points: ['3 recorded videos a week, with rest days', 'Choose your workout days', 'Core, back and full-body strength', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' },
     { name: 'Strength Training Classes', kind: 'momstrength', icon: '🏋️‍♀️', photo: 'images/strength-live.webp', price: '₹3,000', duration: '/ month', isNew: true, desc: 'Live online group classes with Sahithi, for moms at every stage of their fitness journey.', points: ['Bodyweight and light to moderate weights', 'Form correction and individual guidance', 'Live on Zoom, Mon–Fri, 7–8 PM IST', 'Modifications and recovery clearance as needed'], badge: 'New · Live group classes', cta: 'Join now' },
-    { name: '90-Day Beginner Yoga', kind: 'yoga', icon: '🧘‍♀️', photo: 'images/pcos.webp', alt: 'Sahithi doing a beginner yoga exercise at home', price: '₹3,000', duration: '/ 90 days', desc: 'New to yoga? Start gently with simple, guided classes you can follow at home.', points: ['90 days of beginner yoga classes', 'Step by step, at your own pace', 'Practise at home, anytime', 'One-time payment, no renewal'], badge: 'New · 90-day program', cta: 'Join now' }
+    { name: '90-Day Beginner Yoga', kind: 'yoga', icon: '🧘‍♀️', photo: 'images/yoga.webp', alt: 'Sahithi meditating in a yoga pose at home', price: '₹3,000', duration: '/ 90 days', desc: 'New to yoga? Start gently with simple, guided classes you can follow at home.', points: ['90 days of beginner yoga classes', 'Step by step, at your own pace', 'Practise at home, anytime', 'One-time payment, no renewal'], badge: 'New · 90-day program', cta: 'Join now' }
   ];
 
   function $(id) { return document.getElementById(id); }
@@ -464,6 +464,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     pcos: { title: '', conds: [], rows: [[START]] },
     yoga: { title: '', conds: [], rows: [
       [{ t: 'select', n: 'yogaExp', l: 'Your yoga experience', o: ['Complete beginner', 'Tried a few times', 'Practise sometimes'], req: REQ }, { t: 'select', n: 'goal', l: 'Your main goal', o: ['Flexibility', 'Stress relief and better sleep', 'Weight loss', 'Back or joint pain relief', 'General fitness'], req: REQ }],
+      [{ t: 'textarea', n: 'aboutYou', l: 'Anything you would like to tell Sahithi about you? (optional)', ph: 'For example: any pain or injury, health conditions, or what you hope to achieve', opt: true }],
       [START]] },
     momstrength: { title: '', conds: [], rows: [[{ t: 'select', n: 'stage', l: 'Postpartum stage or fitness category', o: ['Currently pregnant', '0–6 weeks after delivery', '6 weeks – 6 months after delivery', '6–12 months after delivery', '1–2 years after delivery', 'More than 2 years after delivery', 'General fitness (not postpartum)'], req: 'Please choose your stage or category.', help: 'Helps Sahithi plan safe modifications for you.' }], [{ t: 'select', n: 'dumbbells', l: 'Do you have dumbbells?', o: ['Yes, I have dumbbells', 'No, I will buy them', 'I will use filled water bottles for now'], req: REQ }], [START]] },
     general: {
@@ -713,7 +714,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   function programAnswers() {
     return cfgFor().rows.filter(Array.isArray).reduce(function (a, r) { return a.concat(r); }, [])
       .filter(function (f) { return f.n !== 'startDate' && f.n !== 'stage' && S.form[f.n]; })
-      .map(function (f) { return f.l.replace(/\?$/, '') + ': ' + S.form[f.n]; }).join(' | ');
+      .map(function (f) { return f.l.replace(/ \(optional\)$/, '').replace(/\?$/, '') + ': ' + S.form[f.n]; }).join(' | ');
   }
   function saveLead() {
     if (!SHEET_URL || S.leadSaved) return;
