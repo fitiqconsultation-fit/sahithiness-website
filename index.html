@@ -80,6 +80,9 @@ nav{display:flex;align-items:center;justify-content:space-between;gap:16px;paddi
 .hstats span{font-size:22px;line-height:1;margin-bottom:6px}.hstats b{font-size:17px}.hstats small{font-size:13px;color:var(--muted2);line-height:1.35}
 .hfor{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:560px}
 .hfor-item{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+.wdays{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.wday{min-height:46px;border:1px solid var(--field);border-radius:12px;background:#fff;font:600 14px 'DM Sans',sans-serif;color:var(--ink);cursor:pointer;padding:0}
+.wday.sel{background:var(--sage);border-color:var(--sage);color:#fff}.wday[disabled]{opacity:.4;cursor:not-allowed}
 .cfield{position:relative}
 .cdrop{position:absolute;left:0;right:0;top:100%;z-index:5;margin-top:4px;background:#fff;border:1px solid var(--field);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.12);max-height:280px;overflow:auto;padding:6px}
 .copt{display:block;width:100%;text-align:left;border:0;background:none;padding:10px 12px;border-radius:10px;font:500 15px 'DM Sans',sans-serif;color:var(--ink);cursor:pointer}
@@ -455,7 +458,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     },
     postnatal: { title: '', conds: [], rows: [
       [{ t: 'select', n: 'joinFor', l: 'What are you joining for?', o: ['Postnatal recovery', 'PCOS / PCOD', 'Both postnatal and PCOS / PCOD'], req: REQ }],
-      [{ t: 'select', n: 'days', l: 'Which days will you work out?', o: ['Monday, Wednesday, Friday', 'Tuesday, Thursday, Saturday'], req: 'Please choose your workout days.', help: '3 sessions a week, with a rest day in between for recovery.' }],
+      [{ t: 'weekdays', n: 'days', l: 'Which days will you work out?', req: 'Please pick 3 days.', check: function (v) { return v.split(', ').filter(Boolean).length === 3; } }],
       [{ t: 'select', n: 'since', l: 'Time since delivery', o: ['0–6 weeks after delivery', '6 weeks – 6 months after delivery', '6–12 months after delivery', '1–2 years after delivery', 'More than 2 years after delivery', 'Not applicable (PCOS / PCOD only)'], req: REQ }, { t: 'select', n: 'delType', l: 'Delivery type', o: ['Normal delivery', 'C-section', 'Not applicable'], req: REQ, help: 'After a C-section, start only with your doctor’s clearance.' }],
       [START]] },
     pcos: { title: '', conds: [], rows: [[START]] },
@@ -493,6 +496,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     [{ t: 'email', n: 'email', l: 'Email', ph: 'you@example.com', ac: 'email', req: 'Please enter a valid email address.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }],
     [{ t: 'country', n: 'country', l: 'Country', ph: 'Search or type your country', req: 'Please enter your country.', check: function (v) { return v.trim().length >= 2; } }]
   ];
+  var WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   var TOP_COUNTRIES = ['India', 'United States', 'United Kingdom', 'United Arab Emirates', 'Canada', 'Australia', 'Saudi Arabia', 'Singapore'];
   var COUNTRIES = 'Afghanistan,Albania,Algeria,Andorra,Angola,Antigua and Barbuda,Argentina,Armenia,Australia,Austria,Azerbaijan,Bahamas,Bahrain,Bangladesh,Barbados,Belarus,Belgium,Belize,Benin,Bhutan,Bolivia,Bosnia and Herzegovina,Botswana,Brazil,Brunei,Bulgaria,Burkina Faso,Burundi,Cambodia,Cameroon,Canada,Cape Verde,Central African Republic,Chad,Chile,China,Colombia,Comoros,Congo,Costa Rica,Croatia,Cuba,Cyprus,Czech Republic,Denmark,Djibouti,Dominica,Dominican Republic,DR Congo,Ecuador,Egypt,El Salvador,Equatorial Guinea,Eritrea,Estonia,Eswatini,Ethiopia,Fiji,Finland,France,Gabon,Gambia,Georgia,Germany,Ghana,Greece,Grenada,Guatemala,Guinea,Guinea-Bissau,Guyana,Haiti,Honduras,Hong Kong,Hungary,Iceland,India,Indonesia,Iran,Iraq,Ireland,Israel,Italy,Ivory Coast,Jamaica,Japan,Jordan,Kazakhstan,Kenya,Kiribati,Kuwait,Kyrgyzstan,Laos,Latvia,Lebanon,Lesotho,Liberia,Libya,Liechtenstein,Lithuania,Luxembourg,Madagascar,Malawi,Malaysia,Maldives,Mali,Malta,Marshall Islands,Mauritania,Mauritius,Mexico,Micronesia,Moldova,Monaco,Mongolia,Montenegro,Morocco,Mozambique,Myanmar,Namibia,Nauru,Nepal,Netherlands,New Zealand,Nicaragua,Niger,Nigeria,North Korea,North Macedonia,Norway,Oman,Pakistan,Palau,Palestine,Panama,Papua New Guinea,Paraguay,Peru,Philippines,Poland,Portugal,Qatar,Romania,Russia,Rwanda,Saint Kitts and Nevis,Saint Lucia,Saint Vincent and the Grenadines,Samoa,San Marino,Sao Tome and Principe,Saudi Arabia,Senegal,Serbia,Seychelles,Sierra Leone,Singapore,Slovakia,Slovenia,Solomon Islands,Somalia,South Africa,South Korea,South Sudan,Spain,Sri Lanka,Sudan,Suriname,Sweden,Switzerland,Syria,Taiwan,Tajikistan,Tanzania,Thailand,Timor-Leste,Togo,Tonga,Trinidad and Tobago,Tunisia,Turkey,Turkmenistan,Tuvalu,Uganda,Ukraine,United Arab Emirates,United Kingdom,United States,Uruguay,Uzbekistan,Vanuatu,Vatican City,Venezuela,Vietnam,Yemen,Zambia,Zimbabwe'.split(',');
   function countryMatches(q) {
@@ -571,6 +575,16 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     if (f.t === 'country') {
       return '<div class="fld cfield"><label class="lbl" for="q-country">' + esc(f.l) + '</label><input class="ctl" id="q-country" name="country" type="text" autocomplete="off" value="' + esc(S.form.country || '') + '" placeholder="' + esc(f.ph) + '">' +
         '<div class="cdrop" hidden></div>' + (S.errors.country ? '<span class="err">' + esc(S.errors.country) + '</span>' : '') + '</div>';
+    }
+    if (f.t === 'weekdays') {
+      var picked = (S.form.days || '').split(', ').filter(Boolean);
+      return '<div class="fld" style="flex:1 1 100%"><span class="lbl">' + esc(f.l) + '</span>' +
+        '<div class="wdays">' + WEEK.map(function (d) {
+          var on = picked.indexOf(d) >= 0, full = !on && picked.length >= 3;
+          return '<button type="button" class="wday' + (on ? ' sel' : '') + '" data-wd="' + d + '" aria-pressed="' + on + '"' + (full ? ' disabled' : '') + '>' + d.slice(0, 3) + '</button>';
+        }).join('') + '</div>' +
+        '<span class="fhelp">Pick any 3 days (' + picked.length + '/3 chosen). Keep a rest day in between for recovery.</span>' +
+        (S.errors.days ? '<span class="err">' + esc(S.errors.days) + '</span>' : '') + '</div>';
     }
     if (f.t === 'start') return '<div class="fld" style="flex:1 1 100%"><span class="lbl">When would you like to start?</span>' + startHtml() + (S.errors.startDate ? '<span class="err">' + esc(S.errors.startDate) + '</span>' : '') + '</div>';
     if (f.t === 'cal') return '<div class="fld" style="flex:1 1 100%"><span class="lbl">Choose a date and time for your call</span>' + calHtml(S.errors.cDate, S.errors.cSlot) + '</div>';
@@ -826,6 +840,15 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     if (co && S) {
       var inp = $('q-country'); inp.value = co.getAttribute('data-country'); S.form.country = inp.value; delete S.errors.country;
       co.parentNode.hidden = true; var er = inp.parentNode.querySelector('.err'); if (er) er.remove();
+      return;
+    }
+    var wd = e.target.closest('[data-wd]');
+    if (wd && S && !wd.disabled) {
+      var picked = (S.form.days || '').split(', ').filter(Boolean), d = wd.getAttribute('data-wd'), k = picked.indexOf(d);
+      if (k >= 0) picked.splice(k, 1); else if (picked.length < 3) picked.push(d);
+      picked.sort(function (a, b) { return WEEK.indexOf(a) - WEEK.indexOf(b); });
+      S.form.days = picked.join(', '); if (picked.length === 3) delete S.errors.days;
+      var y1 = $('overlay').scrollTop; render(); $('overlay').scrollTop = y1;
       return;
     }
     var sd = e.target.closest('[data-start]');
