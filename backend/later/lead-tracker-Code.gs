@@ -19,7 +19,7 @@ var WELCOME = {
     'See you in class!\nTeam Sahithiness',
   'default':
     'Hi {name}!\n\nWelcome to {program} with Sahithi. Your payment is confirmed.\n\n' +
-    'Your start date: {start}\nYou will get 5 new recorded videos every week. We will share your video access with you here.\n\n' +
+    'Your start date: {start}\nYou will get 3 recorded workout videos every week on your chosen days, with rest days in between for recovery. We will share your video access with you here.\n\n' +
     'Practise within your comfort, and message us here anytime.\nTeam Sahithiness'
 };
 

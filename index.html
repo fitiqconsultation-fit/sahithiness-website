@@ -286,7 +286,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       <a class="btn btn-sage" href="#programs">See programs</a>
     </div>
     <div class="hstats">
-      <div><span aria-hidden="true">🎥</span><b>5 videos</b><small>every week</small></div>
+      <div><span aria-hidden="true">🎥</span><b>3 videos</b><small>every week, with rest days</small></div>
       <div><span aria-hidden="true">📅</span><b>365 days</b><small>new classes all year</small></div>
       <div><span aria-hidden="true">🏠</span><b>At home</b><small>no gym needed</small></div>
     </div>
@@ -344,7 +344,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
 
   /* Programs shown on the page. Edit names, prices and text here. */
   var PACKAGES = [
-    { name: 'Postnatal & PCOS\u00a0/\u00a0PCOD Workouts', kind: 'postnatal', icon: '🤱', photo: 'images/postnatal.webp', alt: 'Sahithi doing a glute bridge at home', price: '₹2,784', duration: '/ month', desc: 'Rebuild your strength after childbirth and support your hormones, weight and energy with PCOS / PCOD.', points: ['5 recorded videos every week', 'New classes all year round', 'Core, back and full-body strength', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' },
+    { name: 'Postnatal & PCOS\u00a0/\u00a0PCOD Workouts', kind: 'postnatal', icon: '🤱', photo: 'images/postnatal.webp', alt: 'Sahithi doing a glute bridge at home', price: '₹2,784', duration: '/ month', desc: 'Rebuild your strength after childbirth and support your hormones, weight and energy with PCOS / PCOD.', points: ['3 recorded videos a week, with rest days', 'Choose your workout days', 'Core, back and full-body strength', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' },
     { name: 'Strength Training Classes', kind: 'momstrength', icon: '🏋️‍♀️', photo: 'images/strength-live.webp', price: '₹3,000', duration: '/ month', isNew: true, desc: 'Live online group classes with Sahithi, for moms at every stage of their fitness journey.', points: ['Bodyweight and light to moderate weights', 'Form correction and individual guidance', 'Live on Zoom, Mon–Fri, 7–8 PM IST', 'Modifications and recovery clearance as needed'], badge: 'New · Live group classes', cta: 'Join now' },
     { name: '90-Day Beginner Yoga', kind: 'yoga', icon: '🧘‍♀️', photo: 'images/pcos.webp', alt: 'Sahithi doing a beginner yoga exercise at home', price: '₹3,000', duration: '/ 90 days', desc: 'New to yoga? Start gently with simple, guided classes you can follow at home.', points: ['90 days of beginner yoga classes', 'Step by step, at your own pace', 'Practise at home, anytime', 'One-time payment, no renewal'], badge: 'New · 90-day program', cta: 'Join now' }
   ];
@@ -455,6 +455,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     },
     postnatal: { title: '', conds: [], rows: [
       [{ t: 'select', n: 'joinFor', l: 'What are you joining for?', o: ['Postnatal recovery', 'PCOS / PCOD', 'Both postnatal and PCOS / PCOD'], req: REQ }],
+      [{ t: 'select', n: 'days', l: 'Which days will you work out?', o: ['Monday, Wednesday, Friday', 'Tuesday, Thursday, Saturday'], req: 'Please choose your workout days.', help: '3 sessions a week, with a rest day in between for recovery.' }],
       [{ t: 'select', n: 'since', l: 'Time since delivery', o: ['0–6 weeks after delivery', '6 weeks – 6 months after delivery', '6–12 months after delivery', '1–2 years after delivery', 'More than 2 years after delivery', 'Not applicable (PCOS / PCOD only)'], req: REQ }, { t: 'select', n: 'delType', l: 'Delivery type', o: ['Normal delivery', 'C-section', 'Not applicable'], req: REQ, help: 'After a C-section, start only with your doctor’s clearance.' }],
       [START]] },
     pcos: { title: '', conds: [], rows: [[START]] },
@@ -772,6 +773,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
         (p.kind === 'consult' ? '<div><span>Call</span><span>' + esc(S.form.cDate + ', ' + S.form.cSlot) + '</span></div>' : '') +
         (p.kind === 'momstrength' ? '<div><span>Classes</span><span>Mon–Fri, 7–8 PM IST</span></div>' : '') +
         (S.form.stage ? '<div><span>Stage</span><span>' + esc(S.form.stage) + '</span></div>' : '') +
+        (S.form.days ? '<div><span>Workout days</span><span>' + esc(S.form.days) + '</span></div>' : '') +
         (S.form.joinFor ? '<div><span>Joining for</span><span>' + esc(S.form.joinFor) + '</span></div>' : '') +
         (S.form.yogaExp ? '<div><span>Experience</span><span>' + esc(S.form.yogaExp) + '</span></div>' : '') +
         (S.form.startDate ? '<div><span>Start date</span><span>' + esc(S.form.startDate) + '</span></div>' : '') +
