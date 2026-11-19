@@ -491,7 +491,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   /* Strength Training: phone with any country code (required) + optional WhatsApp number */
   var INTL_PHONE = function (v) { return /\d{5,}/.test(v.replace(/[\s\-()]/g, '')); };
   var STRENGTH_DETAILS = [
-    [{ t: 'text', n: 'name', l: 'Full name', ph: 'Your full name', ac: 'name', req: 'Please enter your full name.', check: function (v) { return v.trim().length >= 2; } }],
+    [{ t: 'text', n: 'firstName', l: 'First name', ph: 'First name', ac: 'given-name', req: 'Please enter your first name.', check: function (v) { return v.trim().length >= 1; } }, { t: 'text', n: 'lastName', l: 'Last name', ph: 'Last name', ac: 'family-name', req: 'Please enter your last name.', check: function (v) { return v.trim().length >= 1; } }],
     [{ t: 'tel', n: 'phone', l: 'Phone / Mobile number', ph: 'Enter your mobile number', ac: 'tel', req: 'Please enter your mobile number.', check: INTL_PHONE }],
     [{ t: 'tel', n: 'whatsapp', l: 'WhatsApp number (optional)', opt: true, ph: 'Enter your WhatsApp number', ac: 'tel', check: function (v) { return !v.trim() || INTL_PHONE(v); }, req: 'Please enter your WhatsApp number or leave it empty.' }],
     [{ t: 'email', n: 'email', l: 'Email', ph: 'you@example.com', ac: 'email', req: 'Please enter a valid email address.', check: function (v) { return /^\S+@\S+\.\S+$/.test(v.trim()); } }],
@@ -829,6 +829,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     var t = e.target;
     if (t.getAttribute('data-cond')) { S.conds[t.getAttribute('data-cond')] = t.checked; return; }
     if (t.name) S.form[t.name] = t.type === 'checkbox' ? t.checked : t.value;
+    if (t.name === 'firstName' || t.name === 'lastName') S.form.name = ((S.form.firstName || '').trim() + ' ' + (S.form.lastName || '').trim()).trim();
     if (t.name === 'country' && e.type === 'input') showCountries(t);
   }
   $('dialog').addEventListener('focusin', function (e) { if (e.target.name === 'country') showCountries(e.target); });
