@@ -288,9 +288,9 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
 <main>
 <section id="home" class="wrap hero">
   <div class="hero-text">
-    <div class="tags"><span class="tag tag-pink">🤱 Postnatal &amp; PCOS&nbsp;/&nbsp;PCOD</span><span class="tag tag-sage">🧘‍♀️ Beginner yoga</span><span class="tag" style="background:#FCE9C8;color:#7A4B12">🏋️‍♀️ Live strength classes · New</span></div>
+    <div class="tags"><span class="tag tag-pink">🤱 Postnatal &amp; PCOS&nbsp;/&nbsp;PCOD</span><span class="tag tag-sage">🧘‍♀️ Beginner yoga</span><span class="tag" style="background:#FCE9C8;color:#7A4B12">🔴 Live strength &amp; prenatal classes</span></div>
     <h1>Home workouts for women</h1>
-    <p>Recorded postnatal &amp; PCOS&nbsp;/&nbsp;PCOD workouts, live strength classes and a 90-day beginner yoga program with Sahithi.</p>
+    <p>Live strength and prenatal classes on Zoom, plus recorded postnatal &amp; PCOS&nbsp;/&nbsp;PCOD workouts and a 90-day beginner yoga program with Sahithi.</p>
     <div class="ctas">
       <a class="btn btn-sage" href="#programs">See programs</a>
     </div>
@@ -302,7 +302,8 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     <div class="hfor">
       <div class="hfor-item"><span class="ic" style="background:var(--pink-bg)" aria-hidden="true">🤱</span><div><b>Postnatal &amp; PCOS&nbsp;/&nbsp;PCOD</b><small>Rebuild strength, support hormones</small></div></div>
       <div class="hfor-item"><span class="ic" style="background:var(--sage-bg)" aria-hidden="true">🧘‍♀️</span><div><b>Beginner Yoga <span class="newpill">New</span></b><small>90 days, one-time ₹3,000</small></div></div>
-      <div class="hfor-item hfor-wide"><span class="ic" style="background:#FCE9C8" aria-hidden="true">🏋️‍♀️</span><div><b>Strength Training · Live <span class="newpill">New</span></b><small>Group classes on Zoom, Monday–Friday, 7–8 PM IST</small></div></div>
+      <div class="hfor-item"><span class="ic" style="background:#FCE9C8" aria-hidden="true">🏋️‍♀️</span><div><b>Strength Training · Live</b><small>Mon–Fri, 7–8 PM IST</small></div></div>
+      <div class="hfor-item"><span class="ic" style="background:var(--pink-bg)" aria-hidden="true">🤰</span><div><b>Prenatal · Live <span class="newpill">New</span></b><small>3 live classes a week, 6–7 PM IST</small></div></div>
     </div>
   </div>
   <div class="hero-img">
@@ -350,10 +351,10 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   var PAY = !!API_URL;
   /* Razorpay payment link. One link for all programs; you can set a different link per program here. */
   var PAY_LINK = 'https://rzp.io/rzp/Mb2OjID';
-  var PAY_LINKS = { postnatal: PAY_LINK, pcos: PAY_LINK, momstrength: 'https://rzp.io/rzp/1FWz801N', yoga: '' };
+  var PAY_LINKS = { postnatal: PAY_LINK, pcos: PAY_LINK, momstrength: 'https://rzp.io/rzp/1FWz801N', yoga: '', prenatal: '' };
   /* Lead & Payment Tracker sheet: paste the Apps Script Web app URL between the quotes. */
   var SHEET_URL = 'https://script.google.com/macros/s/AKfycbxhVIIac981nqxuiM_RMf4D6P1bfkPCoXVUmwMc-c-IBta5kHpN3r385RyYlozRi2-WKQ/exec';
-  var TINT = { postnatal: '#F2D4D7', pcos: '#DCE5D3', momstrength: '#F6E3C8', yoga: '#DCE5D3' };
+  var TINT = { postnatal: '#F2D4D7', pcos: '#DCE5D3', momstrength: '#F6E3C8', yoga: '#DCE5D3', prenatal: '#F2D4D7' };
 
   /* Sample class for General Yoga. Paste a YouTube link or a Google Drive video link between the quotes. */
   var SAMPLE_VIDEO = '';
@@ -362,6 +363,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   var PACKAGES = [
     { name: 'Postnatal & PCOS\u00a0/\u00a0PCOD Workouts', kind: 'postnatal', icon: '🤱', photo: 'images/pcos.webp', alt: 'Sahithi doing a bird-dog exercise at home', price: '₹2,784', duration: '/ month', desc: 'Rebuild your strength after childbirth and support your hormones, weight and energy with PCOS / PCOD.', points: ['3 recorded videos a week, with rest days', 'Choose your workout days', 'Core, back and full-body strength', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' },
     { name: 'Strength Training Classes', kind: 'momstrength', live: true, icon: '🏋️‍♀️', photo: 'images/strength-live.webp', price: '₹3,000', duration: '/ month', isNew: true, desc: 'Live online group classes with Sahithi, for moms at every stage of their fitness journey.', points: ['Bodyweight and light to moderate weights', 'Form correction and individual guidance', 'Live on Zoom, Mon–Fri, 7–8 PM IST', 'Modifications and recovery clearance as needed'], badge: 'New · Live group classes', cta: 'Join now' },
+    { name: 'Prenatal Live Classes', kind: 'prenatal', live: true, icon: '🤰', price: '₹3,999', duration: '/ month', isNew: true, desc: 'Safe, guided workouts through your pregnancy, live with Sahithi on Zoom.', points: ['3 live classes a week, 6–7 PM IST', 'Plus 3 recorded classes a week, in case you miss a live class', 'Recorded classes monitored by our dietitian', 'Safe modifications for each trimester'], badge: 'New · Live group classes', cta: 'Join now' },
     { name: '90-Day Beginner Yoga', kind: 'yoga', icon: '🧘‍♀️', photo: 'images/yoga-stretch.webp', alt: 'Sahithi guiding a seated forward stretch', price: '₹3,000', duration: '/ 90 days', desc: 'New to yoga? Start gently with simple, guided classes you can follow at home.', points: ['90 days of beginner yoga classes', 'Step by step, at your own pace', 'Practise at home, anytime', 'One-time payment, no renewal'], badge: 'New · 90-day program', cta: 'Join now' }
   ];
 
@@ -460,19 +462,11 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
 
   var START = { t: 'start', n: 'startDate', l: 'Preferred start date', req: 'Please choose when you want to start.' };
   var FORMS = {
-    prenatal: {
-      title: 'Pregnancy health questions', note: PRIVATE, consent: CONSENT_MED,
-      conds: [['diab', 'Diabetes or gestational diabetes'], ['bp', 'High blood pressure'], ['thy', 'Thyroid'], ['pcos', 'PCOS\u00a0/\u00a0PCOD'], ['anae', 'Anaemia (low haemoglobin)'], ['bleed', 'Bleeding or spotting'], ['placenta', 'Low-lying placenta / placenta previa'], ['misc', 'Previous miscarriage'], ['rest', 'Doctor advised rest or no exercise']],
-      rows: [
-        [{ t: 'select', n: 'months', l: 'How many months pregnant are you?', o: MONTHS, req: 'Please select how many months.' }, { t: 'date', n: 'edd', l: 'Expected delivery date', req: 'Please enter your expected delivery date.' }],
-        [{ t: 'select', n: 'firstPreg', l: 'Is this your first pregnancy?', o: ['Yes', 'No'], req: REQ }, { t: 'select', n: 'activity', l: 'How active are you right now?', o: ['Not active', 'Light walking', 'Regular exercise, yoga or gym'], req: REQ }],
-        [MOVE],
-        'conds',
-        [{ t: 'select', n: 'diet', l: 'Food preference', o: DIET, req: 'Please choose your food preference.' }, { t: 'text', n: 'allergies', l: 'Food allergies (optional)', ph: 'e.g. peanuts' }],
-        [{ t: 'textarea', n: 'preOther', l: 'Anything else your doctor has asked you to avoid? (optional)', ph: 'Medicines, restrictions, other complications' }],
-        'consent'
-      ]
-    },
+    prenatal: { title: '', conds: [], rows: [
+      [{ t: 'select', n: 'months', l: 'How many months pregnant are you?', o: MONTHS, req: 'Please select how many months.' }, { t: 'date', n: 'edd', l: 'Expected delivery date', req: 'Please enter your expected delivery date.' }],
+      [{ t: 'select', n: 'firstPreg', l: 'Is this your first pregnancy?', o: ['Yes', 'No'], req: REQ }, { t: 'select', n: 'docOk', l: 'Has your doctor cleared you for exercise?', o: ['Yes', 'I will check with my doctor', 'No'], req: REQ }],
+      [{ t: 'textarea', n: 'pregNote', l: 'Any pregnancy complications or anything Sahithi should know? (optional)', ph: 'For example: low-lying placenta, BP, thyroid, past miscarriage, back pain', opt: true }],
+      [START]] },
     postnatal: { title: '', conds: [], rows: [
       [{ t: 'select', n: 'joinFor', l: 'What are you joining for?', o: ['Postnatal recovery', 'PCOS / PCOD', 'Both postnatal and PCOS / PCOD'], req: REQ }],
       [{ t: 'weekdays', n: 'days', l: 'Which days will you work out?', req: 'Please pick 3 days.', check: function (v) { return v.split(', ').filter(Boolean).length === 3; } }],
@@ -531,7 +525,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       '<div class="cnone">Press Continue to use “' + esc(input.value.trim()) + '”</div>');
     box.hidden = false;
   }
-  function detailsFor() { return /^(momstrength|postnatal|pcos|yoga)$/.test(S.pkg.kind) ? STRENGTH_DETAILS : DETAILS; }
+  function detailsFor() { return /^(momstrength|postnatal|pcos|yoga|prenatal)$/.test(S.pkg.kind) ? STRENGTH_DETAILS : DETAILS; }
   var DETAILS = [
     [{ t: 'text', n: 'name', l: 'Full name', ph: 'Your full name', ac: 'name', req: 'Please enter your full name.', check: function (v) { return v.trim().length >= 2; } }],
     [{ t: 'tel', n: 'phone', l: 'Phone / WhatsApp', ph: '10-digit mobile number', ac: 'tel', req: 'Please enter a valid 10-digit mobile number.', check: function (v) { return /^(91)?[6-9]\d{9}$/.test(v.replace(/\D/g, '')); } }],
@@ -752,7 +746,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     var r = S.result || {}, k = S.pkg.kind, first = esc(String(S.form.name).split(' ')[0]), body;
     if (r.registered) {
       return '<div class="result"><span class="ico" aria-hidden="true" style="background:#DCE5D3;color:#3B4C35">' + TICK + '</span>' +
-        '<h3>You’re registered, ' + first + '!</h3>' + (k === 'yoga' ? '<p class="box">Sahithi’s team will contact you on <b>' + esc(S.form.phone) + '</b> with the payment link for the <b>90-Day Beginner Yoga</b> program (₹3,000, one-time). Your 90 days start from <b>' + esc(S.form.startDate) + '</b>.</p>' : '<p class="box">Classes run <b>Monday to Friday, 7–8 PM IST</b> on Zoom. Sahithi’s team will contact you on <b>' + esc(S.form.phone) + '</b> with the fee and your Zoom link before <b>' + esc(S.form.startDate) + '</b>.</p>') +
+        '<h3>You’re registered, ' + first + '!</h3>' + (k === 'prenatal' ? '<p class="box">Live classes run <b>3 days a week, 6–7 PM IST</b> on Zoom, plus 3 recorded classes a week. Sahithi’s team will contact you on <b>' + esc(S.form.phone) + '</b> with the payment link (₹3,999 / month) and your Zoom link before <b>' + esc(S.form.startDate) + '</b>.</p>' : k === 'yoga' ? '<p class="box">Sahithi’s team will contact you on <b>' + esc(S.form.phone) + '</b> with the payment link for the <b>90-Day Beginner Yoga</b> program (₹3,000, one-time). Your 90 days start from <b>' + esc(S.form.startDate) + '</b>.</p>' : '<p class="box">Classes run <b>Monday to Friday, 7–8 PM IST</b> on Zoom. Sahithi’s team will contact you on <b>' + esc(S.form.phone) + '</b> with the fee and your Zoom link before <b>' + esc(S.form.startDate) + '</b>.</p>') +
         '<button type="button" class="btn btn-sage" data-act="close">Done</button></div>';
     }
     if (r.link) {
@@ -804,9 +798,10 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
       h += '<div class="blk"><h3>' + (PAY || PAY_LINKS[p.kind] ? 'Review and pay' : 'Review and register') + '</h3><div class="summary">' +
         '<div><span>Program</span><span style="font-weight:600">' + esc(p.name) + '</span></div>' +
         (p.kind === 'consult' ? '<div><span>Call</span><span>' + esc(S.form.cDate + ', ' + S.form.cSlot) + '</span></div>' : '') +
-        (p.kind === 'momstrength' ? '<div><span>Classes</span><span>Mon–Fri, 7–8 PM IST</span></div>' : '') +
+        (p.kind === 'momstrength' ? '<div><span>Classes</span><span>Mon–Fri, 7–8 PM IST</span></div>' : p.kind === 'prenatal' ? '<div><span>Classes</span><span>3 live a week, 6–7 PM IST + 3 recorded</span></div>' : '') +
         (S.form.stage ? '<div><span>Stage</span><span>' + esc(S.form.stage) + '</span></div>' : '') +
         (S.form.days ? '<div><span>Workout days</span><span>' + esc(S.form.days) + '</span></div>' : '') +
+        (S.form.months ? '<div><span>Pregnancy</span><span>' + esc(S.form.months) + '</span></div>' : '') +
         (S.form.joinFor ? '<div><span>Joining for</span><span>' + esc(S.form.joinFor) + '</span></div>' : '') +
         (S.form.yogaExp ? '<div><span>Experience</span><span>' + esc(S.form.yogaExp) + '</span></div>' : '') +
         (S.form.startDate ? '<div><span>Start date</span><span>' + esc(S.form.startDate) + '</span></div>' : '') +
@@ -832,7 +827,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
         h += '<a class="btn btn-sage" href="' + esc(PAY_LINKS[p.kind]) + '" target="_blank" rel="noopener" data-act="paylink">' + LOCK + (full ? 'Pay ' + rupees(full) + ' on Razorpay' : 'Pay on Razorpay') + '</a>' +
           '<span style="font-size:13px;color:var(--muted2);text-align:center">UPI, cards and net banking. Please use the same phone number and email on the payment page.</span></div>';
       } else {
-        h += '<button type="button" class="btn btn-sage" data-act="register">' + (p.kind === 'yoga' ? 'Register for Beginner Yoga' : 'Register for classes') + '</button>' +
+        h += '<button type="button" class="btn btn-sage" data-act="register">' + (p.kind === 'yoga' ? 'Register for Beginner Yoga' : p.kind === 'prenatal' ? 'Register for Prenatal Live Classes' : 'Register for classes') + '</button>' +
           '<span style="font-size:13px;color:var(--muted2);text-align:center">' + (p.kind === 'yoga' ? 'Sahithi’s team will send you the payment link and your class access.' : 'Sahithi’s team will contact you with the fee and your Zoom link.') + '</span></div>';
       }
       h += '<div class="navrow"><button type="button" class="btn btn-outline" data-act="back"' + (S.busy ? ' disabled' : '') + '>Back</button><span></span></div>';
