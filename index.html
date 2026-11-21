@@ -81,6 +81,11 @@ nav{display:flex;align-items:center;justify-content:space-between;gap:16px;paddi
 .hfor{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:560px}
 .hfor-item{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px}
 .reqm{color:var(--err);font-weight:700}
+.pgroup{display:flex;flex-direction:column;gap:18px;max-width:1120px;margin:0 auto;width:100%}
+.pgroup + .pgroup{margin-top:20px}
+.pgroup-head{display:flex;align-items:center;gap:12px}.pgroup-head h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(26px,3vw,32px);font-weight:700;line-height:1.1}
+.pgroup-head p{font-size:15px;color:var(--muted)}.pg-ic{font-size:22px;width:48px;height:48px;flex:0 0 48px;border-radius:999px;background:#fff;display:flex;align-items:center;justify-content:center;border:1px solid var(--line)}
+.pgrid{grid-template-columns:repeat(auto-fit,minmax(280px,360px));justify-content:center}
 .wdays{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
 .wday{min-height:46px;border:1px solid var(--field);border-radius:12px;background:#fff;font:600 14px 'DM Sans',sans-serif;color:var(--ink);cursor:pointer;padding:0}
 .wday.sel{background:var(--sage);border-color:var(--sage);color:#fff}.wday[disabled]{opacity:.4;cursor:not-allowed}
@@ -310,9 +315,16 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
     <div class="head">
       <span class="eyebrow">Programs and pricing</span>
       <h2 class="h2">Choose your program</h2>
-      <p class="lead" style="max-width:640px">Postnatal &amp; PCOS / PCOD workouts at ₹2,784 a month, live strength classes at ₹3,000 a month, and a 90-day beginner yoga program.</p>
+      <p class="lead" style="max-width:640px">Join Sahithi live on Zoom, or follow recorded programs at your own pace.</p>
     </div>
-    <div id="program-grid" class="grid g250" style="max-width:1120px;margin:0 auto;width:100%"></div>
+    <div class="pgroup">
+      <div class="pgroup-head"><span class="pg-ic" aria-hidden="true">🔴</span><div><h3>Live classes</h3><p>Join Sahithi live on Zoom, with form correction and guidance.</p></div></div>
+      <div id="program-grid" class="grid g250 pgrid"></div>
+    </div>
+    <div class="pgroup">
+      <div class="pgroup-head"><span class="pg-ic" aria-hidden="true">🎥</span><div><h3>Recorded programs</h3><p>Practise at home, on your own schedule.</p></div></div>
+      <div id="rec-grid" class="grid g250 pgrid"></div>
+    </div>
   </div>
 </section>
 
@@ -349,7 +361,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   /* Programs shown on the page. Edit names, prices and text here. */
   var PACKAGES = [
     { name: 'Postnatal & PCOS\u00a0/\u00a0PCOD Workouts', kind: 'postnatal', icon: '🤱', photo: 'images/pcos.webp', alt: 'Sahithi doing a bird-dog exercise at home', price: '₹2,784', duration: '/ month', desc: 'Rebuild your strength after childbirth and support your hormones, weight and energy with PCOS / PCOD.', points: ['3 recorded videos a week, with rest days', 'Choose your workout days', 'Core, back and full-body strength', 'Renew month to month'], badge: 'Recorded classes', cta: 'Join now' },
-    { name: 'Strength Training Classes', kind: 'momstrength', icon: '🏋️‍♀️', photo: 'images/strength-live.webp', price: '₹3,000', duration: '/ month', isNew: true, desc: 'Live online group classes with Sahithi, for moms at every stage of their fitness journey.', points: ['Bodyweight and light to moderate weights', 'Form correction and individual guidance', 'Live on Zoom, Mon–Fri, 7–8 PM IST', 'Modifications and recovery clearance as needed'], badge: 'New · Live group classes', cta: 'Join now' },
+    { name: 'Strength Training Classes', kind: 'momstrength', live: true, icon: '🏋️‍♀️', photo: 'images/strength-live.webp', price: '₹3,000', duration: '/ month', isNew: true, desc: 'Live online group classes with Sahithi, for moms at every stage of their fitness journey.', points: ['Bodyweight and light to moderate weights', 'Form correction and individual guidance', 'Live on Zoom, Mon–Fri, 7–8 PM IST', 'Modifications and recovery clearance as needed'], badge: 'New · Live group classes', cta: 'Join now' },
     { name: '90-Day Beginner Yoga', kind: 'yoga', icon: '🧘‍♀️', photo: 'images/yoga-stretch.webp', alt: 'Sahithi guiding a seated forward stretch', price: '₹3,000', duration: '/ 90 days', desc: 'New to yoga? Start gently with simple, guided classes you can follow at home.', points: ['90 days of beginner yoga classes', 'Step by step, at your own pace', 'Practise at home, anytime', 'One-time payment, no renewal'], badge: 'New · 90-day program', cta: 'Join now' }
   ];
 
@@ -413,7 +425,7 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
   }
 
   function renderPrograms() {
-    $('program-grid').innerHTML = PACKAGES.map(function (p, i) {
+    var cardHtml = function (p, i) {
       var pink = p.kind === 'postnatal';
       return '<article class="card">' + mediaHtml(p, i) +
         '<div class="card-body">' +
@@ -422,7 +434,11 @@ fieldset.conds legend{font-size:14px;font-weight:600;padding:0 6px}
         (p.points ? '<ul class="card-pts">' + p.points.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' : '') +
         '<div class="price"><b>' + esc(p.price) + '</b><span>' + esc(p.duration) + '</span></div>' +
         '<button type="button" class="btn btn-sage" data-enroll="' + i + '">' + esc(p.cta) + '</button></div></article>';
-    }).join('');
+    };
+    var live = '', rec = '';
+    PACKAGES.forEach(function (p, i) { if (p.live) live += cardHtml(p, i); else rec += cardHtml(p, i); });
+    $('program-grid').innerHTML = live;
+    $('rec-grid').innerHTML = rec;
   }
   document.addEventListener('click', function (e) {
     var vb = e.target.closest && e.target.closest('[data-video]');
